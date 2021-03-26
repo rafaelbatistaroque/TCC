@@ -1,14 +1,16 @@
-﻿using Autenticacao.Business.Services;
+﻿using Autenticacao.Business.Models;
+using Autenticacao.Business.Services;
 using Autenticacao.Domain.CasosDeUso.AutenticarUsuario;
+using Autenticacao.Domain.Entidades;
 using Moq.AutoMock;
+using Paperless.Init.Fixtures;
 using Paperless.Shared.Erros;
-using Paperless.Shared.Fixtures;
 
 namespace Autenticacao.Business.Testes.Fixtures
 {
     public class AutenticacaoServicesFixtures : AutenticacaoFixtures
     {
-        public AutoMocker Mocker { get;}
+        public AutoMocker Mocker { get; }
         public AutenticacaoServicesFixtures()
         {
             Mocker = new AutoMocker();
@@ -17,8 +19,26 @@ namespace Autenticacao.Business.Testes.Fixtures
         public AutenticarUsuarioHandler GerarSUT()
             => Mocker.CreateInstance<AutenticarUsuarioHandler>();
 
-        public AutenticarUsuarioCommand GerarCommand(int usuarioIdentificador, string senha)
-            => new AutenticarUsuarioCommand() { UsuarioIdentificador = usuarioIdentificador, Senha=senha};
+        public AutenticarUsuarioCommand GerarAutenticarUsuarioCommand(int usuarioIdentificador, string senha)
+            => new AutenticarUsuarioCommand() { UsuarioIdentificador = usuarioIdentificador, Senha = senha };
+
+        public AutenticarUsuarioCommand GerarAutenticarUsuarioCommandValido()
+            => new AutenticarUsuarioCommand() { UsuarioIdentificador = USUARIO_IDENTIFICADOR_VALIDO, Senha = SENHA_VALIDA };
+
+        public UsuarioModel GerarUsuarioModel()
+            => new UsuarioModel()
+            {
+                NomeUsuario = USUARIO_NOME_VALIDO,
+                Senha = SENHA_VALIDA,
+                UsuarioIdentificador = USUARIO_IDENTIFICADOR_VALIDO,
+                EhUsuarioAtivo = USUARIO_ATIVO_VALIDO,
+                Perfil = USUARIO_PERFIL_VALIDO
+            };
+
+        public UsuarioAutenticado GerarUsuarioAutenticado()
+            => UsuarioAutenticado.Criar(USUARIO_NOME_VALIDO,FAKE_TOKEN);
+
+        public string GerarTokeFake() => FAKE_TOKEN;
 
         public ErroBase GerarErrogenerico() => ErroGenerico();
     }

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Paperless.Init.IoC;
 
 namespace Paperless.API
 {
@@ -18,6 +19,8 @@ namespace Paperless.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AdicionarTokenServico();
+            services.AdicionarIoCPaperless(Configuration);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

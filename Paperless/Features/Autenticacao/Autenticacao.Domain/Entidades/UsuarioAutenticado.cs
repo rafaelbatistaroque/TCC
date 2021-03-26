@@ -2,7 +2,18 @@
 {
     public class UsuarioAutenticado
     {
-        public string NomeUsuario { get; set; }
-        public string Token { get; set; }
+        public string NomeUsuario { get; }
+        public string Token { get; }
+
+        private UsuarioAutenticado(string nomeUsuario, string token)
+        {
+            NomeUsuario = nomeUsuario;
+            Token = token;
+        }
+
+        public static UsuarioAutenticado Criar(string nomeUsuario, string token)
+        {
+            return new UsuarioAutenticado(nomeUsuario, token);
+        }
     }
 }

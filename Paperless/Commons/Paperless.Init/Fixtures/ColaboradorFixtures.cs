@@ -1,6 +1,6 @@
 ﻿using Paperless.Shared.Erros;
 
-namespace Paperless.Shared.Fixtures
+namespace Paperless.Init.Fixtures
 {
     public abstract class ColaboradorFixtures
     {

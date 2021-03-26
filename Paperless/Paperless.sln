@@ -19,25 +19,27 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Paperless.API", "API\Paperl
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Commons", "Commons", "{698E12A2-009F-445B-AA2A-2F5137A40A97}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Paperless.Shared", "Commons\Paperless.Shared\Paperless.Shared.csproj", "{887A52D8-D8D7-439D-88BD-9DDC5F7DEFFF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Paperless.Shared", "Commons\Paperless.Shared\Paperless.Shared.csproj", "{887A52D8-D8D7-439D-88BD-9DDC5F7DEFFF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Paperless.Init", "Commons\Paperless.Init\Paperless.Init.csproj", "{4739DDF2-F61A-4050-830C-251361192DBF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Paperless.Init", "Commons\Paperless.Init\Paperless.Init.csproj", "{4739DDF2-F61A-4050-830C-251361192DBF}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Testes", "Testes", "{6F4CCE03-B551-4323-8CCD-F96F39A4786E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Autenticacao.Business.Testes", "Features\Autenticacao\Testes\Autenticacao.Business.Testes\Autenticacao.Business.Testes.csproj", "{CA214BEE-D57F-4DF7-B0F6-8B0DDC85BA72}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Autenticacao.Business.Testes", "Features\Autenticacao\Testes\Autenticacao.Business.Testes\Autenticacao.Business.Testes.csproj", "{CA214BEE-D57F-4DF7-B0F6-8B0DDC85BA72}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Colaborador", "Colaborador", "{9EEC8654-74AF-4478-B0F8-A4D420BA6973}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Colaborador.Domain", "Features\Colaborador\Colaborador.Domain\Colaborador.Domain.csproj", "{79668CC0-CF38-4AAC-8DD3-70D79B8569C4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Colaborador.Domain", "Features\Colaborador\Colaborador.Domain\Colaborador.Domain.csproj", "{79668CC0-CF38-4AAC-8DD3-70D79B8569C4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Colaborador.Business", "Features\Colaborador\Colaborador.Business\Colaborador.Business.csproj", "{A7212161-4683-4619-9D5A-9C2A6C83C8FC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Colaborador.Business", "Features\Colaborador\Colaborador.Business\Colaborador.Business.csproj", "{A7212161-4683-4619-9D5A-9C2A6C83C8FC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Colaborador.Infra", "Features\Colaborador\Colaborador.Infra\Colaborador.Infra.csproj", "{04985EB4-10A1-4FDC-A99A-8ACE224E0811}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Colaborador.Infra", "Features\Colaborador\Colaborador.Infra\Colaborador.Infra.csproj", "{04985EB4-10A1-4FDC-A99A-8ACE224E0811}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Testes", "Testes", "{717EF7AF-E1D4-41DF-B4F0-B514DFF90EF1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Colaborador.Business.Testes", "Features\Colaborador\Testes\Colaborador.Business.Testes\Colaborador.Business.Testes.csproj", "{AD78BEE3-BD36-4761-80DB-F2A01C7B1DD9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Colaborador.Business.Testes", "Features\Colaborador\Testes\Colaborador.Business.Testes\Colaborador.Business.Testes.csproj", "{AD78BEE3-BD36-4761-80DB-F2A01C7B1DD9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Autenticacao.Infra.Testes", "Features\Autenticacao\Testes\Autenticacao.Infra.Testes\Autenticacao.Infra.Testes.csproj", "{91004914-4D92-4029-BDB5-6B90E7BCED18}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -89,6 +91,10 @@ Global
 		{AD78BEE3-BD36-4761-80DB-F2A01C7B1DD9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AD78BEE3-BD36-4761-80DB-F2A01C7B1DD9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AD78BEE3-BD36-4761-80DB-F2A01C7B1DD9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{91004914-4D92-4029-BDB5-6B90E7BCED18}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91004914-4D92-4029-BDB5-6B90E7BCED18}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91004914-4D92-4029-BDB5-6B90E7BCED18}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91004914-4D92-4029-BDB5-6B90E7BCED18}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -109,6 +115,7 @@ Global
 		{04985EB4-10A1-4FDC-A99A-8ACE224E0811} = {9EEC8654-74AF-4478-B0F8-A4D420BA6973}
 		{717EF7AF-E1D4-41DF-B4F0-B514DFF90EF1} = {9EEC8654-74AF-4478-B0F8-A4D420BA6973}
 		{AD78BEE3-BD36-4761-80DB-F2A01C7B1DD9} = {717EF7AF-E1D4-41DF-B4F0-B514DFF90EF1}
+		{91004914-4D92-4029-BDB5-6B90E7BCED18} = {6F4CCE03-B551-4323-8CCD-F96F39A4786E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0012300B-8463-4C30-B4DC-256453C563F0}

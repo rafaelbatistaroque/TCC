@@ -4,4 +4,8 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Features\Autenticacao\Autenticacao.Infra\Autenticacao.Infra.csproj" />
+  </ItemGroup>
+
 </Project>
