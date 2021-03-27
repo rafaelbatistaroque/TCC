@@ -39,5 +39,17 @@ namespace Colaborador.Business.Testes.Services
             Assert.True(resultado.EhFalha);
             Assert.IsAssignableFrom<ErroBase>(resultado.Falha);
         }
+
+        [Trait("Colaborador.Business.Services", "AdicionarColaboradorHandlerTestes")]
+        [Fact(DisplayName = "NomeDoTeste")]
+        public void AoRealizarDeterminadaAcao_QuandoNaCondicao_DeveFazer()
+        {
+            // Arrange
+
+            // Act
+
+            // Assert
+
+        }
     }
 }
