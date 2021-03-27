@@ -1,8 +1,8 @@
 ﻿namespace Autenticacao.Business.Models
 {
-    public class UsuarioModel
+    public class UsuarioDoSistemaModel
     {
-        public int UsuarioIdentificador { get; set; }
+        public string UsuarioIdentificador { get; set; }
         public string NomeUsuario { get; set; }
         public string Senha { get; set; }
         public bool EhUsuarioAtivo { get; set; }

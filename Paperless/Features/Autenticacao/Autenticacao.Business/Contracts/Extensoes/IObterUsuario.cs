@@ -6,6 +6,6 @@ namespace Autenticacao.Business.Contracts.Extensoes
 {
     public interface IObterUsuario
     {
-        Either<ErroBase, UsuarioModel> ObterUsuario(int usuarioIdentificador, string senha);
+        Either<ErroBase, UsuarioDoSistemaModel> ObterUsuario(string usuarioIdentificador, string senha);
     }
 }

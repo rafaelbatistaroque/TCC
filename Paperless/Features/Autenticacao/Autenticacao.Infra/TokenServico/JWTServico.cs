@@ -10,7 +10,7 @@ namespace Autenticacao.Infra.TokenServico
 {
     public class JWTServico : IJWT
     {
-        public string GerarToken(int identificador, string perfil)
+        public string GerarToken(string identificador, string perfil)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var chave = Encoding.ASCII.GetBytes(ConfigurationManager.AppSettings["chave-secreta"]);
@@ -18,7 +18,7 @@ namespace Autenticacao.Infra.TokenServico
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                    new Claim(ClaimTypes.Name, identificador.ToString()),
+                    new Claim(ClaimTypes.Name, identificador),
                     new Claim(ClaimTypes.Role, perfil)
                 }),
                 Expires = DateTime.UtcNow.AddHours(20),

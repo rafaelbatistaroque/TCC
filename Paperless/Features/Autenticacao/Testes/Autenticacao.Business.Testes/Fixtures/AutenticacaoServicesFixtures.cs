@@ -19,14 +19,14 @@ namespace Autenticacao.Business.Testes.Fixtures
         public AutenticarUsuarioHandler GerarSUT()
             => Mocker.CreateInstance<AutenticarUsuarioHandler>();
 
-        public AutenticarUsuarioCommand GerarAutenticarUsuarioCommand(int usuarioIdentificador, string senha)
+        public AutenticarUsuarioCommand GerarAutenticarUsuarioCommand(string usuarioIdentificador, string senha)
             => new AutenticarUsuarioCommand() { UsuarioIdentificador = usuarioIdentificador, Senha = senha };
 
         public AutenticarUsuarioCommand GerarAutenticarUsuarioCommandValido()
             => new AutenticarUsuarioCommand() { UsuarioIdentificador = USUARIO_IDENTIFICADOR_VALIDO, Senha = SENHA_VALIDA };
 
-        public UsuarioModel GerarUsuarioModel()
-            => new UsuarioModel()
+        public UsuarioDoSistemaModel GerarUsuarioModel()
+            => new UsuarioDoSistemaModel()
             {
                 NomeUsuario = USUARIO_NOME_VALIDO,
                 Senha = SENHA_VALIDA,

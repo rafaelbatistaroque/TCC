@@ -7,12 +7,13 @@ namespace Paperless.Shared.Validacoes
 {
     public abstract class AutenticacaoCommandValidacoes : Notifiable
     {
-        protected void ValidarUsuarioIdentificador(int usuarioIdentificador)
+        protected void ValidarUsuarioIdentificador(string usuarioIdentificador)
         {
             AddNotifications(new Contract()
-                .AreNotEquals(usuarioIdentificador, 0, nameof(usuarioIdentificador), AutenticacaoTextosInformativos.USUARIO_IDENTIFICACAO_NULA_VAZIA)
-                .HasLen(usuarioIdentificador.ToString(), 4, nameof(usuarioIdentificador), AutenticacaoTextosInformativos.USUARIO_IDENTIFICACAO_MENOR_4_CARACTERES)
-                .IsGreaterThan(usuarioIdentificador, 0, nameof(usuarioIdentificador), AutenticacaoTextosInformativos.USUARIO_IDENTIFICACAO_VALOR_NEGATIVO)
+                .IsNotNullOrEmpty(usuarioIdentificador, nameof(usuarioIdentificador), AutenticacaoTextosInformativos.USUARIO_IDENTIFICACAO_NULA_VAZIA)
+                .IsNotNullOrWhiteSpace(usuarioIdentificador, nameof(usuarioIdentificador), AutenticacaoTextosInformativos.USUARIO_IDENTIFICACAO_NULA_ESPACOS)
+                .HasLen(usuarioIdentificador, 5, nameof(usuarioIdentificador), AutenticacaoTextosInformativos.USUARIO_IDENTIFICACAO_MENOR_4_CARACTERES)
+                .IsFalse(usuarioIdentificador != null && Regex.IsMatch(usuarioIdentificador, @"\w+\s+\d=[<>]?\d", RegexOptions.IgnoreCase), nameof(usuarioIdentificador), AutenticacaoTextosInformativos.SUARIO_IDENTIFICACAO_INVALIDA)
                 );
         }
 

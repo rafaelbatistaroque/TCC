@@ -1,16 +1,16 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
-using System.Configuration;
 using System.Text;
 
 namespace Paperless.Init.IoC
 {
     public static class TokenServico
     {
-        public static void AdicionarTokenServico(this IServiceCollection servico)
+        public static void AdicionarTokenServico(this IServiceCollection servico, IConfiguration config)
         {
-            var chave = Encoding.ASCII.GetBytes(ConfigurationManager.AppSettings["chave-secreta"]);
+            var chave = Encoding.ASCII.GetBytes(config.GetSection("ChaveSecreta").Value);
             servico.AddAuthentication(x =>
             {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;

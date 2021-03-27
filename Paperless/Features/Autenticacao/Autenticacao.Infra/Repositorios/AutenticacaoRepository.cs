@@ -1,6 +1,5 @@
 ﻿using Autenticacao.Business.Contracts;
 using Autenticacao.Business.Models;
-using Autenticacao.Infra.Contracts;
 using Autenticacao.Infra.EF;
 using Autenticacao.Infra.Erros;
 using Autenticacao.Infra.Queries;
@@ -13,20 +12,20 @@ namespace Autenticacao.Infra.Repositorios
 {
     public class AutenticacaoRepository : IAutenticacaoRepository
     {
-        private readonly IAutenticacaoContext _context;
+        private readonly AutenticacaoContext _context;
 
-        public AutenticacaoRepository(IAutenticacaoContext context)
+        public AutenticacaoRepository(AutenticacaoContext context)
         {
             _context = context;
         }
 
-        public Either<ErroBase, UsuarioModel> ObterUsuario(int usuarioIdentificador, string senha)
+        public Either<ErroBase, UsuarioDoSistemaModel> ObterUsuario(string usuarioIdentificador, string senha)
         {
-            var existeEsteUsuario = _context.Usuarios.Any(Query.UsuarioAtivoComEsteIdentificador(usuarioIdentificador));
+            var existeEsteUsuario = _context.UsuariosDoSistema.Any(Query.UsuarioAtivoComEsteIdentificador(usuarioIdentificador));
             if(existeEsteUsuario == false)
                 return new ErroAutenticacaoUsuarioInvalido(AutenticacaoTextosInformativos.USUARIO_NAO_ENCONTRADO);
 
-            var usuario = _context.Usuarios.FirstOrDefault(Query.UsuarioAtivoComEsteIdentificador(usuarioIdentificador));
+            var usuario = _context.UsuariosDoSistema.FirstOrDefault(Query.UsuarioAtivoComEsteIdentificador(usuarioIdentificador));
             string senhaDescriptografada = PaperlessPadronizacoes.DescriptografarDeBase64(usuario.Senha);
 
             if(senha.Equals(senhaDescriptografada) == false)

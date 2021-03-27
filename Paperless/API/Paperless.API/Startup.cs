@@ -19,7 +19,8 @@ namespace Paperless.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AdicionarTokenServico();
+
+            services.AdicionarTokenServico(Configuration);
             services.AdicionarIoCPaperless(Configuration);
         }
 
@@ -35,6 +36,7 @@ namespace Paperless.API
             app.UseRouting();
 
             app.UseAuthorization();
+            app.UseAuthentication();
 
             app.UseEndpoints(endpoints =>
             {

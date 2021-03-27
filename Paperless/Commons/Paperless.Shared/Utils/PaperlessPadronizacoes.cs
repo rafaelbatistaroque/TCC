@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace Paperless.Shared.Utils
 {
@@ -15,6 +16,11 @@ namespace Paperless.Shared.Utils
         {
             var senhaByte = Encoding.UTF8.GetBytes(senhaDescriptografada);
             return Convert.ToBase64String(senhaByte);
+        }
+
+        public static string RemoverCaracteresDeCPF(string cpf)
+        {
+            return Regex.Replace(cpf, @"[.\s-_*+!@#$%&()=/\\[\]{}:;,\|'<>]", "");
         }
     }
 }

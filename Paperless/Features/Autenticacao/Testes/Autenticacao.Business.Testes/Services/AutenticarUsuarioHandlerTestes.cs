@@ -24,12 +24,14 @@ namespace Autenticacao.Business.Testes.Services
 
         [Trait("Autenticacao.Business.Services", "AutenticarUsuarioHandlerTestes")]
         [Theory(DisplayName = "Lista de erro caso command inválido")]
-        [InlineData(-1, "")]
-        [InlineData(0, " ")]
-        [InlineData(22, null)]
-        [InlineData(333, "drop")]
-        [InlineData(4444, "or 1=1")]
-        public void AoInvocarHandler_QuandoCommandInvalido_DeveRetornaListaDeErrosEspecificos(int usuarioIdentificador, string senha)
+        [InlineData("", "")]
+        [InlineData(" ", " ")]
+        [InlineData(null, null)]
+        [InlineData("1", "or 1=1")]
+        [InlineData("12", "drop")]
+        [InlineData("112", "drop")]
+        [InlineData("112R", "drop")]
+        public void AoInvocarHandler_QuandoCommandInvalido_DeveRetornaListaDeErrosEspecificos(string usuarioIdentificador, string senha)
         {
             // Arrange
             var commandInvalido = _fixtures.GerarAutenticarUsuarioCommand(usuarioIdentificador, senha);
@@ -49,7 +51,7 @@ namespace Autenticacao.Business.Testes.Services
         {
             // Arrange
             var commandValido = _fixtures.GerarAutenticarUsuarioCommandValido();
-            _fixtures.Mocker.GetMock<IAutenticacaoRepository>().Setup(r => r.ObterUsuario(It.IsAny<int>(), It.IsAny<string>())).Returns(_fixtures.GerarErrogenerico());
+            _fixtures.Mocker.GetMock<IAutenticacaoRepository>().Setup(r => r.ObterUsuario(It.IsAny<string>(), It.IsAny<string>())).Returns(_fixtures.GerarErrogenerico());
 
             // Act
             var resultado = _sut.Handler(commandValido);
@@ -65,8 +67,8 @@ namespace Autenticacao.Business.Testes.Services
         public void AoInvocarHandler_AposObterUsuario_DeveInvocarGerarTokenERetornarUsuarioAutenticado()
         {
             var commandValido = _fixtures.GerarAutenticarUsuarioCommandValido();
-            _fixtures.Mocker.GetMock<IAutenticacaoRepository>().Setup(r => r.ObterUsuario(It.IsAny<int>(), It.IsAny<string>())).Returns(_fixtures.GerarUsuarioModel());
-            _fixtures.Mocker.GetMock<IJWT>().Setup(r => r.GerarToken(It.IsAny<int>(), It.IsAny<string>())).Returns(_fixtures.GerarTokeFake());
+            _fixtures.Mocker.GetMock<IAutenticacaoRepository>().Setup(r => r.ObterUsuario(It.IsAny<string>(), It.IsAny<string>())).Returns(_fixtures.GerarUsuarioModel());
+            _fixtures.Mocker.GetMock<IJWT>().Setup(r => r.GerarToken(It.IsAny<string>(), It.IsAny<string>())).Returns(_fixtures.GerarTokeFake());
 
             // Act
             var resultado = _sut.Handler(commandValido);
@@ -77,7 +79,7 @@ namespace Autenticacao.Business.Testes.Services
             Assert.Equal(_fixtures.GerarTokeFake(), resultado.Sucesso.Token);
             Assert.Equal(_fixtures.GerarUsuarioModel().NomeUsuario, resultado.Sucesso.NomeUsuario);
             Assert.IsType<UsuarioAutenticado>(resultado.Sucesso);
-            _fixtures.Mocker.GetMock<IJWT>().Verify(r => r.GerarToken(It.IsAny<int>(), It.IsAny<string>()), Times.Once, NAO_INVOCADO);
+            _fixtures.Mocker.GetMock<IJWT>().Verify(r => r.GerarToken(It.IsAny<string>(), It.IsAny<string>()), Times.Once, NAO_INVOCADO);
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using Autenticacao.Infra.Contracts;
-using Autenticacao.Infra.EF;
+﻿using Autenticacao.Infra.EF;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -8,15 +7,15 @@ namespace Paperless.Init.IoC
 {
     public static class IoCExtensao
     {
-        public static void AdicionarIoCPaperless(this IServiceCollection servico, IConfiguration config)
+        public static void AdicionarIoCPaperless(this IServiceCollection servico, IConfiguration _config)
         {
-            servico.AdicionarAutenticacaoIoC(config);
+            servico.AddDbContext<AutenticacaoContext>(o => o.UseSqlServer(_config.GetConnectionString("connTCC")));
+            servico.AdicionarAutenticacaoIoC();
         }
 
-        public static void AdicionarAutenticacaoIoC(this IServiceCollection servico, IConfiguration config)
+        public static void AdicionarAutenticacaoIoC(this IServiceCollection servico)
         {
-            servico.AddDbContext<AutenticacaoContext>(o => o.UseSqlServer(config.GetConnectionString("conn_TCC")));
-            servico.AddScoped<IAutenticacaoContext, AutenticacaoContext>();
+            servico.AddScoped<AutenticacaoContext, AutenticacaoContext>();
         }
     }
 }

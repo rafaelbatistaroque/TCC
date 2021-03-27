@@ -18,8 +18,8 @@ namespace Autenticacao.Infra.Testes.Fixtures
         public AutenticacaoRepository GerarSUT()
             => Mocker.CreateInstance<AutenticacaoRepository>();
 
-        public UsuarioModel GerarUsuarioModel()
-         => new UsuarioModel()
+        public UsuarioDoSistemaModel GerarUsuarioModel()
+         => new UsuarioDoSistemaModel()
          {
              NomeUsuario = USUARIO_NOME_VALIDO,
              Senha = SENHA_VALIDA,

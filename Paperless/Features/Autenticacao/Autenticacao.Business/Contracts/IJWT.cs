@@ -2,6 +2,6 @@
 {
     public interface IJWT
     {
-        string GerarToken(int identificador, string perfil);
+        string GerarToken(string identificador, string perfil);
     }
 }
