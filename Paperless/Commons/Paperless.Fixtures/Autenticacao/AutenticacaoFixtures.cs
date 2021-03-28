@@ -1,6 +1,6 @@
 ﻿using Paperless.Shared.Erros;
 
-namespace Paperless.Init.Fixtures
+namespace Paperless.Fixtures.Autenticacao
 {
     public abstract class AutenticacaoFixtures
     {

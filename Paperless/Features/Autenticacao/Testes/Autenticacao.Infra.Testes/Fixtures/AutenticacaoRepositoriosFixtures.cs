@@ -1,7 +1,7 @@
 ﻿using Autenticacao.Business.Models;
 using Autenticacao.Infra.Repositorios;
 using Moq.AutoMock;
-using Paperless.Init.Fixtures;
+using Paperless.Fixtures.Autenticacao;
 using Paperless.Shared.Erros;
 
 namespace Autenticacao.Infra.Testes.Fixtures
@@ -21,11 +21,11 @@ namespace Autenticacao.Infra.Testes.Fixtures
         public UsuarioDoSistemaModel GerarUsuarioModel()
          => new UsuarioDoSistemaModel()
          {
-             NomeUsuario = USUARIO_NOME_VALIDO,
-             Senha = SENHA_VALIDA,
-             UsuarioIdentificador = USUARIO_IDENTIFICADOR_VALIDO,
+             UsuarioNome = USUARIO_NOME_VALIDO,
+             UsuarioSenha = SENHA_VALIDA,
+             UsuarioIdentificacao = USUARIO_IDENTIFICADOR_VALIDO,
              EhUsuarioAtivo = USUARIO_ATIVO_VALIDO,
-             Perfil = USUARIO_PERFIL_VALIDO
+             UsuarioPerfil = USUARIO_PERFIL_VALIDO
          };
 
         public ErroBase GerarErrogenerico() => ErroGenerico();

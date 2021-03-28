@@ -1,11 +1,14 @@
-﻿namespace Autenticacao.Business.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Autenticacao.Business.Models
 {
+    [Table("UsuarioDoSistema")]
     public class UsuarioDoSistemaModel
     {
-        public string UsuarioIdentificador { get; set; }
-        public string NomeUsuario { get; set; }
-        public string Senha { get; set; }
+        public string UsuarioIdentificacao { get; set; }
+        public string UsuarioNome { get; set; }
+        public string UsuarioSenha { get; set; }
         public bool EhUsuarioAtivo { get; set; }
-        public string Perfil { get; set; }
+        public string UsuarioPerfil { get; set; }
     }
 }

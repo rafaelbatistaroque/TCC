@@ -13,7 +13,7 @@ namespace Paperless.Shared.Validacoes
                 .IsNotNullOrEmpty(usuarioIdentificador, nameof(usuarioIdentificador), AutenticacaoTextosInformativos.USUARIO_IDENTIFICACAO_NULA_VAZIA)
                 .IsNotNullOrWhiteSpace(usuarioIdentificador, nameof(usuarioIdentificador), AutenticacaoTextosInformativos.USUARIO_IDENTIFICACAO_NULA_ESPACOS)
                 .HasLen(usuarioIdentificador, 5, nameof(usuarioIdentificador), AutenticacaoTextosInformativos.USUARIO_IDENTIFICACAO_MENOR_4_CARACTERES)
-                .IsFalse(usuarioIdentificador != null && Regex.IsMatch(usuarioIdentificador, @"\w+\s+\d=[<>]?\d", RegexOptions.IgnoreCase), nameof(usuarioIdentificador), AutenticacaoTextosInformativos.SUARIO_IDENTIFICACAO_INVALIDA)
+                .IsFalse(usuarioIdentificador != null && Regex.IsMatch(usuarioIdentificador, @"\w+\s+\d=[<>]?\d", RegexOptions.IgnoreCase), nameof(usuarioIdentificador), AutenticacaoTextosInformativos.USUARIO_IDENTIFICACAO_INVALIDA)
                 );
         }
 

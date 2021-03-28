@@ -1,6 +1,6 @@
 ﻿using Colaborador.Domain.CasosDeUso.AdicionarColaborador;
 using Moq.AutoMock;
-using Paperless.Init.Fixtures;
+using Paperless.Fixtures.Colaborador;
 using Paperless.Shared.Erros;
 
 namespace Colaborador.Business.Testes.Fixtures

@@ -22,5 +22,10 @@ namespace Paperless.Shared.Utils
         {
             return Regex.Replace(cpf, @"[.\s-_*+!@#$%&()=/\\[\]{}:;,\|'<>]", "");
         }
+
+        public static string GerarSequenciaIdentificacao()
+        {
+            return Guid.NewGuid().ToString().Replace("-", "")[5..].ToUpper();
+        }
     }
 }

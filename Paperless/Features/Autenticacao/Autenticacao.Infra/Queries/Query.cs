@@ -8,7 +8,7 @@ namespace Autenticacao.Infra.Queries
     {
         public static Expression<Func<UsuarioDoSistemaModel, bool>> UsuarioAtivoComEsteIdentificador(string identificador)
         {
-            return usuario => usuario.EhUsuarioAtivo == true && usuario.UsuarioIdentificador == identificador;
+            return usuario => usuario.EhUsuarioAtivo == true && usuario.UsuarioIdentificacao == identificador;
         }
     }
 }

@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Features\Autenticacao\Autenticacao.Infra\Autenticacao.Infra.csproj" />
+    <ProjectReference Include="..\..\Features\Usuario\Usuario.Infra\Usuario.Infra.csproj" />
   </ItemGroup>
 
 </Project>

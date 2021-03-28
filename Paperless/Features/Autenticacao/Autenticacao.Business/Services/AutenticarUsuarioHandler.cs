@@ -28,8 +28,8 @@ namespace Autenticacao.Business.Services
             if(usuario.EhFalha)
                 return usuario.Falha;
 
-            var token = _tokenServico.GerarToken(usuario.Sucesso.UsuarioIdentificador, usuario.Sucesso.Perfil);
-            var usuarioAutenticado = UsuarioAutenticado.Criar(usuario.Sucesso.NomeUsuario, token);
+            var token = _tokenServico.GerarToken(usuario.Sucesso.UsuarioIdentificacao, usuario.Sucesso.UsuarioPerfil);
+            var usuarioAutenticado = UsuarioAutenticado.Criar(usuario.Sucesso.UsuarioNome, token);
 
             return usuarioAutenticado;
         }

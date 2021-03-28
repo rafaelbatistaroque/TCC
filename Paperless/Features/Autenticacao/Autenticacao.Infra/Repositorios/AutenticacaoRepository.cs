@@ -26,7 +26,7 @@ namespace Autenticacao.Infra.Repositorios
                 return new ErroAutenticacaoUsuarioInvalido(AutenticacaoTextosInformativos.USUARIO_NAO_ENCONTRADO);
 
             var usuario = _context.UsuariosDoSistema.FirstOrDefault(Query.UsuarioAtivoComEsteIdentificador(usuarioIdentificador));
-            string senhaDescriptografada = PaperlessPadronizacoes.DescriptografarDeBase64(usuario.Senha);
+            string senhaDescriptografada = PaperlessPadronizacoes.DescriptografarDeBase64(usuario.UsuarioSenha);
 
             if(senha.Equals(senhaDescriptografada) == false)
                 return new ErroAutenticacaoUsuarioInvalido(AutenticacaoTextosInformativos.USUARIO_SENHA_INVALIDOS);

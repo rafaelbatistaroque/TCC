@@ -77,7 +77,7 @@ namespace Autenticacao.Business.Testes.Services
             Assert.NotNull(resultado);
             Assert.True(resultado.EhSucesso);
             Assert.Equal(_fixtures.GerarTokeFake(), resultado.Sucesso.Token);
-            Assert.Equal(_fixtures.GerarUsuarioModel().NomeUsuario, resultado.Sucesso.NomeUsuario);
+            Assert.Equal(_fixtures.GerarUsuarioModel().UsuarioNome, resultado.Sucesso.NomeUsuario);
             Assert.IsType<UsuarioAutenticado>(resultado.Sucesso);
             _fixtures.Mocker.GetMock<IJWT>().Verify(r => r.GerarToken(It.IsAny<string>(), It.IsAny<string>()), Times.Once, NAO_INVOCADO);
         }

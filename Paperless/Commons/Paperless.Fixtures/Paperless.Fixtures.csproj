@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Features\Usuario\Usuario.Business\Usuario.Business.csproj" />
+    <ProjectReference Include="..\..\Features\Usuario\Usuario.Domain\Usuario.Domain.csproj" />
+    <ProjectReference Include="..\Paperless.Shared\Paperless.Shared.csproj" />
+  </ItemGroup>
+
+</Project>
