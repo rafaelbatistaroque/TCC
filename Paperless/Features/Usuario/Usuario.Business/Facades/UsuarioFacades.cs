@@ -1,8 +1,4 @@
-﻿using Paperless.Shared.Erros;
-using Paperless.Shared.Utils;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Paperless.Shared.Utils;
 using Usuario.Business.Contracts;
 using Usuario.Domain.Entidades;
 
@@ -17,11 +13,12 @@ namespace Usuario.Business.Facades
             _factories = factories;
         }
 
-        public Either<ErroBase, UsuarioDoSistema> CriarNovoUsuarioFacades(string usuarioNome, string usuarioSenha, int usuarioPerfil)
+        public UsuarioDoSistema CriarNovoUsuarioFacades(string usuarioNome, string usuarioSenha, int usuarioPerfil)
         {
-            throw new NotImplementedException();
-            ////var usuarioPerfil = _factories.ObterPerfilUsuarioFactory(command.UsuarioPerfil);
-            //var usuario = UsuarioDoSistema.Criar(command.UsuarioNome, command.UsuarioSenha, usuarioPerfil);
+            var usuarioComPerfil = _factories.ObterPerfilUsuarioFactory(usuarioPerfil);
+            var senhaCriptografada = PaperlessPadronizacoes.CriptografarParaBase64(usuarioSenha);
+
+            return UsuarioDoSistema.Criar(usuarioNome, senhaCriptografada, usuarioComPerfil);
         }
     }
 }

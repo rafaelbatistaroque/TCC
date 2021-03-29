@@ -20,16 +20,19 @@ namespace Autenticacao.Business.Testes.Fixtures
             => Mocker.CreateInstance<AutenticarUsuarioHandler>();
 
         public AutenticarUsuarioCommand GerarAutenticarUsuarioCommand(string usuarioIdentificador, string senha)
-            => new AutenticarUsuarioCommand() { UsuarioIdentificador = usuarioIdentificador, Senha = senha };
+            => new AutenticarUsuarioCommand() { UsuarioIdentificacao = usuarioIdentificador, UsuarioSenha = senha };
 
         public AutenticarUsuarioCommand GerarAutenticarUsuarioCommandValido()
-            => new AutenticarUsuarioCommand() { UsuarioIdentificador = USUARIO_IDENTIFICADOR_VALIDO, Senha = SENHA_VALIDA };
+            => new AutenticarUsuarioCommand() { UsuarioIdentificacao = USUARIO_IDENTIFICADOR_VALIDO, UsuarioSenha = SENHA_VALIDA };
+
+        public AutenticarUsuarioCommand GerarAutenticarUsuarioCommandSenhaInvalida()
+            => new AutenticarUsuarioCommand() { UsuarioIdentificacao = USUARIO_IDENTIFICADOR_VALIDO, UsuarioSenha = "SenhaInvalida" };
 
         public UsuarioDoSistemaModel GerarUsuarioModel()
             => new UsuarioDoSistemaModel()
             {
                 UsuarioNome = USUARIO_NOME_VALIDO,
-                UsuarioSenha = SENHA_VALIDA,
+                UsuarioSenha = SENHA_BASE64_VALIDA,
                 UsuarioIdentificacao = USUARIO_IDENTIFICADOR_VALIDO,
                 EhUsuarioAtivo = USUARIO_ATIVO_VALIDO,
                 UsuarioPerfil = USUARIO_PERFIL_VALIDO
@@ -40,6 +43,6 @@ namespace Autenticacao.Business.Testes.Fixtures
 
         public string GerarTokeFake() => FAKE_TOKEN;
 
-        public ErroBase GerarErrogenerico() => ErroGenerico();
+        public ErroBase GerarErroGenerico() => ErroGenerico();
     }
 }

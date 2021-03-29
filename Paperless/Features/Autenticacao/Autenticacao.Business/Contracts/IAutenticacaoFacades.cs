@@ -2,7 +2,7 @@
 
 namespace Autenticacao.Business.Contracts
 {
-    public interface IAutenticacaoRepository : IObterUsuarioRepository, IUsuarioExisteRepository
+    public interface IAutenticacaoFacades : IObterUsuarioFacades
     {
     }
 }

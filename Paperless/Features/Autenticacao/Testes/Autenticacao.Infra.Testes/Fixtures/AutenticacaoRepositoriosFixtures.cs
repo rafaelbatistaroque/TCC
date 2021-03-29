@@ -22,7 +22,7 @@ namespace Autenticacao.Infra.Testes.Fixtures
          => new UsuarioDoSistemaModel()
          {
              UsuarioNome = USUARIO_NOME_VALIDO,
-             UsuarioSenha = SENHA_VALIDA,
+             UsuarioSenha = SENHA_BASE64_VALIDA,
              UsuarioIdentificacao = USUARIO_IDENTIFICADOR_VALIDO,
              EhUsuarioAtivo = USUARIO_ATIVO_VALIDO,
              UsuarioPerfil = USUARIO_PERFIL_VALIDO

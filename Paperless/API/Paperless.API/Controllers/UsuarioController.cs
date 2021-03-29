@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Paperless.API.Utils;
 using Usuario.Domain.CasosDeUso.CriarUsuario;
 
 namespace Paperless.API.Controllers
@@ -15,12 +17,13 @@ namespace Paperless.API.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody]CriarUsuarioCommand command)
+        [Authorize(Roles = PerfilRoles.ADMINISTRADOR)]
+        public IActionResult Post([FromBody] CriarUsuarioCommand command)
         {
             var resultado = _criarUsuario.Handler(command);
 
             return resultado.RetornarCaso<IActionResult>(
-                erro => BadRequest(new {Erro= erro }),
+                erro => BadRequest(new { Erros = erro }),
                 sucesso => Ok()
                 );
         }

@@ -3,7 +3,6 @@ using Paperless.Shared.Utils;
 using System.Linq;
 using Usuario.Business.Contracts;
 using Usuario.Domain.CasosDeUso.CriarUsuario;
-using Usuario.Domain.Entidades;
 
 namespace Usuario.Business.Services
 {
@@ -27,10 +26,9 @@ namespace Usuario.Business.Services
                 return new ErroValidacaoParametrosCommand(command.Notifications.Select(e => e.Message).ToArray());
 
             var novoUsuario = _facades.CriarNovoUsuarioFacades(command.UsuarioNome, command.UsuarioSenha, command.UsuarioPerfil);
-            if(novoUsuario.EhFalha)
-                return novoUsuario.Falha;
-
-            var model = _adapters.DeUsuarioDoSistemaParaUsuarioDoSistemaModel(novoUsuario.Sucesso);
+            
+            var model = _adapters.DeUsuarioDoSistemaParaUsuarioDoSistemaModel(novoUsuario);
+            
             var usuarioPersistido = _repositorio.CriarUsuario(model);
             if(usuarioPersistido.EhFalha)
                 return usuarioPersistido.Falha;

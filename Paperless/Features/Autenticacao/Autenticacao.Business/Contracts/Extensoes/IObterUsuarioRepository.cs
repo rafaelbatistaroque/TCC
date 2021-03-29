@@ -4,8 +4,8 @@ using Paperless.Shared.Utils;
 
 namespace Autenticacao.Business.Contracts.Extensoes
 {
-    public interface IObterUsuario
+    public interface IObterUsuarioRepository
     {
-        Either<ErroBase, UsuarioDoSistemaModel> ObterUsuario(string usuarioIdentificador, string senha);
+        Either<ErroBase, UsuarioDoSistemaModel> ObterUsuario(string usuarioIdentificador);
     }
 }

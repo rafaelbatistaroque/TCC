@@ -4,7 +4,6 @@ using System;
 using Usuario.Business.Contracts;
 using Usuario.Business.Models;
 using Usuario.Infra.EF;
-using Usuario.Infra.Erros;
 
 namespace Usuario.Infra.Repositorios
 {
@@ -21,9 +20,9 @@ namespace Usuario.Infra.Repositorios
             try
             {
                 _context.Add(usuario);
-                var resposta = _context.SaveChanges();
+                var linhasAfetadas = _context.SaveChanges();
 
-                return resposta > 0;
+                return linhasAfetadas > 0;
             }
             catch(Exception e)
             {

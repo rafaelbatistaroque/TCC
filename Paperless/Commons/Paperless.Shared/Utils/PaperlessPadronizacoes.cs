@@ -25,7 +25,7 @@ namespace Paperless.Shared.Utils
 
         public static string GerarSequenciaIdentificacao()
         {
-            return Guid.NewGuid().ToString().Replace("-", "")[5..].ToUpper();
+            return Guid.NewGuid().ToString().Replace("-", "")[..5].ToUpper();
         }
     }
 }

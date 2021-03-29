@@ -12,5 +12,6 @@
         public static string SENHA_INVALIDA => "A senha é invalida.";
         public static string USUARIO_SENHA_INVALIDOS => "O usuário ou senha degitados são inválidos.";
         public static string USUARIO_NAO_ENCONTRADO => "O usuário não encontrado ou não está ativo como usuário do sistema.";
+        public static string ERRO_COMUNICACAO_COM_BASE => "Ocorreu um erro inesperado. Os desenvolvedores já foram informados sobre isso.";
     }
 }

@@ -1,9 +1,11 @@
 ﻿using Autenticacao.Business.Contracts;
+using Autenticacao.Business.Erros;
 using Autenticacao.Business.Testes.Fixtures;
 using Autenticacao.Domain.CasosDeUso.AutenticarUsuario;
 using Autenticacao.Domain.Entidades;
 using Moq;
 using Paperless.Shared.Erros;
+using Paperless.Shared.TextosInformativos;
 using Xunit;
 
 namespace Autenticacao.Business.Testes.Services
@@ -46,12 +48,13 @@ namespace Autenticacao.Business.Testes.Services
         }
 
         [Trait("Autenticacao.Business.Services", "AutenticarUsuarioHandlerTestes")]
-        [Fact(DisplayName = "Retorna erro quando usuário é inválido")]
-        public void AoInvocarHandler_QuandoFalhaAoObterUsuario_DeveRetornaErroProvenienteDoRepositorio()
+        [Fact(DisplayName = "Erro ao obter usuário do facade")]
+        public void AoInvocarHandle_QuandoErroAoObterUsuarioFacade_DeveRetornarErroProveniente()
         {
             // Arrange
             var commandValido = _fixtures.GerarAutenticarUsuarioCommandValido();
-            _fixtures.Mocker.GetMock<IAutenticacaoRepository>().Setup(r => r.ObterUsuario(It.IsAny<string>(), It.IsAny<string>())).Returns(_fixtures.GerarErrogenerico());
+            _fixtures.Mocker.GetMock<IAutenticacaoRepository>().Setup(r => r.UsuarioExiste(It.IsAny<string>())).Returns(true);
+            _fixtures.Mocker.GetMock<IAutenticacaoFacades>().Setup(r => r.ObterUsuarioFacades(It.IsAny<string>())).Returns(_fixtures.GerarErroGenerico());
 
             // Act
             var resultado = _sut.Handler(commandValido);
@@ -62,12 +65,31 @@ namespace Autenticacao.Business.Testes.Services
             Assert.IsAssignableFrom<ErroBase>(resultado.Falha);
         }
 
+
+        [Trait("Autenticacao.Business.Services", "AutenticacaoFacadesTestes")]
+        [Fact(DisplayName = "Retorna erro caso senha não coincidir.")]
+        public void AoInvocarHandler_QuandoSenhasNaoCoincidirem_DeveRetornaErroEspecífico()
+        {
+            var commandValido = _fixtures.GerarAutenticarUsuarioCommandSenhaInvalida();
+            _fixtures.Mocker.GetMock<IAutenticacaoRepository>().Setup(r => r.UsuarioExiste(It.IsAny<string>())).Returns(true);
+            _fixtures.Mocker.GetMock<IAutenticacaoFacades>().Setup(r => r.ObterUsuarioFacades(It.IsAny<string>())).Returns(_fixtures.GerarUsuarioModel());
+
+            // Act
+            var resultado = _sut.Handler(commandValido);
+
+            // Assert
+            Assert.NotNull(resultado);
+            Assert.NotEqual(_fixtures.GerarUsuarioModel().UsuarioSenha, commandValido.UsuarioSenha);
+            Assert.True(resultado.EhFalha);
+            Assert.IsType<ErroAutenticacaoUsuario>(resultado.Falha);
+        }
+
         [Trait("Autenticacao.Business.Services", "AutenticarUsuarioHandlerTestes")]
         [Fact(DisplayName = "Retorna usuário autenticado depois de receber token")]
         public void AoInvocarHandler_AposObterUsuario_DeveInvocarGerarTokenERetornarUsuarioAutenticado()
         {
             var commandValido = _fixtures.GerarAutenticarUsuarioCommandValido();
-            _fixtures.Mocker.GetMock<IAutenticacaoRepository>().Setup(r => r.ObterUsuario(It.IsAny<string>(), It.IsAny<string>())).Returns(_fixtures.GerarUsuarioModel());
+            _fixtures.Mocker.GetMock<IAutenticacaoFacades>().Setup(r => r.ObterUsuarioFacades(It.IsAny<string>())).Returns(_fixtures.GerarUsuarioModel());
             _fixtures.Mocker.GetMock<IJWT>().Setup(r => r.GerarToken(It.IsAny<string>(), It.IsAny<string>())).Returns(_fixtures.GerarTokeFake());
 
             // Act

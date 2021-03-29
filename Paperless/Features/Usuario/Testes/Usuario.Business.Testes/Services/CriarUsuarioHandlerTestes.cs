@@ -1,8 +1,5 @@
 ﻿using Moq;
 using Paperless.Shared.Erros;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Usuario.Business.Contracts;
 using Usuario.Business.Models;
 using Usuario.Business.Services;
@@ -48,23 +45,6 @@ namespace Usuario.Business.Testes.Services
         }
 
         [Trait("Usuario.Business.Services", "CriarUsuarioHandlerTestes")]
-        [Fact(DisplayName = "Falha ao criar novo usuário")]
-        public void AoInvocarHandle_QuandoErroAoCriarUsuarioDoSistema_DeveRetornarErroProveniente()
-        {
-            // Arrange
-            _fixtures.Mocker.GetMock<IUsuarioFacades>().Setup(f => f.CriarNovoUsuarioFacades(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>())).Returns(_fixtures.GerarErroGenerico());
-
-            // Act
-            var resultado = _sut.Handler(_fixtures.GerarCriarUsuarioCommandValido());
-
-            // Assert
-            Assert.NotNull(resultado);
-            Assert.True(resultado.EhFalha);
-            Assert.IsAssignableFrom<ErroBase>(resultado.Falha);
-            _fixtures.Mocker.GetMock<IUsuarioFacades>().Verify(f => f.CriarNovoUsuarioFacades(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>()), Times.Once, NAO_INVOCADO);
-        }
-
-        [Trait("Usuario.Business.Services", "CriarUsuarioHandlerTestes")]
         [Fact(DisplayName = "Erro no retorno do repositório após criado novo usuário válido")]
         public void AoInvocarHandle_AposCriadoUsuarioValidoEOcorrerErroNoRetornoDoRepositorio_DeveRetornarErroProveniente()
         {
@@ -72,7 +52,7 @@ namespace Usuario.Business.Testes.Services
             _fixtures.Mocker.GetMock<IUsuarioFacades>().Setup(f => f.CriarNovoUsuarioFacades(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>())).Returns(_fixtures.GerarUsuarioDoSistema());
             _fixtures.Mocker.GetMock<IUsuarioAdapters>().Setup(a => a.DeUsuarioDoSistemaParaUsuarioDoSistemaModel(It.IsAny<UsuarioDoSistema>())).Returns(_fixtures.GerarUsuarioDoSistemaModel());
             _fixtures.Mocker.GetMock<IUsuarioRepository>().Setup(r => r.CriarUsuario(It.IsAny<UsuarioDoSistemaModel>())).Returns(_fixtures.GerarErroGenerico());
-            
+
             // Act
             var resultado = _sut.Handler(_fixtures.GerarCriarUsuarioCommandValido());
 

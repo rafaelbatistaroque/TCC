@@ -1,11 +1,10 @@
 ﻿using Autenticacao.Business.Contracts;
 using Autenticacao.Business.Models;
 using Autenticacao.Infra.EF;
-using Autenticacao.Infra.Erros;
 using Autenticacao.Infra.Queries;
 using Paperless.Shared.Erros;
-using Paperless.Shared.TextosInformativos;
 using Paperless.Shared.Utils;
+using System;
 using System.Linq;
 
 namespace Autenticacao.Infra.Repositorios
@@ -19,19 +18,32 @@ namespace Autenticacao.Infra.Repositorios
             _context = context;
         }
 
-        public Either<ErroBase, UsuarioDoSistemaModel> ObterUsuario(string usuarioIdentificador, string senha)
+        public Either<ErroBase, UsuarioDoSistemaModel> ObterUsuario(string usuarioIdentificador)
         {
-            var existeEsteUsuario = _context.UsuariosDoSistema.Any(Query.UsuarioAtivoComEsteIdentificador(usuarioIdentificador));
-            if(existeEsteUsuario == false)
-                return new ErroAutenticacaoUsuarioInvalido(AutenticacaoTextosInformativos.USUARIO_NAO_ENCONTRADO);
+            try
+            {
+                return _context.UsuariosDoSistema.FirstOrDefault(Query.UsuarioAtivoComEstaIdentificacao(usuarioIdentificador));
+            }
+            catch(Exception e)
+            {
+                var erro =  new ErroComunicacaoBancoDeDados(e.Message);
+                //TODO: Enviar e-mail desenvolvedor
+                return erro;
+            }
+        }
 
-            var usuario = _context.UsuariosDoSistema.FirstOrDefault(Query.UsuarioAtivoComEsteIdentificador(usuarioIdentificador));
-            string senhaDescriptografada = PaperlessPadronizacoes.DescriptografarDeBase64(usuario.UsuarioSenha);
-
-            if(senha.Equals(senhaDescriptografada) == false)
-                return new ErroAutenticacaoUsuarioInvalido(AutenticacaoTextosInformativos.USUARIO_SENHA_INVALIDOS);
-
-            return usuario;
+        public Either<ErroBase, bool> UsuarioExiste(string codigoIdentificacao)
+        {
+            try
+            {
+                return _context.UsuariosDoSistema.Any(Query.UsuarioAtivoComEstaIdentificacao(codigoIdentificacao));
+            }
+            catch(Exception e)
+            {
+                var erro = new ErroComunicacaoBancoDeDados(e.Message);
+                //TODO: Enviar e-mail desenvolvedor
+                return erro;
+            }
         }
     }
 }

@@ -7,17 +7,17 @@ namespace Paperless.Shared.Validacoes
 {
     public abstract class AutenticacaoCommandValidacoes : Notifiable
     {
-        protected void ValidarUsuarioIdentificador(string usuarioIdentificador)
+        protected void ValidarUsuarioIdentificacao(string usuarioIdentificacao)
         {
             AddNotifications(new Contract()
-                .IsNotNullOrEmpty(usuarioIdentificador, nameof(usuarioIdentificador), AutenticacaoTextosInformativos.USUARIO_IDENTIFICACAO_NULA_VAZIA)
-                .IsNotNullOrWhiteSpace(usuarioIdentificador, nameof(usuarioIdentificador), AutenticacaoTextosInformativos.USUARIO_IDENTIFICACAO_NULA_ESPACOS)
-                .HasLen(usuarioIdentificador, 5, nameof(usuarioIdentificador), AutenticacaoTextosInformativos.USUARIO_IDENTIFICACAO_MENOR_4_CARACTERES)
-                .IsFalse(usuarioIdentificador != null && Regex.IsMatch(usuarioIdentificador, @"\w+\s+\d=[<>]?\d", RegexOptions.IgnoreCase), nameof(usuarioIdentificador), AutenticacaoTextosInformativos.USUARIO_IDENTIFICACAO_INVALIDA)
+                .IsNotNullOrEmpty(usuarioIdentificacao, nameof(usuarioIdentificacao), AutenticacaoTextosInformativos.USUARIO_IDENTIFICACAO_NULA_VAZIA)
+                .IsNotNullOrWhiteSpace(usuarioIdentificacao, nameof(usuarioIdentificacao), AutenticacaoTextosInformativos.USUARIO_IDENTIFICACAO_NULA_ESPACOS)
+                .HasLen(usuarioIdentificacao, 5, nameof(usuarioIdentificacao), AutenticacaoTextosInformativos.USUARIO_IDENTIFICACAO_MENOR_4_CARACTERES)
+                .IsFalse(usuarioIdentificacao != null && Regex.IsMatch(usuarioIdentificacao, @"\w+\s+\d=[<>]?\d", RegexOptions.IgnoreCase), nameof(usuarioIdentificacao), AutenticacaoTextosInformativos.USUARIO_IDENTIFICACAO_INVALIDA)
                 );
         }
 
-        protected void ValidarSenha(string senha)
+        protected void ValidarUsuarioSenha(string senha)
         {
             AddNotifications(new Contract()
                 .IsNotNullOrEmpty(senha, nameof(senha), AutenticacaoTextosInformativos.SENHA_NULA_VAZIA)

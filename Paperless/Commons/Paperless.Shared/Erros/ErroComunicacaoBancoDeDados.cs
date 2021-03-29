@@ -1,6 +1,4 @@
-﻿using Paperless.Shared.Erros;
-
-namespace Usuario.Infra.Erros
+﻿namespace Paperless.Shared.Erros
 {
     public class ErroComunicacaoBancoDeDados : ErroBase
     {

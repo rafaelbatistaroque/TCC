@@ -1,7 +1,9 @@
 ﻿using Autenticacao.Business.Contracts;
+using Autenticacao.Business.Erros;
 using Autenticacao.Domain.CasosDeUso.AutenticarUsuario;
 using Autenticacao.Domain.Entidades;
 using Paperless.Shared.Erros;
+using Paperless.Shared.TextosInformativos;
 using Paperless.Shared.Utils;
 using System.Linq;
 
@@ -9,12 +11,12 @@ namespace Autenticacao.Business.Services
 {
     public class AutenticarUsuarioHandler : IAutenticarUsuario
     {
-        private readonly IAutenticacaoRepository _repositorio;
+        private readonly IAutenticacaoFacades _facades;
         private readonly IJWT _tokenServico;
 
-        public AutenticarUsuarioHandler(IAutenticacaoRepository repositorio, IJWT tokenServico)
+        public AutenticarUsuarioHandler(IAutenticacaoFacades facades, IJWT tokenServico)
         {
-            _repositorio = repositorio;
+            _facades = facades;
             _tokenServico = tokenServico;
         }
 
@@ -24,11 +26,16 @@ namespace Autenticacao.Business.Services
             if(command.Invalid)
                 return new ErroValidacaoParametrosCommand(command.Notifications.Select(e => e.Message).ToArray());
 
-            var usuario = _repositorio.ObterUsuario(command.UsuarioIdentificador, command.Senha);
+            var usuario = _facades.ObterUsuarioFacades(command.UsuarioIdentificacao);
             if(usuario.EhFalha)
                 return usuario.Falha;
 
-            var token = _tokenServico.GerarToken(usuario.Sucesso.UsuarioIdentificacao, usuario.Sucesso.UsuarioPerfil);
+            string senhaDescriptografada = PaperlessPadronizacoes.DescriptografarDeBase64(usuario.Sucesso.UsuarioSenha);
+                
+            if(command.UsuarioSenha.Equals(senhaDescriptografada) == false)
+                return new ErroAutenticacaoUsuario(AutenticacaoTextosInformativos.SENHA_INVALIDA);
+
+            var token = _tokenServico.GerarToken(usuario.Sucesso.UsuarioIdentificacao.ToUpper(), usuario.Sucesso.UsuarioPerfil);
             var usuarioAutenticado = UsuarioAutenticado.Criar(usuario.Sucesso.UsuarioNome, token);
 
             return usuarioAutenticado;

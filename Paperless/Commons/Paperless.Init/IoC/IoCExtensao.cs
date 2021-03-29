@@ -1,4 +1,5 @@
 ﻿using Autenticacao.Business.Contracts;
+using Autenticacao.Business.Facades;
 using Autenticacao.Business.Services;
 using Autenticacao.Domain.CasosDeUso.AutenticarUsuario;
 using Autenticacao.Infra.EF;
@@ -7,7 +8,9 @@ using Autenticacao.Infra.TokenServico;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Usuario.Business.Adapters;
 using Usuario.Business.Contracts;
+using Usuario.Business.Facades;
 using Usuario.Business.Factories;
 using Usuario.Business.Services;
 using Usuario.Domain.CasosDeUso.CriarUsuario;
@@ -20,8 +23,9 @@ namespace Paperless.Init.IoC
     {
         public static void AdicionarIoCPaperless(this IServiceCollection servico, IConfiguration _config)
         {
-            servico.AddDbContext<AutenticacaoContext>(o => o.UseSqlServer(_config.GetConnectionString("connTCC")));
-            servico.AddDbContext<UsuarioContext>(o => o.UseSqlServer(_config.GetConnectionString("connTCC")));
+            void ObterStringConexaoSQL(DbContextOptionsBuilder o) => o.UseSqlServer(_config.GetConnectionString("connTCC"));
+            servico.AddDbContext<AutenticacaoContext>(ObterStringConexaoSQL);
+            servico.AddDbContext<UsuarioContext>(ObterStringConexaoSQL);
             servico.AdicionarAutenticacaoIoC();
             servico.AdicionarUsuarioIoC();
         }
@@ -32,6 +36,7 @@ namespace Paperless.Init.IoC
             servico.AddScoped<IAutenticarUsuario, AutenticarUsuarioHandler>();
             servico.AddScoped<IAutenticacaoRepository, AutenticacaoRepository>();
             servico.AddScoped<IJWT, JWTServico>();
+            servico.AddScoped<IAutenticacaoFacades, AutenticacaoFacades>();
         }
 
         public static void AdicionarUsuarioIoC(this IServiceCollection servico)
@@ -40,6 +45,8 @@ namespace Paperless.Init.IoC
             servico.AddScoped<ICriarUsuario, CriarUsuarioHandler>();
             servico.AddScoped<IUsuarioRepository, UsuarioRepository>();
             servico.AddScoped<IUsuarioFactories, UsuarioFactories>();
+            servico.AddScoped<IUsuarioAdapters, UsuarioAdapters>();
+            servico.AddScoped<IUsuarioFacades, UsuarioFacades>();
         }
     }
 }
