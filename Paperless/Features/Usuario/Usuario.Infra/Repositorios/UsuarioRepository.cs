@@ -26,6 +26,7 @@ namespace Usuario.Infra.Repositorios
             }
             catch(Exception e)
             {
+                //TODO:Enviar email
                 return new ErroComunicacaoBancoDeDados(e.Message);
             }
         }

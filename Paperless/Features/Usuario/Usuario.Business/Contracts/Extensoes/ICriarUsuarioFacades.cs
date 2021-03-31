@@ -1,9 +1,9 @@
-﻿using Usuario.Domain.Entidades;
+﻿using Usuario.Business.Models;
 
 namespace Usuario.Business.Contracts.Extensoes
 {
     public interface ICriarUsuarioFacades
     {
-        UsuarioDoSistema CriarNovoUsuarioFacades(string usuarioNome, string usuarioSenha, int usuarioPerfil);
+        UsuarioDoSistemaModel CriarNovoUsuarioFacades(string usuarioNome, string usuarioSenha, int usuarioPerfil);
     }
 }

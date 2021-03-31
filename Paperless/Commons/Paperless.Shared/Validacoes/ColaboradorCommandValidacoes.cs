@@ -7,13 +7,22 @@ namespace Paperless.Shared.Validacoes
 {
     public class ColaboradorCommandValidacoes : Notifiable
     {
-        public void ValidarColaboradorNome(string colaboradorNome)
+        public void ValidarColaboradorPrimeiroNome(string colaboradorNome)
         {
             AddNotifications(new Contract()
                 .IsNotNullOrWhiteSpace(colaboradorNome, nameof(colaboradorNome), ColaboradorTextosInformativos.COLABORADOR_NOME_NULO_VAZIO)
                 .IsTrue(colaboradorNome != null && Regex.IsMatch(colaboradorNome, @"[a-zA-Z]"), nameof(colaboradorNome), ColaboradorTextosInformativos.COLABORADOR_NOME_NUMEROS)
                 );
         }
+
+        public void ValidarColaboradorSobrenome(string colaboradorNome)
+        {
+            AddNotifications(new Contract()
+                .IsNotNullOrWhiteSpace(colaboradorNome, nameof(colaboradorNome), ColaboradorTextosInformativos.COLABORADOR_NOME_NULO_VAZIO)
+                .IsTrue(colaboradorNome != null && Regex.IsMatch(colaboradorNome, @"[a-zA-Z]"), nameof(colaboradorNome), ColaboradorTextosInformativos.COLABORADOR_NOME_NUMEROS)
+                );
+        }
+
         public void ValidarColaboradorCPF(string colaboradorCPF)
         {
             AddNotifications(new Contract()
@@ -21,12 +30,13 @@ namespace Paperless.Shared.Validacoes
                .IsTrue(colaboradorCPF != null && Regex.IsMatch(colaboradorCPF, @"^((\d{3}[.\s-]?){3}\d{2}|11)$"), nameof(colaboradorCPF), ColaboradorTextosInformativos.COLABORADOR_CPF_FORMATO_INVALIDO)
                );
         }
-        public void ValidarColaboradorFuncaoEmpresa(string colaboradorFuncaoEmpresa)
+
+        public void ValidarColaboradorFuncaoEmpresa(int colaboradorFuncaoEmpresa)
         {
             AddNotifications(new Contract()
-               .IsNotNullOrWhiteSpace(colaboradorFuncaoEmpresa, nameof(colaboradorFuncaoEmpresa), ColaboradorTextosInformativos.COLABORADOR_FUNCAO_NULO_VAZIO)
-               .IsTrue(colaboradorFuncaoEmpresa != null && Regex.IsMatch(colaboradorFuncaoEmpresa, @"[a-zA-Z]"), nameof(colaboradorFuncaoEmpresa), ColaboradorTextosInformativos.COLABORADOR_FUNCAO_NUMEROS)
-               );
+                .IsGreaterThan(colaboradorFuncaoEmpresa, 0, nameof(colaboradorFuncaoEmpresa), ColaboradorTextosInformativos.COLABORADOR_FUNCAO_INVALIDA)
+                .HasMinLengthIfNotNullOrEmpty(colaboradorFuncaoEmpresa.ToString(), 1, nameof(colaboradorFuncaoEmpresa), ColaboradorTextosInformativos.COLABORADOR_FUNCAO_INVALIDA)
+                );
         }
     }
 }

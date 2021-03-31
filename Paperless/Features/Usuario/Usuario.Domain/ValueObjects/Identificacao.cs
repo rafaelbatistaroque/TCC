@@ -1,11 +1,11 @@
 ﻿using Paperless.Shared.Utils;
 
-namespace Usuario.Domain.Entidades
+namespace Usuario.Domain.ValueObjects
 {
     public sealed class Identificacao
     {
         public string Codigo { get; }
-
+              
         private Identificacao(string codigo)
         {
             Codigo = codigo;

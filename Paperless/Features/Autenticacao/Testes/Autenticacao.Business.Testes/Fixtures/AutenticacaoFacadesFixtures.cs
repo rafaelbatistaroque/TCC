@@ -24,7 +24,7 @@ namespace Autenticacao.Business.Testes.Fixtures
                UsuarioSenha = SENHA_BASE64_VALIDA,
                UsuarioIdentificacao = USUARIO_IDENTIFICADOR_VALIDO,
                EhUsuarioAtivo = USUARIO_ATIVO_VALIDO,
-               UsuarioPerfil = USUARIO_PERFIL_VALIDO
+               UsuarioPerfilNome = USUARIO_PERFIL_VALIDO
            };
 
         public ErroBase GerarErroGenerico() => ErroGenerico();

@@ -25,7 +25,7 @@ namespace Usuario.Business.Testes.Fixtures
            => new CriarUsuarioCommand() { UsuarioNome = USUARIO_NOME_VALIDO, UsuarioSenha = SENHA_VALIDA, UsuarioPerfil = USUARIO_PERFIL_ADM_VALIDO };
 
         public UsuarioDoSistema GerarUsuarioDoSistema()
-            => UsuarioDoSistema.Criar(USUARIO_NOME_VALIDO, SENHA_VALIDA, Perfil.CriarPerfilUsuario());
+            => UsuarioDoSistema.Criar(USUARIO_NOME_VALIDO, SENHA_VALIDA, USUARIO_PERFIL_ADM_VALIDO);
 
         public UsuarioDoSistemaModel GerarUsuarioDoSistemaModel()
         {
@@ -33,9 +33,9 @@ namespace Usuario.Business.Testes.Fixtures
             return new UsuarioDoSistemaModel()
             {
                 EhUsuarioAtivo = u.EhUsuarioAtivo,
-                UsuarioIdentificacao = u.UsuarioIdentificacao.Codigo,
+                UsuarioIdentificacao = u.UsuarioIdentificacao,
                 UsuarioNome = u.UsuarioNome,
-                UsuarioPerfil = u.UsuarioPerfil.PerfilNome,
+                UsuarioPerfil = u.UsuarioPerfil,
                 UsuarioSenha = u.UsuarioSenha
             };
         }

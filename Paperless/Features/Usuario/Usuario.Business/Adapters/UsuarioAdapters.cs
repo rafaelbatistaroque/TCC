@@ -11,9 +11,9 @@ namespace Usuario.Business.Adapters
             return new UsuarioDoSistemaModel
             {
                 EhUsuarioAtivo = u.EhUsuarioAtivo,
-                UsuarioIdentificacao = u.UsuarioIdentificacao.Codigo,
+                UsuarioIdentificacao = u.UsuarioIdentificacao,
                 UsuarioNome = u.UsuarioNome,
-                UsuarioPerfil = u.UsuarioPerfil.PerfilNome,
+                UsuarioPerfil = u.UsuarioPerfil,
                 UsuarioSenha = u.UsuarioSenha
             };
         }

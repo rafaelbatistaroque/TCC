@@ -35,7 +35,7 @@ namespace Autenticacao.Business.Services
             if(command.UsuarioSenha.Equals(senhaDescriptografada) == false)
                 return new ErroAutenticacaoUsuario(AutenticacaoTextosInformativos.SENHA_INVALIDA);
 
-            var token = _tokenServico.GerarToken(usuario.Sucesso.UsuarioIdentificacao.ToUpper(), usuario.Sucesso.UsuarioPerfil);
+            var token = _tokenServico.GerarToken(usuario.Sucesso.UsuarioIdentificacao.ToUpper(), usuario.Sucesso.UsuarioPerfilNome);
             var usuarioAutenticado = UsuarioAutenticado.Criar(usuario.Sucesso.UsuarioNome, token);
 
             return usuarioAutenticado;

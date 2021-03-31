@@ -1,24 +1,22 @@
-﻿using Paperless.Shared.Utils;
-using Usuario.Business.Contracts;
+﻿using Usuario.Business.Contracts;
+using Usuario.Business.Models;
 using Usuario.Domain.Entidades;
 
 namespace Usuario.Business.Facades
 {
     public class UsuarioFacades : IUsuarioFacades
     {
-        private readonly IUsuarioFactories _factories;
-
-        public UsuarioFacades(IUsuarioFactories factories)
+        private readonly IUsuarioAdapters _adapters;
+        public UsuarioFacades(IUsuarioAdapters adapters)
         {
-            _factories = factories;
+            _adapters = adapters;
         }
 
-        public UsuarioDoSistema CriarNovoUsuarioFacades(string usuarioNome, string usuarioSenha, int usuarioPerfil)
+        public UsuarioDoSistemaModel CriarNovoUsuarioFacades(string usuarioNome, string usuarioSenha, int usuarioPerfil)
         {
-            var usuarioComPerfil = _factories.ObterPerfilUsuarioFactory(usuarioPerfil);
-            var senhaCriptografada = PaperlessPadronizacoes.CriptografarParaBase64(usuarioSenha);
-
-            return UsuarioDoSistema.Criar(usuarioNome, senhaCriptografada, usuarioComPerfil);
+            var novoUsuario = UsuarioDoSistema.Criar(usuarioNome, usuarioSenha, usuarioPerfil);
+            var model = _adapters.DeUsuarioDoSistemaParaUsuarioDoSistemaModel(novoUsuario);
+            return model;
         }
     }
 }

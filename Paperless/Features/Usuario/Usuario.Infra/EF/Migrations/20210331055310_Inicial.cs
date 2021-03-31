@@ -16,7 +16,8 @@ namespace Usuario.Infra.EF.Migrations
                     UsuarioNome = table.Column<string>(type: "varchar(120)", maxLength: 120, nullable: true),
                     UsuarioSenha = table.Column<string>(type: "varchar(15)", maxLength: 15, nullable: true),
                     EhUsuarioAtivo = table.Column<bool>(type: "bit", nullable: false),
-                    UsuarioPerfil = table.Column<string>(type: "varchar(30)", maxLength: 30, nullable: true)
+                    UsuarioPerfilId = table.Column<int>(type: "int", nullable: true),
+                    UsuarioPerfilNome = table.Column<string>(type: "varchar(30)", maxLength: 30, nullable: true)
                 },
                 constraints: table =>
                 {

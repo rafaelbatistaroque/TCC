@@ -1,9 +1,9 @@
-﻿using Usuario.Domain.Entidades;
+﻿using Usuario.Domain.ValueObjects;
 
 namespace Usuario.Business.Contracts.Extensoes
 {
     public interface IObterPerfilUsuarioFactory
     {
-        Perfil ObterPerfilUsuarioFactory(int perfil);
+        UsuarioPerfil ObterPerfilUsuarioFactory(int perfil);
     }
 }

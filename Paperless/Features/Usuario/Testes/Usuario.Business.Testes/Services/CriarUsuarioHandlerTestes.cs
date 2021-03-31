@@ -49,8 +49,7 @@ namespace Usuario.Business.Testes.Services
         public void AoInvocarHandle_AposCriadoUsuarioValidoEOcorrerErroNoRetornoDoRepositorio_DeveRetornarErroProveniente()
         {
             // Arrange
-            _fixtures.Mocker.GetMock<IUsuarioFacades>().Setup(f => f.CriarNovoUsuarioFacades(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>())).Returns(_fixtures.GerarUsuarioDoSistema());
-            _fixtures.Mocker.GetMock<IUsuarioAdapters>().Setup(a => a.DeUsuarioDoSistemaParaUsuarioDoSistemaModel(It.IsAny<UsuarioDoSistema>())).Returns(_fixtures.GerarUsuarioDoSistemaModel());
+            _fixtures.Mocker.GetMock<IUsuarioFacades>().Setup(f => f.CriarNovoUsuarioFacades(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>())).Returns(_fixtures.GerarUsuarioDoSistemaModel());
             _fixtures.Mocker.GetMock<IUsuarioRepository>().Setup(r => r.CriarUsuario(It.IsAny<UsuarioDoSistemaModel>())).Returns(_fixtures.GerarErroGenerico());
 
             // Act
@@ -60,7 +59,6 @@ namespace Usuario.Business.Testes.Services
             Assert.NotNull(resultado);
             Assert.True(resultado.EhFalha);
             Assert.IsAssignableFrom<ErroBase>(resultado.Falha);
-            _fixtures.Mocker.GetMock<IUsuarioAdapters>().Verify(a => a.DeUsuarioDoSistemaParaUsuarioDoSistemaModel(It.IsAny<UsuarioDoSistema>()), Times.Once, NAO_INVOCADO);
             _fixtures.Mocker.GetMock<IUsuarioRepository>().Verify(r => r.CriarUsuario(It.IsAny<UsuarioDoSistemaModel>()), Times.Once, NAO_INVOCADO);
         }
 
@@ -69,8 +67,7 @@ namespace Usuario.Business.Testes.Services
         public void AoInvocarHandle_QuandoUsuarioPersitidoNoBanco_DeveRetornarValorBooleanoTrue()
         {
             // Arrange
-            _fixtures.Mocker.GetMock<IUsuarioFacades>().Setup(f => f.CriarNovoUsuarioFacades(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>())).Returns(_fixtures.GerarUsuarioDoSistema());
-            _fixtures.Mocker.GetMock<IUsuarioAdapters>().Setup(a => a.DeUsuarioDoSistemaParaUsuarioDoSistemaModel(It.IsAny<UsuarioDoSistema>())).Returns(_fixtures.GerarUsuarioDoSistemaModel());
+            _fixtures.Mocker.GetMock<IUsuarioFacades>().Setup(f => f.CriarNovoUsuarioFacades(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>())).Returns(_fixtures.GerarUsuarioDoSistemaModel());
             _fixtures.Mocker.GetMock<IUsuarioRepository>().Setup(r => r.CriarUsuario(It.IsAny<UsuarioDoSistemaModel>())).Returns(true);
 
             // Act

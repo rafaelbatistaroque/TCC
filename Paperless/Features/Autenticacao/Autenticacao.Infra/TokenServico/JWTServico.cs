@@ -28,7 +28,7 @@ namespace Autenticacao.Infra.TokenServico
                     new Claim(ClaimTypes.Name, identificador),
                     new Claim(ClaimTypes.Role, perfil)
                 }),
-                Expires = DateTime.UtcNow.AddHours(20),
+                Expires = DateTime.UtcNow.AddMinutes(20),
                 SigningCredentials = new SigningCredentials(
                     new SymmetricSecurityKey(chave), SecurityAlgorithms.HmacSha256Signature)
             };

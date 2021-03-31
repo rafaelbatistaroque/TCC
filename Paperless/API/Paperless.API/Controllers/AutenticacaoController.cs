@@ -1,6 +1,7 @@
 ﻿using Autenticacao.Domain.CasosDeUso.AutenticarUsuario;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace Paperless.API.Controllers
 {
@@ -17,8 +18,10 @@ namespace Paperless.API.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        public IActionResult Post([FromBody] AutenticarUsuarioCommand command)
+        public async Task<IActionResult> Post([FromBody] AutenticarUsuarioCommand command)
         {
+            await Task.Delay(1500);
+
             var resultado = _autenticarUsuario.Handler(command);
 
             return resultado.RetornarCaso<IActionResult>(

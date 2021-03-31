@@ -10,13 +10,11 @@ namespace Usuario.Business.Services
     {
         private readonly IUsuarioRepository _repositorio;
         private readonly IUsuarioFacades _facades;
-        private readonly IUsuarioAdapters _adapters;
 
-        public CriarUsuarioHandler(IUsuarioRepository repositorio, IUsuarioFacades facades, IUsuarioAdapters adapters)
+        public CriarUsuarioHandler(IUsuarioRepository repositorio, IUsuarioFacades facades)
         {
             _repositorio = repositorio;
             _facades = facades;
-            _adapters = adapters;
         }
 
         public Either<ErroBase, bool> Handler(CriarUsuarioCommand command)
@@ -26,10 +24,8 @@ namespace Usuario.Business.Services
                 return new ErroValidacaoParametrosCommand(command.Notifications.Select(e => e.Message).ToArray());
 
             var novoUsuario = _facades.CriarNovoUsuarioFacades(command.UsuarioNome, command.UsuarioSenha, command.UsuarioPerfil);
-            
-            var model = _adapters.DeUsuarioDoSistemaParaUsuarioDoSistemaModel(novoUsuario);
-            
-            var usuarioPersistido = _repositorio.CriarUsuario(model);
+
+            var usuarioPersistido = _repositorio.CriarUsuario(novoUsuario);
             if(usuarioPersistido.EhFalha)
                 return usuarioPersistido.Falha;
 

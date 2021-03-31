@@ -2,6 +2,7 @@
 using Usuario.Business.Contracts;
 using Usuario.Business.Facades;
 using Usuario.Business.Testes.Fixtures;
+using Usuario.Domain.Entidades;
 using Xunit;
 
 namespace Usuario.Business.Testes.Facades
@@ -20,20 +21,23 @@ namespace Usuario.Business.Testes.Facades
         }
 
         [Trait("Usuario.Business.Facades", "UsuarioFacadesTestes")]
-        [Fact(DisplayName = "Garantir que factory de perfil seja chamado e retornado perfil correto.")]
-        public void AoInvocarCriarNovoUsuarioFacades_QuandoArgumentoIgualAUm_DeveCriarPerfilDeUsuarioAdministradorPorMeioDaFactoryEspecifica()
+        [Fact(DisplayName = "Garantir que informações de usuário esteja na model usuário.")]
+        public void AoInvocarCriarNovoUsuarioFacades_QuandoArgumentoValidos_DeveAdaptarConteudoAModelCorrespondente()
         {
             // Arrange
-            var perfilAdmValido = _fixtures.GerarPerfilADM();
-            _fixtures.Mocker.GetMock<IUsuarioFactories>().Setup(f => f.ObterPerfilUsuarioFactory(It.IsAny<int>())).Returns(perfilAdmValido);
+            var usuarioDoSistemaModel = _fixtures.GerarUsuarioDoSistemaModel();
+            _fixtures.Mocker.GetMock<IUsuarioAdapters>().Setup(f => f.DeUsuarioDoSistemaParaUsuarioDoSistemaModel(It.IsAny<UsuarioDoSistema>())).Returns(usuarioDoSistemaModel);
 
             // Act
-            var resultado = _sut.CriarNovoUsuarioFacades(It.IsAny<string>(), _fixtures.GerarSenhaValida(), It.IsAny<int>());
+            var resultado = _sut.CriarNovoUsuarioFacades(_fixtures.GerarNomeValido(), _fixtures.GerarSenhaValida(), _fixtures.GerarPerfilAdmIdValido());
 
             // Assert
             Assert.NotNull(resultado);
-            Assert.Equal(perfilAdmValido, resultado.UsuarioPerfil);
-            _fixtures.Mocker.GetMock<IUsuarioFactories>().Verify(f => f.ObterPerfilUsuarioFactory(It.IsAny<int>()), Times.Once, NAO_INVOCADO);
+            Assert.Equal(usuarioDoSistemaModel.UsuarioIdentificacao.Codigo, resultado.UsuarioIdentificacao.Codigo);
+            Assert.Equal(usuarioDoSistemaModel.UsuarioPerfil.PerfilNome, resultado.UsuarioPerfil.PerfilNome);
+            Assert.Equal(usuarioDoSistemaModel.UsuarioPerfil.PerfilId, resultado.UsuarioPerfil.PerfilId);
+            Assert.Equal(_fixtures.GerarSenhaBase64(), resultado.UsuarioSenha.Senha);
+            _fixtures.Mocker.GetMock<IUsuarioAdapters>().Verify(f => f.DeUsuarioDoSistemaParaUsuarioDoSistemaModel(It.IsAny<UsuarioDoSistema>()), Times.Once, NAO_INVOCADO);
         }
     }
 }

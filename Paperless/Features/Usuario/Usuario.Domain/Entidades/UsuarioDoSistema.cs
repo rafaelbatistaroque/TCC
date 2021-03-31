@@ -1,14 +1,16 @@
-﻿namespace Usuario.Domain.Entidades
+﻿using Usuario.Domain.ValueObjects;
+
+namespace Usuario.Domain.Entidades
 {
     public class UsuarioDoSistema
     {
         public Identificacao UsuarioIdentificacao { get;}
         public string UsuarioNome { get;  }
-        public string UsuarioSenha { get;  }
+        public UsuarioSenha UsuarioSenha { get;  }
         public bool EhUsuarioAtivo { get;  }
-        public Perfil UsuarioPerfil { get; }
+        public UsuarioPerfil UsuarioPerfil { get; }
 
-        private UsuarioDoSistema(Identificacao usuarioIdentificador, string nomeUsuario, string senha, Perfil perfil)
+        private UsuarioDoSistema(Identificacao usuarioIdentificador, string nomeUsuario, UsuarioSenha senha, UsuarioPerfil perfil)
         {
             UsuarioIdentificacao = usuarioIdentificador;
             UsuarioNome = nomeUsuario;
@@ -17,9 +19,9 @@
             UsuarioPerfil = perfil;
         }
 
-        public static UsuarioDoSistema Criar(string usuarioNome, string usuarioSenha, Perfil perfil)
+        public static UsuarioDoSistema Criar(string usuarioNome, string usuarioSenha, int perfil)
         {
-            return new UsuarioDoSistema(Identificacao.Criar(), usuarioNome, usuarioSenha, perfil);
+            return new UsuarioDoSistema(Identificacao.Criar(), usuarioNome, UsuarioSenha.Criar(usuarioSenha), UsuarioPerfil.Criar(perfil));
         }
     }
 }
