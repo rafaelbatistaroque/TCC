@@ -10,14 +10,14 @@ using Xunit;
 
 namespace Colaborador.Business.Testes.Services
 {
-    public class CriarColaboradorHandlerTestes
+    public class CriarColaboradorHandlerTestes : IClassFixture<ColaboradorServicesFixtures>
     {
         private readonly ColaboradorServicesFixtures _fixtures;
         private readonly ICriarColaborador _sut;
 
-        public CriarColaboradorHandlerTestes()
+        public CriarColaboradorHandlerTestes(ColaboradorServicesFixtures fixtures)
         {
-            _fixtures = new ColaboradorServicesFixtures();
+            _fixtures = fixtures;
             _sut = _fixtures.GerarSUT<CriarColaboradorHandler>();
         }
 
@@ -46,12 +46,12 @@ namespace Colaborador.Business.Testes.Services
 
         [Trait("Colaborador.Business.Services", "CriarColaboradorHandlerTestes")]
         [Fact(DisplayName = "Retornar erro quando retornar falha no repositório")]
-        public void AoInvocarHandle_QuandoFalhaNoretornoDoRepositorio_DeveRetornarErroProveniente()
+        public void AoInvocarHandler_QuandoFalhaNoretornoDoRepositorio_DeveRetornarErroProveniente()
         {
             // Arrange
             var commandValido = _fixtures.GerarCriarColaboradorCommand();
-            _fixtures.Mocker.GetMock<IColaboradorAdapters>().Setup(a => a.DeColaboradorParaColaboradorModel(It.IsAny<ColaboradorEmpresa>())).Returns(_fixtures.GerarColaboradoModel());
-            _fixtures.Mocker.GetMock<IColaboradorRepository>().Setup(a => a.CriarColaborado(It.IsAny<ColaboradorModel>())).Returns(_fixtures.GerarErroGenerico());
+            _fixtures.Mocker.GetMock<IColaboradorAdapters>().Setup(a => a.DeColaboradorParaColaboradorModel(It.IsAny<ColaboradorEmpresa>())).Returns(_fixtures.GerarColaboradorModel());
+            _fixtures.Mocker.GetMock<IColaboradorRepository>().Setup(a => a.CriarColaborador(It.IsAny<ColaboradorModel>())).Returns(_fixtures.GerarErroGenerico());
 
             // Act
             var resultado = _sut.Handler(commandValido);
@@ -60,18 +60,34 @@ namespace Colaborador.Business.Testes.Services
             Assert.NotNull(resultado);
             Assert.True(resultado.EhFalha);
             Assert.IsAssignableFrom<ErroBase>(resultado.Falha);
-            _fixtures.Mocker.GetMock<IColaboradorAdapters>().Verify(a => a.DeColaboradorParaColaboradorModel(It.IsAny<ColaboradorEmpresa>()), Times.Once);
-            _fixtures.Mocker.GetMock<IColaboradorRepository>().Verify(a => a.CriarColaborado(It.IsAny<ColaboradorModel>()), Times.Once);
+        }
+
+        [Trait("Colaborador.Business.Services", "CriarColaboradorHandlerTestes")]
+        [Fact(DisplayName = "Retornar erro se nenhum registro foi salvo na base de dados")]
+        public void AoInvocarHandler_QuandoRetornoNenhumRegistroAfetado_DeveRetornarBooleanoErroNehumRegistroFoiSalvo()
+        {
+            // Arrange
+            var commandValido = _fixtures.GerarCriarColaboradorCommand();
+            _fixtures.Mocker.GetMock<IColaboradorAdapters>().Setup(a => a.DeColaboradorParaColaboradorModel(It.IsAny<ColaboradorEmpresa>())).Returns(_fixtures.GerarColaboradorModel());
+            _fixtures.Mocker.GetMock<IColaboradorRepository>().Setup(a => a.CriarColaborador(It.IsAny<ColaboradorModel>())).Returns(false);
+
+            // Act
+            var resultado = _sut.Handler(commandValido);
+
+            // Assert
+            Assert.NotNull(resultado);
+            Assert.True(resultado.EhFalha);
+            Assert.IsType<ErroNenhumRegistroFoiSalvoOuAtualizado>(resultado.Falha);
         }
 
         [Trait("Colaborador.Business.Services", "CriarColaboradorHandlerTestes")]
         [Fact(DisplayName = "Retornar booleano true após persistir colaborador na base de dados")]
-        public void AoInvocarHandle_QuandoRetornoSemFalhaDoRepositorio_DeveRetornarBooleanoTrue()
+        public void AoInvocarHandler_QuandoRetornoSemFalhaDoRepositorio_DeveRetornarBooleanoTrue()
         {
             // Arrange
             var commandValido = _fixtures.GerarCriarColaboradorCommand();
-            _fixtures.Mocker.GetMock<IColaboradorAdapters>().Setup(a => a.DeColaboradorParaColaboradorModel(It.IsAny<ColaboradorEmpresa>())).Returns(_fixtures.GerarColaboradoModel());
-            _fixtures.Mocker.GetMock<IColaboradorRepository>().Setup(a => a.CriarColaborado(It.IsAny<ColaboradorModel>())).Returns(true);
+            _fixtures.Mocker.GetMock<IColaboradorAdapters>().Setup(a => a.DeColaboradorParaColaboradorModel(It.IsAny<ColaboradorEmpresa>())).Returns(_fixtures.GerarColaboradorModel());
+            _fixtures.Mocker.GetMock<IColaboradorRepository>().Setup(a => a.CriarColaborador(It.IsAny<ColaboradorModel>())).Returns(true);
 
             // Act
             var resultado = _sut.Handler(commandValido);
@@ -80,8 +96,6 @@ namespace Colaborador.Business.Testes.Services
             Assert.NotNull(resultado);
             Assert.True(resultado.EhSucesso);
             Assert.IsType<bool>(resultado.Sucesso);
-            _fixtures.Mocker.GetMock<IColaboradorAdapters>().Verify(a => a.DeColaboradorParaColaboradorModel(It.IsAny<ColaboradorEmpresa>()), Times.Once);
-            _fixtures.Mocker.GetMock<IColaboradorRepository>().Verify(a => a.CriarColaborado(It.IsAny<ColaboradorModel>()), Times.Once);
         }
     }
 }

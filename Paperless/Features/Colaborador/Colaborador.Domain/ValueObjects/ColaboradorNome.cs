@@ -4,9 +4,14 @@
     {
         public string PrimeiroNome { get; }
         public string Sobrenome { get; }
-        public string NomeCompleto => ObterNomeCompleto();
+        public string NomeCompleto { get; }
 
-        private ColaboradorNome(string primeiroNome, string sobrenome)
+        private ColaboradorNome(string nomeCompleto)
+        {
+            NomeCompleto = nomeCompleto;
+        }
+
+        private ColaboradorNome(string primeiroNome, string sobrenome) : this(ObterNomeCompleto(primeiroNome, sobrenome))
         {
             PrimeiroNome = primeiroNome;
             Sobrenome = sobrenome;
@@ -17,9 +22,14 @@
             return new ColaboradorNome(primeiroNome, sobrenome);
         }
 
-        public string ObterNomeCompleto()
+        public static ColaboradorNome Retornar(string nomeCompleto)
         {
-            return $"{PrimeiroNome} {Sobrenome}";
+            return new ColaboradorNome(nomeCompleto);
+        }
+
+        private static string ObterNomeCompleto(string primeiroNome, string sobrenome)
+        {
+            return $"{primeiroNome} {sobrenome}";
         }
     }
 }

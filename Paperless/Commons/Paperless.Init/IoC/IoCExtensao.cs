@@ -9,6 +9,8 @@ using Colaborador.Business.Adapter;
 using Colaborador.Business.Contracts;
 using Colaborador.Business.Services;
 using Colaborador.Domain.CasosDeUso.CriarColaborador;
+using Colaborador.Domain.CasosDeUso.ObterColaborador;
+using Colaborador.Domain.CasosDeUso.ObterColaboradores;
 using Colaborador.Infra.EF;
 using Colaborador.Infra.Repositorios;
 using Microsoft.EntityFrameworkCore;
@@ -32,6 +34,7 @@ namespace Paperless.Init.IoC
             servico.AddDbContext<AutenticacaoContext>(ObterStringConexaoSQL);
             servico.AddDbContext<UsuarioContext>(ObterStringConexaoSQL);
             servico.AddDbContext<ColaboradorContext>(ObterStringConexaoSQL);
+            //servico.AddDbContext<ArquivoContext>(ObterStringConexaoSQL);
             servico.AdicionarAutenticacaoIoC();
             servico.AdicionarUsuarioIoC();
             servico.AdicionarColaboradorIoC();
@@ -59,8 +62,15 @@ namespace Paperless.Init.IoC
         {
             servico.AddScoped<ColaboradorContext>();
             servico.AddScoped<ICriarColaborador, CriarColaboradorHandler>();
+            servico.AddScoped<IObterColaboradores, ObterColaboradoresHandler>();
+            servico.AddScoped<IObterColaborador, ObterColaboradorHandler>();
             servico.AddScoped<IColaboradorAdapters, ColaboradorAdapters>();
             servico.AddScoped<IColaboradorRepository, ColaboradorRepository>();
+        }
+
+        public static void AdicionarArquivoIoC(this IServiceCollection servico)
+        {
+            //servico.AddScoped<ArquivoContext>();
         }
     }
 }

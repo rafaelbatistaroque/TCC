@@ -6,7 +6,7 @@ namespace Colaborador.Business.Models
     {
         public int Id { get; set; }
         public ColaboradorNome Nome { get; set; }
-        public ColaboradorCPF ColaboradorCPF { get; set; }
+        public CPF ColaboradorCPF { get; set; }
         public ColaboradorFuncao Funcao { get; set; }
     }
 }

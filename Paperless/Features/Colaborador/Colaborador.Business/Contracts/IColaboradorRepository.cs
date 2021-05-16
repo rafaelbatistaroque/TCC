@@ -1,8 +1,15 @@
-﻿using Colaborador.Business.Contracts.Extensoes;
+﻿using Colaborador.Business.Models;
+using Paperless.Shared.Erros;
+using Paperless.Shared.Utils;
+using System.Collections.Generic;
 
 namespace Colaborador.Business.Contracts
 {
-    public interface IColaboradorRepository : ICriarColaboradorRepository
+    public interface IColaboradorRepository
     {
+        Either<ErroBase, bool> CriarColaborador(ColaboradorModel colaborador);
+        Either<ErroBase, IReadOnlyCollection<ColaboradorModel>> ObterColaboradores();
+        Either<ErroBase, ColaboradorModel> ObterColaborador(int id);
+        Either<ErroBase, bool> ExisteColaborador(int id);
     }
 }

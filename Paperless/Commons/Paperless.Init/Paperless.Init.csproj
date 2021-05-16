@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Features\Arquivo\Arquivo.Infra\Arquivo.Infra.csproj" />
     <ProjectReference Include="..\..\Features\Autenticacao\Autenticacao.Infra\Autenticacao.Infra.csproj" />
     <ProjectReference Include="..\..\Features\Colaborador\Colaborador.Infra\Colaborador.Infra.csproj" />
     <ProjectReference Include="..\..\Features\Usuario\Usuario.Infra\Usuario.Infra.csproj" />

@@ -1,11 +1,14 @@
 ﻿using Colaborador.Business.Models;
 using Colaborador.Domain.CasosDeUso.CriarColaborador;
+using Colaborador.Domain.CasosDeUso.ObterColaborador;
 using Colaborador.Domain.Entidades;
 using Colaborador.Domain.ValueObjects;
 using Moq.AutoMock;
 using Paperless.Fixtures.Colaborador;
 using Paperless.Shared.Enums;
 using Paperless.Shared.Erros;
+using System;
+using System.Collections.Generic;
 
 namespace Colaborador.Business.Testes.Fixtures
 {
@@ -23,9 +26,8 @@ namespace Colaborador.Business.Testes.Fixtures
         public ColaboradorNome GerarColaboradorNome()
             => ColaboradorNome.Criar(COLABORADOR_PRIMEIRO_NOME, COLABORADOR_SOBRENOME);
 
-        public ColaboradorCPF GerarColaboradorCPF()
-            => ColaboradorCPF.Criar(COLABORADOR_CPF);
-
+        public CPF GerarColaboradorCPF()
+            => CPF.Criar(COLABORADOR_CPF);
 
         public ColaboradorFuncao GerarColaboradorFuncao()
             => ColaboradorFuncao.Criar((int)EColaboradorFuncao.PROGRAMADOR);
@@ -33,7 +35,10 @@ namespace Colaborador.Business.Testes.Fixtures
         public ColaboradorEmpresa GerarColaboradorEmpresa()
          => ColaboradorEmpresa.Criar(COLABORADOR_PRIMEIRO_NOME, COLABORADOR_SOBRENOME, COLABORADOR_CPF, (int)EColaboradorFuncao.PROGRAMADOR);
 
-        public ColaboradorModel GerarColaboradoModel()
+        public ColaboradorEmpresa GerarColaboradorEmpresaRetorno()
+        => ColaboradorEmpresa.Retornar($"{COLABORADOR_PRIMEIRO_NOME} {COLABORADOR_SOBRENOME}", COLABORADOR_CPF, (int)EColaboradorFuncao.PROGRAMADOR);
+
+        public ColaboradorModel GerarColaboradorModel()
         {
             var c = GerarColaboradorEmpresa();
             return new ColaboradorModel()
@@ -42,14 +47,22 @@ namespace Colaborador.Business.Testes.Fixtures
                 Funcao = c.Funcao,
                 Nome = c.ColaboradorNome
             };
-
         }
 
+        public List<ColaboradorEmpresa> GerarListaColaboradorEmpresa()
+            => new List<ColaboradorEmpresa>() { GerarColaboradorEmpresaRetorno() };
+
+        public List<ColaboradorModel> GerarListaColaboradorModel()
+            => new List<ColaboradorModel>() { GerarColaboradorModel() };
+
         public CriarColaboradorCommand GerarCriarColaboradorCommand(string primeiroNome, string sobrenome, string colaboradorCpf, int colaboradorFuncaoEmpresa)
-            => new CriarColaboradorCommand() { ColaboradorPrimeiroNome = primeiroNome, ColaboradorSobrenome = sobrenome,  ColaboradorCPF = colaboradorCpf, ColaboradorFuncaoEmpresa = colaboradorFuncaoEmpresa };
+            => new CriarColaboradorCommand() { PrimeiroNome = primeiroNome, Sobrenome = sobrenome,  CPF = colaboradorCpf, FuncaoEmpresa = colaboradorFuncaoEmpresa };
 
         public CriarColaboradorCommand GerarCriarColaboradorCommand()
-          => new CriarColaboradorCommand() { ColaboradorPrimeiroNome = COLABORADOR_PRIMEIRO_NOME, ColaboradorSobrenome = COLABORADOR_SOBRENOME, ColaboradorCPF = COLABORADOR_CPF, ColaboradorFuncaoEmpresa = (int)EColaboradorFuncao.PROGRAMADOR };
+          => new CriarColaboradorCommand() { PrimeiroNome = COLABORADOR_PRIMEIRO_NOME, Sobrenome = COLABORADOR_SOBRENOME, CPF = COLABORADOR_CPF, FuncaoEmpresa = (int)EColaboradorFuncao.PROGRAMADOR };
+
+        public string GerarPatternCPFComCaracteresEspeciais()
+            => @"(\d{3}\.){2}(\d{3}\-)(\d{2})";
 
         public ErroBase GerarErroGenerico() => ErroGenerico();
     }

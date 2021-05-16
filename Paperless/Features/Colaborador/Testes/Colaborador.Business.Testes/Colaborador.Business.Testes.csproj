@@ -15,9 +15,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Commons\Paperless.Fixtures\Paperless.Fixtures.csproj" />
-    <ProjectReference Include="..\..\..\..\Commons\Paperless.Init\Paperless.Init.csproj" />
-    <ProjectReference Include="..\..\..\..\Commons\Paperless.Shared\Paperless.Shared.csproj" />
-    <ProjectReference Include="..\..\Colaborador.Business\Colaborador.Business.csproj" />
   </ItemGroup>
 
 </Project>

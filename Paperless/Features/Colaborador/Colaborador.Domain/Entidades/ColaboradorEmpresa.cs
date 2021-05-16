@@ -5,10 +5,10 @@ namespace Colaborador.Domain.Entidades
     public class ColaboradorEmpresa
     {
         public ColaboradorNome ColaboradorNome { get; }
-        public ColaboradorCPF ColaboradorCPF { get; }
+        public CPF ColaboradorCPF { get; }
         public ColaboradorFuncao Funcao { get; }
 
-        private ColaboradorEmpresa(ColaboradorNome colaboradorNome, ColaboradorCPF colaboradorCPF, ColaboradorFuncao colaboradorFuncaoEmpresa)
+        private ColaboradorEmpresa(ColaboradorNome colaboradorNome, CPF colaboradorCPF, ColaboradorFuncao colaboradorFuncaoEmpresa)
         {
             ColaboradorNome = colaboradorNome;
             ColaboradorCPF = colaboradorCPF;
@@ -17,8 +17,12 @@ namespace Colaborador.Domain.Entidades
 
         public static ColaboradorEmpresa Criar(string primeiroNome, string sobrenome, string colaboradorCPF, int colaboradorFuncaoEmpresa)
         {
-            return new ColaboradorEmpresa(ColaboradorNome.Criar(primeiroNome, sobrenome), ColaboradorCPF.Criar(colaboradorCPF), ColaboradorFuncao.Criar(colaboradorFuncaoEmpresa));
+            return new ColaboradorEmpresa(ColaboradorNome.Criar(primeiroNome, sobrenome), CPF.Criar(colaboradorCPF), ColaboradorFuncao.Criar(colaboradorFuncaoEmpresa));
         }
 
+        public static ColaboradorEmpresa Retornar(string nomeCompleto, string colaboradorCPF, int colaboradorFuncaoEmpresa)
+        {
+            return new ColaboradorEmpresa(ColaboradorNome.Retornar(nomeCompleto), CPF.Retornar(colaboradorCPF), ColaboradorFuncao.Criar(colaboradorFuncaoEmpresa));
+        }
     }
 }

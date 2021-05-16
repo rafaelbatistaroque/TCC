@@ -5,7 +5,7 @@ using Paperless.Shared.Erros;
 using Paperless.Shared.Utils;
 using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 
 namespace Colaborador.Infra.Repositorios
 {
@@ -18,18 +18,53 @@ namespace Colaborador.Infra.Repositorios
             _context = context;
         }
 
-        public Either<ErroBase, bool> CriarColaborado(ColaboradorModel colaborador)
+        public Either<ErroBase, bool> CriarColaborador(ColaboradorModel colaborador)
         {
             try
             {
-                _context.Add(colaborador);
+                _context.Colaborador.Add(colaborador);
                 var linhasAfetadas = _context.SaveChanges();
 
                 return linhasAfetadas > 0;
             }
             catch(Exception e)
             {
-                //TODO: Enviar e-mail
+                return new ErroComunicacaoBancoDeDados(e.Message);
+            }
+        }
+
+        public Either<ErroBase, bool> ExisteColaborador(int id)
+        {
+            try
+            {
+                return _context.Colaborador.Any(c => c.Id == id);
+            }
+            catch(Exception e)
+            {
+                return new ErroComunicacaoBancoDeDados(e.Message);
+            }
+        }
+
+        public Either<ErroBase, ColaboradorModel> ObterColaborador(int id)
+        {
+            try
+            {
+                return _context.Colaborador.FirstOrDefault(c => c.Id == id);
+            }
+            catch(Exception e)
+            {
+                return new ErroComunicacaoBancoDeDados(e.Message);
+            }
+        }
+
+        public Either<ErroBase, IReadOnlyCollection<ColaboradorModel>> ObterColaboradores()
+        {
+            try
+            {
+                return _context.Colaborador.ToList();
+            }
+            catch(Exception e)
+            {
                 return new ErroComunicacaoBancoDeDados(e.Message);
             }
         }

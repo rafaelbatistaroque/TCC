@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 
 namespace Paperless.Shared.Utils
 {
-    public class PaperlessPadronizacoes
+    public class Padronizacoes
     {
         public static string DescriptografarDeBase64(string senhaCriptografada)
         {
@@ -18,14 +18,24 @@ namespace Paperless.Shared.Utils
             return Convert.ToBase64String(senhaByte);
         }
 
-        public static string RemoverCaracteresDeCPF(string cpf)
+        public static string RemoverCaracteresEspeciais(string item)
         {
-            return Regex.Replace(cpf, @"[.\s-_*+!@#$%&()=/\\[\]{}:;,\|'<>]", "");
+            return Regex.Replace(item, @"[.\s-_*+!@#$%&()=/\\[\]{}:;,\|'<>]", "");
+        }
+
+        public static string AdicionarCaracteresEspeciaisEmCPF(string item)
+        {
+            return Regex.Replace(item, @"(\d{3})(\d{3})(\d{3})(\d{2})", "$1.$2.$3-$4");
         }
 
         public static string GerarSequenciaIdentificacao()
         {
             return Guid.NewGuid().ToString().Replace("-", "")[..5].ToUpper();
+        }
+
+        public static string ComTextoBearer(string token)
+        {
+            return $"Bearer {token}";
         }
     }
 }

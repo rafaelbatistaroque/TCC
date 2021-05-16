@@ -3,19 +3,19 @@ using Paperless.Shared.Validacoes;
 
 namespace Colaborador.Domain.CasosDeUso.CriarColaborador
 {
-    public class CriarColaboradorCommand : ColaboradorCommandValidacoes, ICommandBase
+    public class CriarColaboradorCommand : ColaboradorCommandQueryValidacoes, ICommandQueryBase
     {
-        public string ColaboradorPrimeiroNome { get; set; }
-        public string ColaboradorSobrenome { get; set; }
-        public string ColaboradorCPF { get; set; }
-        public int ColaboradorFuncaoEmpresa { get; set; }
+        public string PrimeiroNome { get; set; }
+        public string Sobrenome { get; set; }
+        public string CPF { get; set; }
+        public int FuncaoEmpresa { get; set; }
 
         public void Validar()
         {
-            ValidarColaboradorPrimeiroNome(ColaboradorPrimeiroNome);
-            ValidarColaboradorSobrenome(ColaboradorSobrenome);
-            ValidarColaboradorCPF(ColaboradorCPF);
-            ValidarColaboradorFuncaoEmpresa(ColaboradorFuncaoEmpresa);
+            ValidarPrimeiroNome(PrimeiroNome);
+            ValidarSobrenome(Sobrenome);
+            ValidarCPF(CPF);
+            ValidarFuncaoEmpresa(FuncaoEmpresa);
         }
     }
 }
