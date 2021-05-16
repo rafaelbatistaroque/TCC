@@ -24,13 +24,13 @@ namespace Autenticacao.Business.Services
         {
             command.Validar();
             if(command.Invalid)
-                return new ErroValidacaoParametrosCommand(command.Notifications.Select(e => e.Message).ToArray());
+                return new ErroValidacaoCommandQuery(command.Notifications.Select(e => e.Message).ToArray());
 
             var usuario = _facades.ObterUsuarioFacades(command.UsuarioIdentificacao);
             if(usuario.EhFalha)
                 return usuario.Falha;
 
-            string senhaDescriptografada = PaperlessPadronizacoes.DescriptografarDeBase64(usuario.Sucesso.UsuarioSenha);
+            string senhaDescriptografada = Padronizacoes.DescriptografarDeBase64(usuario.Sucesso.UsuarioSenha);
                 
             if(command.UsuarioSenha.Equals(senhaDescriptografada) == false)
                 return new ErroAutenticacaoUsuario(AutenticacaoTextosInformativos.SENHA_INVALIDA);

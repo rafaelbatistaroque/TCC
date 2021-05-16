@@ -3,7 +3,7 @@ using Paperless.Shared.Validacoes;
 
 namespace Autenticacao.Domain.CasosDeUso.AutenticarUsuario
 {
-    public class AutenticarUsuarioCommand : AutenticacaoCommandValidacoes, ICommandBase
+    public class AutenticarUsuarioCommand : AutenticacaoCommandValidacoes, ICommandQueryBase
     {
         public string UsuarioIdentificacao { get; set; }
         public string UsuarioSenha { get; set; }

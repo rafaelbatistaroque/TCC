@@ -1,4 +1,6 @@
-﻿namespace Autenticacao.Domain.Entidades
+﻿using Paperless.Shared.Utils;
+
+namespace Autenticacao.Domain.Entidades
 {
     public class UsuarioAutenticado
     {
@@ -13,7 +15,9 @@
 
         public static UsuarioAutenticado Criar(string nomeUsuario, string token)
         {
-            return new UsuarioAutenticado(nomeUsuario, token);
+            var tokenBearer = Padronizacoes.ComTextoBearer(token);
+
+            return new UsuarioAutenticado(nomeUsuario, tokenBearer);
         }
     }
 }

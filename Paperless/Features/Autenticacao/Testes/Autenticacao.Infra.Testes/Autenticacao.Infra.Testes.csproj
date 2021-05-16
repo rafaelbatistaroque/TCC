@@ -15,7 +15,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Commons\Paperless.Fixtures\Paperless.Fixtures.csproj" />
-    <ProjectReference Include="..\..\..\..\Commons\Paperless.Init\Paperless.Init.csproj" />
   </ItemGroup>
 
 </Project>

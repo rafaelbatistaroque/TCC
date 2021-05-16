@@ -8,16 +8,15 @@ using Xunit;
 
 namespace Autenticacao.Business.Testes.Facades
 {
-    public class AutenticacaoFacadesTestes
+    public class AutenticacaoFacadesTestes : IClassFixture<AutenticacaoFacadesFixtures>
     {
         private readonly AutenticacaoFacadesFixtures _fixtures;
         private readonly IAutenticacaoFacades _sut;
 
-        public AutenticacaoFacadesTestes()
+        public AutenticacaoFacadesTestes(AutenticacaoFacadesFixtures fixtures)
         {
-            _fixtures = new AutenticacaoFacadesFixtures();
+            _fixtures = fixtures;
             _sut = _fixtures.GerarSUT();
-
         }
 
         [Trait("Autenticacao.Business.Facades", "AutenticacaoFacadesTestes")]

@@ -41,7 +41,9 @@ namespace Autenticacao.Business.Testes.Fixtures
         public UsuarioAutenticado GerarUsuarioAutenticado()
             => UsuarioAutenticado.Criar(USUARIO_NOME_VALIDO, FAKE_TOKEN);
 
-        public string GerarTokeFake() => FAKE_TOKEN;
+        public string GerarTokenFake() => FAKE_TOKEN;
+
+        public string GerarTokenBearerFake() => $"Bearer {FAKE_TOKEN}";
 
         public ErroBase GerarErroGenerico() => ErroGenerico();
     }

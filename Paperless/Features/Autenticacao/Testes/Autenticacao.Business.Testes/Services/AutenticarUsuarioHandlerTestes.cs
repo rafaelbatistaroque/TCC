@@ -5,21 +5,20 @@ using Autenticacao.Domain.CasosDeUso.AutenticarUsuario;
 using Autenticacao.Domain.Entidades;
 using Moq;
 using Paperless.Shared.Erros;
-using Paperless.Shared.TextosInformativos;
 using Xunit;
 
 namespace Autenticacao.Business.Testes.Services
 {
-    public class AutenticarUsuarioHandlerTestes
+    public class AutenticarUsuarioHandlerTestes : IClassFixture<AutenticacaoServicesFixtures>
     {
         private const string NAO_INVOCADO = "Método não invocado";
 
         private readonly AutenticacaoServicesFixtures _fixtures;
         private readonly IAutenticarUsuario _sut;
 
-        public AutenticarUsuarioHandlerTestes()
+        public AutenticarUsuarioHandlerTestes(AutenticacaoServicesFixtures fixtures)
         {
-            _fixtures = new AutenticacaoServicesFixtures();
+            _fixtures = fixtures;
             _sut = _fixtures.GerarSUT();
 
         }
@@ -90,7 +89,7 @@ namespace Autenticacao.Business.Testes.Services
         {
             var commandValido = _fixtures.GerarAutenticarUsuarioCommandValido();
             _fixtures.Mocker.GetMock<IAutenticacaoFacades>().Setup(r => r.ObterUsuarioFacades(It.IsAny<string>())).Returns(_fixtures.GerarUsuarioModel());
-            _fixtures.Mocker.GetMock<IJWT>().Setup(r => r.GerarToken(It.IsAny<string>(), It.IsAny<string>())).Returns(_fixtures.GerarTokeFake());
+            _fixtures.Mocker.GetMock<IJWT>().Setup(r => r.GerarToken(It.IsAny<string>(), It.IsAny<string>())).Returns(_fixtures.GerarTokenFake());
 
             // Act
             var resultado = _sut.Handler(commandValido);
@@ -98,7 +97,7 @@ namespace Autenticacao.Business.Testes.Services
             // Assert
             Assert.NotNull(resultado);
             Assert.True(resultado.EhSucesso);
-            Assert.Equal(_fixtures.GerarTokeFake(), resultado.Sucesso.Token);
+            Assert.Equal(_fixtures.GerarTokenBearerFake(), resultado.Sucesso.Token);
             Assert.Equal(_fixtures.GerarUsuarioModel().UsuarioNome, resultado.Sucesso.NomeUsuario);
             Assert.IsType<UsuarioAutenticado>(resultado.Sucesso);
             _fixtures.Mocker.GetMock<IJWT>().Verify(r => r.GerarToken(It.IsAny<string>(), It.IsAny<string>()), Times.Once, NAO_INVOCADO);
