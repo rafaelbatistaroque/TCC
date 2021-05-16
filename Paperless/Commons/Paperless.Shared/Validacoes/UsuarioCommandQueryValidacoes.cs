@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 
 namespace Paperless.Shared.Validacoes
 {
-    public class UsuarioCommandValidacoes : Notifiable
+    public abstract class UsuarioCommandQueryValidacoes : Notifiable
     {
         protected void ValidarUsuarioNome(string usuarioNome)
         {

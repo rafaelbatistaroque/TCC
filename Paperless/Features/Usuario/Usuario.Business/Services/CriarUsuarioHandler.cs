@@ -21,7 +21,7 @@ namespace Usuario.Business.Services
         {
             command.Validar();
             if(command.Invalid)
-                return new ErroValidacaoParametrosCommand(command.Notifications.Select(e => e.Message).ToArray());
+                return new ErroValidacaoCommandQuery(command.Notifications.Select(e => e.Message).ToArray());
 
             var novoUsuario = _facades.CriarNovoUsuarioFacades(command.UsuarioNome, command.UsuarioSenha, command.UsuarioPerfil);
 

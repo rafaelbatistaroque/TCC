@@ -24,8 +24,7 @@ namespace Paperless.API.Controllers
 
             return resultado.RetornarCaso<IActionResult>(
                 erro => BadRequest(new { Erros = erro }),
-                sucesso => Ok()
-                );
+                sucesso => Ok());
         }
     }
 }

@@ -3,7 +3,7 @@ using Paperless.Shared.Validacoes;
 
 namespace Usuario.Domain.CasosDeUso.CriarUsuario
 {
-    public class CriarUsuarioCommand : UsuarioCommandValidacoes, ICommandBase
+    public class CriarUsuarioCommand : UsuarioCommandQueryValidacoes, ICommandQueryBase
     {
         public string UsuarioNome { get; set; }
         public string UsuarioSenha { get; set; }

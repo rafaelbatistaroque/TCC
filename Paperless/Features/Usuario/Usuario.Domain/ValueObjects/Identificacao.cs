@@ -13,7 +13,7 @@ namespace Usuario.Domain.ValueObjects
 
         public static Identificacao Criar()
         {
-            var sequencia = PaperlessPadronizacoes.GerarSequenciaIdentificacao();
+            var sequencia = Padronizacoes.GerarSequenciaIdentificacao();
             return new Identificacao(sequencia);
         }
     }

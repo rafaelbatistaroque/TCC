@@ -1,6 +1,6 @@
 ﻿namespace Paperless.Shared.Utils
 {
-    public interface ICommandBase
+    public interface ICommandQueryBase
     {
         void Validar();
     }

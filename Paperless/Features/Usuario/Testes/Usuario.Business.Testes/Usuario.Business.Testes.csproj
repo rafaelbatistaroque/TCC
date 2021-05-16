@@ -15,8 +15,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Commons\Paperless.Fixtures\Paperless.Fixtures.csproj" />
-    <ProjectReference Include="..\..\Usuario.Business\Usuario.Business.csproj" />
-    <ProjectReference Include="..\..\Usuario.Domain\Usuario.Domain.csproj" />
   </ItemGroup>
 
 </Project>

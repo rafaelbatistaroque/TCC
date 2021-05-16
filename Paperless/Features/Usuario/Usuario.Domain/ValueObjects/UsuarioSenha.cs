@@ -13,7 +13,7 @@ namespace Usuario.Domain.ValueObjects
 
         public static UsuarioSenha Criar(string senha)
         {
-            var senhaCriptografada = PaperlessPadronizacoes.CriptografarParaBase64(senha);
+            var senhaCriptografada = Padronizacoes.CriptografarParaBase64(senha);
 
             return new UsuarioSenha(senhaCriptografada);
         }
