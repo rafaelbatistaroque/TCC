@@ -1,8 +1,7 @@
 ﻿using Colaborador.Business.Adapter;
-using Colaborador.Business.Models;
 using Colaborador.Domain.Entidades;
+using Colaborador.Fixtures;
 using Moq.AutoMock;
-using Paperless.Fixtures.Colaborador;
 using Paperless.Shared.Enums;
 
 namespace Colaborador.Business.Testes.Fixtures

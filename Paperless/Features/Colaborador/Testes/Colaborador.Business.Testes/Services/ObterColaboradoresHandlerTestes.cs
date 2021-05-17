@@ -41,7 +41,7 @@ namespace Colaborador.Business.Testes.Services
         }
 
         [Trait("Colaborador.Business.Services", "ObterColaboradoresHandlerTestes")]
-        [Fact(DisplayName = "Retornar erro proveniente casso retorno erro repositorio.")]
+        [Fact(DisplayName = "Retornar lista de colaboradores caso não ocorrer erro no retorno do repositório.")]
         public void AoInvocarHandler_QuandoSucessoRetornoRepositorio_DeveRetornarListaColaboradores()
         {
             // Arrange

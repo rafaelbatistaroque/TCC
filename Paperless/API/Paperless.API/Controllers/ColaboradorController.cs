@@ -3,6 +3,7 @@ using Colaborador.Domain.CasosDeUso.ObterColaborador;
 using Colaborador.Domain.CasosDeUso.ObterColaboradores;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Paperless.API.Utils;
 using System.Linq;
 
 namespace Paperless.API.Controllers
@@ -23,7 +24,7 @@ namespace Paperless.API.Controllers
         }
 
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = PerfilRoles.ADMINISTRADOR)]
         public IActionResult Post([FromBody] CriarColaboradorCommand command)
         {
             var resultado = _criarColaborador.Handler(command);

@@ -1,13 +1,11 @@
 ﻿using Colaborador.Business.Models;
 using Colaborador.Domain.CasosDeUso.CriarColaborador;
-using Colaborador.Domain.CasosDeUso.ObterColaborador;
 using Colaborador.Domain.Entidades;
 using Colaborador.Domain.ValueObjects;
+using Colaborador.Fixtures;
 using Moq.AutoMock;
-using Paperless.Fixtures.Colaborador;
 using Paperless.Shared.Enums;
 using Paperless.Shared.Erros;
-using System;
 using System.Collections.Generic;
 
 namespace Colaborador.Business.Testes.Fixtures
@@ -56,7 +54,7 @@ namespace Colaborador.Business.Testes.Fixtures
             => new List<ColaboradorModel>() { GerarColaboradorModel() };
 
         public CriarColaboradorCommand GerarCriarColaboradorCommand(string primeiroNome, string sobrenome, string colaboradorCpf, int colaboradorFuncaoEmpresa)
-            => new CriarColaboradorCommand() { PrimeiroNome = primeiroNome, Sobrenome = sobrenome,  CPF = colaboradorCpf, FuncaoEmpresa = colaboradorFuncaoEmpresa };
+            => new CriarColaboradorCommand() { PrimeiroNome = primeiroNome, Sobrenome = sobrenome, CPF = colaboradorCpf, FuncaoEmpresa = colaboradorFuncaoEmpresa };
 
         public CriarColaboradorCommand GerarCriarColaboradorCommand()
           => new CriarColaboradorCommand() { PrimeiroNome = COLABORADOR_PRIMEIRO_NOME, Sobrenome = COLABORADOR_SOBRENOME, CPF = COLABORADOR_CPF, FuncaoEmpresa = (int)EColaboradorFuncao.PROGRAMADOR };
