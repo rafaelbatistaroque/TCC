@@ -1,6 +1,4 @@
-﻿using Paperless.Shared.Enums;
-using System;
-using System.Collections.Generic;
+﻿using Paperless.Shared.Utils;
 
 namespace Usuario.Domain.ValueObjects
 {
@@ -9,24 +7,29 @@ namespace Usuario.Domain.ValueObjects
         public int PerfilId { get; }
         public string PerfilNome { get; }
 
-        private UsuarioPerfil(int perfilId, string perfilNome)
+        private UsuarioPerfil(int perfilId)
         {
             PerfilId = perfilId;
+        }
+
+        private UsuarioPerfil(int perfilId, string perfilNome) : this(perfilId)
+        {
             PerfilNome = perfilNome;
         }
 
-        public static UsuarioPerfil Criar(int perfil)
+        public static UsuarioPerfil Criar(int perfilId)
         {
-            var perfis = new Dictionary<int, UsuarioPerfil>()
-            {
-                {(int)EUsuarioPerfil.ADMINISTRADOR, new UsuarioPerfil((int)EUsuarioPerfil.ADMINISTRADOR, Enum.GetName(typeof(EUsuarioPerfil), (int)EUsuarioPerfil.ADMINISTRADOR))},
-                {(int)EUsuarioPerfil.USUARIO, new UsuarioPerfil((int)EUsuarioPerfil.USUARIO, Enum.GetName(typeof(EUsuarioPerfil), (int)EUsuarioPerfil.USUARIO))}
-            };
+            var perfilIdValidado = Padronizacoes.ValidarPerfilId(perfilId);
 
-            if(perfis.ContainsKey(perfil) == false)
-                return perfis[(int)EUsuarioPerfil.USUARIO];
+            return new UsuarioPerfil(perfilIdValidado);
+        }
 
-            return perfis[perfil];
+        public static UsuarioPerfil Retornar(int perfilId)
+        {
+            var perfilIdValidado = Padronizacoes.ValidarPerfilId(perfilId);
+            var nomePerfil = Padronizacoes.ObterNomePerfil(perfilIdValidado);
+
+            return new UsuarioPerfil(perfilIdValidado, nomePerfil);
         }
     }
 }

@@ -10,18 +10,27 @@ namespace Usuario.Domain.Entidades
         public bool EhUsuarioAtivo { get;  }
         public UsuarioPerfil UsuarioPerfil { get; }
 
-        private UsuarioDoSistema(Identificacao usuarioIdentificador, string nomeUsuario, UsuarioSenha senha, UsuarioPerfil perfil)
+        private UsuarioDoSistema(Identificacao usuarioIdentificador, string nomeUsuario, bool ehUsuarioAtivo, UsuarioPerfil perfil)
         {
             UsuarioIdentificacao = usuarioIdentificador;
             UsuarioNome = nomeUsuario;
-            UsuarioSenha = senha;
-            EhUsuarioAtivo = true;
+            EhUsuarioAtivo = ehUsuarioAtivo;
             UsuarioPerfil = perfil;
         }
 
-        public static UsuarioDoSistema Criar(string usuarioNome, string usuarioSenha, int perfil)
+        private UsuarioDoSistema(Identificacao usuarioIdentificador, string nomeUsuario, bool ehUsuarioAtivo, UsuarioPerfil perfil, UsuarioSenha senha) : this(usuarioIdentificador, nomeUsuario, ehUsuarioAtivo, perfil)
         {
-            return new UsuarioDoSistema(Identificacao.Criar(), usuarioNome, UsuarioSenha.Criar(usuarioSenha), UsuarioPerfil.Criar(perfil));
+            UsuarioSenha = senha;
+        }
+
+        public static UsuarioDoSistema Criar(string usuarioNome, string usuarioSenha, int perfilId)
+        {
+            return new UsuarioDoSistema(Identificacao.Criar(), usuarioNome,true, UsuarioPerfil.Criar(perfilId), UsuarioSenha.Criar(usuarioSenha));
+        }
+
+        public static UsuarioDoSistema Retornar(Identificacao usuarioIdentificador, string usuarioNome, bool ehUsuarioAtivo, UsuarioPerfil perfil)
+        {
+            return new UsuarioDoSistema(usuarioIdentificador, usuarioNome, ehUsuarioAtivo, UsuarioPerfil.Retornar(perfil.PerfilId));
         }
     }
 }

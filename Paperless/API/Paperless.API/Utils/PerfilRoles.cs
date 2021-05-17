@@ -2,7 +2,7 @@
 {
     public static class PerfilRoles
     {
-        public const string USUARIO = "USUARIO";
+        public const string USUARIO = "USUÁRIO";
         public const string ADMINISTRADOR = "ADMINISTRADOR";
     }
 }

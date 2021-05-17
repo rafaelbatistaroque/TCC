@@ -3,18 +3,19 @@ using Paperless.Shared.Utils;
 using System.Linq;
 using Usuario.Business.Contracts;
 using Usuario.Domain.CasosDeUso.CriarUsuario;
+using Usuario.Domain.Entidades;
 
 namespace Usuario.Business.Services
 {
     public class CriarUsuarioHandler : ICriarUsuario
     {
         private readonly IUsuarioRepository _repositorio;
-        private readonly IUsuarioFacades _facades;
+        private readonly IUsuarioAdapters _adapter;
 
-        public CriarUsuarioHandler(IUsuarioRepository repositorio, IUsuarioFacades facades)
+        public CriarUsuarioHandler(IUsuarioRepository repositorio, IUsuarioAdapters adapter)
         {
             _repositorio = repositorio;
-            _facades = facades;
+            _adapter = adapter;
         }
 
         public Either<ErroBase, bool> Handler(CriarUsuarioCommand command)
@@ -23,9 +24,10 @@ namespace Usuario.Business.Services
             if(command.Invalid)
                 return new ErroValidacaoCommandQuery(command.Notifications.Select(e => e.Message).ToArray());
 
-            var novoUsuario = _facades.CriarNovoUsuarioFacades(command.UsuarioNome, command.UsuarioSenha, command.UsuarioPerfil);
+            var novoUsuario = UsuarioDoSistema.Criar(command.UsuarioNome, command.UsuarioSenha, command.UsuarioPerfil);
+            var novoUsuarioModel = _adapter.DeUsuarioDoSistemaParaUsuarioDoSistemaModel(novoUsuario);
 
-            var usuarioPersistido = _repositorio.CriarUsuario(novoUsuario);
+            var usuarioPersistido = _repositorio.CriarUsuario(novoUsuarioModel);
             if(usuarioPersistido.EhFalha)
                 return usuarioPersistido.Falha;
 

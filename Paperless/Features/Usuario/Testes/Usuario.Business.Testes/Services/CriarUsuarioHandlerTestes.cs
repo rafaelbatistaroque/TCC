@@ -10,16 +10,16 @@ using Xunit;
 
 namespace Usuario.Business.Testes.Services
 {
-    public class CriarUsuarioHandlerTestes
+    public class CriarUsuarioHandlerTestes : IClassFixture<UsuarioServicesFixtures>
     {
         private const string NAO_INVOCADO = "Método não invocado";
 
         private readonly UsuarioServicesFixtures _fixtures;
         private readonly ICriarUsuario _sut;
 
-        public CriarUsuarioHandlerTestes()
+        public CriarUsuarioHandlerTestes(UsuarioServicesFixtures fixtures)
         {
-            _fixtures = new UsuarioServicesFixtures();
+            _fixtures = fixtures;
             _sut = _fixtures.GerarSUT<CriarUsuarioHandler>();
         }
 
@@ -33,7 +33,7 @@ namespace Usuario.Business.Testes.Services
         public void AoInvocarHandler_QuandoCommandInvalido_DeveRetornaListaDeErrosEspecificos(string usuarioNome, string usuarioSenha, int usuarioPerfil)
         {
             // Arrange
-            var commandInvalido = _fixtures.GerarCriarUsuarioCommand(usuarioNome, usuarioSenha, usuarioPerfil);
+            var commandInvalido = _fixtures.GerarCriarUsuarioCommandInvalido(usuarioNome, usuarioSenha, usuarioPerfil);
 
             // Act
             var resultado = _sut.Handler(commandInvalido);
@@ -49,7 +49,7 @@ namespace Usuario.Business.Testes.Services
         public void AoInvocarHandle_AposCriadoUsuarioValidoEOcorrerErroNoRetornoDoRepositorio_DeveRetornarErroProveniente()
         {
             // Arrange
-            _fixtures.Mocker.GetMock<IUsuarioFacades>().Setup(f => f.CriarNovoUsuarioFacades(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>())).Returns(_fixtures.GerarUsuarioDoSistemaModel());
+            _fixtures.Mocker.GetMock<IUsuarioAdapters>().Setup(f => f.DeUsuarioDoSistemaParaUsuarioDoSistemaModel(It.IsAny<UsuarioDoSistema>())).Returns(_fixtures.GerarUsuarioDoSistemaModel());
             _fixtures.Mocker.GetMock<IUsuarioRepository>().Setup(r => r.CriarUsuario(It.IsAny<UsuarioDoSistemaModel>())).Returns(_fixtures.GerarErroGenerico());
 
             // Act
@@ -67,7 +67,7 @@ namespace Usuario.Business.Testes.Services
         public void AoInvocarHandle_QuandoUsuarioPersitidoNoBanco_DeveRetornarValorBooleanoTrue()
         {
             // Arrange
-            _fixtures.Mocker.GetMock<IUsuarioFacades>().Setup(f => f.CriarNovoUsuarioFacades(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>())).Returns(_fixtures.GerarUsuarioDoSistemaModel());
+            _fixtures.Mocker.GetMock<IUsuarioAdapters>().Setup(f => f.DeUsuarioDoSistemaParaUsuarioDoSistemaModel(It.IsAny<UsuarioDoSistema>())).Returns(_fixtures.GerarUsuarioDoSistemaModel());
             _fixtures.Mocker.GetMock<IUsuarioRepository>().Setup(r => r.CriarUsuario(It.IsAny<UsuarioDoSistemaModel>())).Returns(true);
 
             // Act
