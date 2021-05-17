@@ -1,7 +1,7 @@
 ﻿using Autenticacao.Business.Models;
 using Autenticacao.Infra.Repositorios;
 using Moq.AutoMock;
-using Paperless.Fixtures.Autenticacao;
+using Autenticacao.Fixtures;
 using Paperless.Shared.Erros;
 
 namespace Autenticacao.Infra.Testes.Fixtures
@@ -24,8 +24,7 @@ namespace Autenticacao.Infra.Testes.Fixtures
              UsuarioNome = USUARIO_NOME_VALIDO,
              UsuarioSenha = SENHA_BASE64_VALIDA,
              UsuarioIdentificacao = USUARIO_IDENTIFICADOR_VALIDO,
-             EhUsuarioAtivo = USUARIO_ATIVO_VALIDO,
-             UsuarioPerfilNome = USUARIO_PERFIL_VALIDO
+             EhUsuarioAtivo = USUARIO_ATIVO_VALIDO
          };
 
         public ErroBase GerarErrogenerico() => ErroGenerico();

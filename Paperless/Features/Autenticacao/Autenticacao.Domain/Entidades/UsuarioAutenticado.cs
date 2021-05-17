@@ -5,19 +5,21 @@ namespace Autenticacao.Domain.Entidades
     public class UsuarioAutenticado
     {
         public string NomeUsuario { get; }
+        public int PerfilId { get; }
         public string Token { get; }
 
-        private UsuarioAutenticado(string nomeUsuario, string token)
+        private UsuarioAutenticado(string nomeUsuario, int perfilId, string token)
         {
             NomeUsuario = nomeUsuario;
             Token = token;
+            PerfilId = perfilId;
         }
 
-        public static UsuarioAutenticado Criar(string nomeUsuario, string token)
+        public static UsuarioAutenticado Criar(string nomeUsuario, int perfilId, string token)
         {
             var tokenBearer = Padronizacoes.ComTextoBearer(token);
 
-            return new UsuarioAutenticado(nomeUsuario, tokenBearer);
+            return new UsuarioAutenticado(nomeUsuario, perfilId, tokenBearer);
         }
     }
 }

@@ -22,13 +22,11 @@ namespace Autenticacao.Infra.Repositorios
         {
             try
             {
-                return _context.UsuariosDoSistema.FirstOrDefault(Query.UsuarioAtivoComEstaIdentificacao(usuarioIdentificador));
+                return _context.UsuariosDoSistema.FirstOrDefault(Query.UsuarioAtivoComIdentificacao(usuarioIdentificador));
             }
             catch(Exception e)
             {
-                var erro =  new ErroComunicacaoBancoDeDados(e.Message);
-                //TODO: Enviar e-mail desenvolvedor
-                return erro;
+                return new ErroComunicacaoBancoDeDados(e.Message);
             }
         }
 
@@ -36,13 +34,11 @@ namespace Autenticacao.Infra.Repositorios
         {
             try
             {
-                return _context.UsuariosDoSistema.Any(Query.UsuarioAtivoComEstaIdentificacao(codigoIdentificacao));
+                return _context.UsuariosDoSistema.Any(Query.UsuarioAtivoComIdentificacao(codigoIdentificacao));
             }
             catch(Exception e)
             {
-                var erro = new ErroComunicacaoBancoDeDados(e.Message);
-                //TODO: Enviar e-mail desenvolvedor
-                return erro;
+                return new ErroComunicacaoBancoDeDados(e.Message);
             }
         }
     }

@@ -2,11 +2,11 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+	  <Nullable>annotations</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Flunt" Version="1.0.5" />
-    <PackageReference Include="Moq.AutoMock" Version="2.3.0" />
   </ItemGroup>
 
 </Project>

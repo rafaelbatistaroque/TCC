@@ -12,7 +12,7 @@ namespace Paperless.Shared.Validacoes
             AddNotifications(new Contract()
                 .IsNotNullOrEmpty(usuarioNome, nameof(usuarioNome), UsuarioTextosInformativos.USUARIO_NOME_NULO_VAZIO)
                 .IsNotNullOrWhiteSpace(usuarioNome, nameof(usuarioNome), UsuarioTextosInformativos.USUARIO_NOME_NULO_ESPACO)
-                .IsFalse(usuarioNome != null && Regex.IsMatch(usuarioNome, @"\w+\s+\d=[<>]?\d", RegexOptions.IgnoreCase), nameof(usuarioNome), UsuarioTextosInformativos.USUARIO_NOME_INVALIDO)
+                .IsFalse(Regex.IsMatch(usuarioNome ?? string.Empty, @"\w+\s+\d=[<>]?\d", RegexOptions.IgnoreCase), nameof(usuarioNome), UsuarioTextosInformativos.USUARIO_NOME_INVALIDO)
                 );
         }
 
@@ -21,7 +21,7 @@ namespace Paperless.Shared.Validacoes
             AddNotifications(new Contract()
                 .IsNotNullOrEmpty(usuarioSenha, nameof(usuarioSenha), UsuarioTextosInformativos.USUARIO_SENHA_NULO_VAZIO)
                 .IsNotNullOrWhiteSpace(usuarioSenha, nameof(usuarioSenha), UsuarioTextosInformativos.USUARIO_SENHA_NULO_ESPACO)
-                .IsFalse(usuarioSenha != null && Regex.IsMatch(usuarioSenha, @"\w+\s+\d=[<>]?\d", RegexOptions.IgnoreCase), nameof(usuarioSenha), UsuarioTextosInformativos.USUARIO_SENHA_INVALIDO)
+                .IsFalse(Regex.IsMatch(usuarioSenha ?? string.Empty, @"\w+\s+\d=[<>]?\d", RegexOptions.IgnoreCase), nameof(usuarioSenha), UsuarioTextosInformativos.USUARIO_SENHA_INVALIDO)
                 );
 
         }
@@ -29,9 +29,20 @@ namespace Paperless.Shared.Validacoes
         protected void ValidarUsuarioPerfil(int usuarioPerfil)
         {
             AddNotifications(new Contract()
-                .IsGreaterThan(usuarioPerfil, 0, nameof(usuarioPerfil), "")
-                .HasMinLengthIfNotNullOrEmpty(usuarioPerfil.ToString(), 1, nameof(usuarioPerfil), "")
+                .IsNotNull(usuarioPerfil,nameof(usuarioPerfil), UsuarioTextosInformativos.USUARIO_PERFIL_NULO_VAZIO)
+                .IsGreaterThan(usuarioPerfil, 0, nameof(usuarioPerfil), UsuarioTextosInformativos.USUARIO_PERFIL_INVALIDO)
+                .HasMinLengthIfNotNullOrEmpty(usuarioPerfil.ToString(), 1, nameof(usuarioPerfil), UsuarioTextosInformativos.USUARIO_PERFIL_INVALIDO)
                 );
+        }
+
+        protected void ValidarUsuarioCodigo(string usuarioCodigo)
+        {
+            AddNotifications(new Contract()
+            .IsNotNullOrEmpty(usuarioCodigo, nameof(usuarioCodigo), UsuarioTextosInformativos.USUARIO_CODIGO_NULO_VAZIO)
+            .IsNotNullOrWhiteSpace(usuarioCodigo, nameof(usuarioCodigo), UsuarioTextosInformativos.USUARIO_CODIGO_NULO_ESPACO)
+            .HasLen(usuarioCodigo, 5, nameof(usuarioCodigo), UsuarioTextosInformativos.USUARIO_CODIGO_INVALIDO)
+            .IsFalse(Regex.IsMatch(usuarioCodigo ?? string.Empty, @"\w+\s+\d=[<>]?\d", RegexOptions.IgnoreCase), nameof(usuarioCodigo), UsuarioTextosInformativos.USUARIO_CODIGO_INVALIDO)
+            );
         }
     }
 }

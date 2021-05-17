@@ -1,9 +1,8 @@
 ﻿using Autenticacao.Business.Models;
 using Autenticacao.Business.Services;
 using Autenticacao.Domain.CasosDeUso.AutenticarUsuario;
-using Autenticacao.Domain.Entidades;
+using Autenticacao.Fixtures;
 using Moq.AutoMock;
-using Paperless.Fixtures.Autenticacao;
 using Paperless.Shared.Erros;
 
 namespace Autenticacao.Business.Testes.Fixtures
@@ -35,11 +34,8 @@ namespace Autenticacao.Business.Testes.Fixtures
                 UsuarioSenha = SENHA_BASE64_VALIDA,
                 UsuarioIdentificacao = USUARIO_IDENTIFICADOR_VALIDO,
                 EhUsuarioAtivo = USUARIO_ATIVO_VALIDO,
-                UsuarioPerfilNome = USUARIO_PERFIL_VALIDO
+                UsuarioPerfilId = USUARIO_PERFIL_ID_ADM
             };
-
-        public UsuarioAutenticado GerarUsuarioAutenticado()
-            => UsuarioAutenticado.Criar(USUARIO_NOME_VALIDO, FAKE_TOKEN);
 
         public string GerarTokenFake() => FAKE_TOKEN;
 

@@ -18,9 +18,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Usuario.Business.Adapters;
 using Usuario.Business.Contracts;
-using Usuario.Business.Facades;
 using Usuario.Business.Services;
+using Usuario.Domain.CasosDeUso.AlterarStatusUsuario;
 using Usuario.Domain.CasosDeUso.CriarUsuario;
+using Usuario.Domain.CasosDeUso.ObterUsuarios;
 using Usuario.Infra.EF;
 using Usuario.Infra.Repositorios;
 
@@ -53,9 +54,10 @@ namespace Paperless.Init.IoC
         {
             servico.AddScoped<UsuarioContext>();
             servico.AddScoped<ICriarUsuario, CriarUsuarioHandler>();
+            servico.AddScoped<IObterUsuarios, ObterUsuariosHandler>();
+            servico.AddScoped<IAlterarStatusUsuario, AlterarStatusUsuarioHandler>();
             servico.AddScoped<IUsuarioRepository, UsuarioRepository>();
             servico.AddScoped<IUsuarioAdapters, UsuarioAdapters>();
-            servico.AddScoped<IUsuarioFacades, UsuarioFacades>();
         }
 
         public static void AdicionarColaboradorIoC(this IServiceCollection servico)

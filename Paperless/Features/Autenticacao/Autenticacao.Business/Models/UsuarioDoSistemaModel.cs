@@ -10,6 +10,6 @@ namespace Autenticacao.Business.Models
         public string UsuarioNome { get; set; }
         public string UsuarioSenha { get; set; }
         public bool EhUsuarioAtivo { get; set; }
-        public string UsuarioPerfilNome { get; set; }
+        public int UsuarioPerfilId{ get; set; }
     }
 }
