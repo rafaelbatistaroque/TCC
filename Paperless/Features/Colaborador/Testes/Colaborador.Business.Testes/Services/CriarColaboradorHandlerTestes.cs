@@ -77,7 +77,7 @@ namespace Colaborador.Business.Testes.Services
             // Assert
             Assert.NotNull(resultado);
             Assert.True(resultado.EhFalha);
-            Assert.IsType<ErroNenhumRegistroFoiSalvoOuAtualizado>(resultado.Falha);
+            Assert.IsType<ErroNenhumRegistroModificado>(resultado.Falha);
         }
 
         [Trait("Colaborador.Business.Services", "CriarColaboradorHandlerTestes")]

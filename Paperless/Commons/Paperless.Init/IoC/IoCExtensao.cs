@@ -9,6 +9,7 @@ using Colaborador.Business.Adapter;
 using Colaborador.Business.Contracts;
 using Colaborador.Business.Services;
 using Colaborador.Domain.CasosDeUso.CriarColaborador;
+using Colaborador.Domain.CasosDeUso.DeletarColaborador;
 using Colaborador.Domain.CasosDeUso.ObterColaborador;
 using Colaborador.Domain.CasosDeUso.ObterColaboradores;
 using Colaborador.Infra.EF;
@@ -66,6 +67,7 @@ namespace Paperless.Init.IoC
             servico.AddScoped<ICriarColaborador, CriarColaboradorHandler>();
             servico.AddScoped<IObterColaboradores, ObterColaboradoresHandler>();
             servico.AddScoped<IObterColaborador, ObterColaboradorHandler>();
+            servico.AddScoped<IDeletarColaborador, DeletarColaboradorHandler>();
             servico.AddScoped<IColaboradorAdapters, ColaboradorAdapters>();
             servico.AddScoped<IColaboradorRepository, ColaboradorRepository>();
         }

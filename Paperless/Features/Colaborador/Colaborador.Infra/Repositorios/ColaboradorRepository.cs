@@ -33,6 +33,21 @@ namespace Colaborador.Infra.Repositorios
             }
         }
 
+        public Either<ErroBase, bool> DeletarColaborador(ColaboradorModel colaborado)
+        {
+            try
+            {
+                _context.Colaborador.Remove(colaborado);
+                var linhasAfetadas = _context.SaveChanges();
+
+                return linhasAfetadas > 0;
+            }
+            catch(Exception e)
+            {
+                return new ErroComunicacaoBancoDeDados(e.Message);
+            }
+        }
+
         public Either<ErroBase, bool> ExisteColaborador(int id)
         {
             try

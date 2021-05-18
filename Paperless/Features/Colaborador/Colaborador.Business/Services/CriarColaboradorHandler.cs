@@ -33,7 +33,7 @@ namespace Colaborador.Business.Services
                 return respostaRepositorio.Falha;
 
             if(respostaRepositorio.Sucesso == false)
-                return new ErroNenhumRegistroFoiSalvoOuAtualizado(ColaboradorTextosInformativos.NENHUM_REGISTRO_SALVO_ATUALIZADO);
+                return new ErroNenhumRegistroModificado(ColaboradorTextosInformativos.NENHUM_REGISTRO_MODIFICADO);
 
             return respostaRepositorio.Sucesso;
         }

@@ -92,7 +92,7 @@ namespace Usuario.Business.Testes.Services
             // Assert
             Assert.NotNull(resultado);
             Assert.True(resultado.EhFalha);
-            Assert.IsType<ErroNenhumRegistroFoiSalvoOuAtualizado>(resultado.Falha);
+            Assert.IsType<ErroNenhumRegistroModificado>(resultado.Falha);
         }
 
         [Trait("Usuario.Business.Services", "AlterarStatusUsuarioHandlerTestes")]

@@ -33,7 +33,7 @@ namespace Usuario.Business.Services
                 return respostaUsuarioAtualizado.Falha;
 
             if(respostaUsuarioAtualizado.Sucesso == false)
-                return new ErroNenhumRegistroFoiSalvoOuAtualizado(UsuarioTextosInformativos.NENHUM_REGISTRO_SALVO_ATUALIZADO);
+                return new ErroNenhumRegistroModificado(UsuarioTextosInformativos.NENHUM_REGISTRO_SALVO_ATUALIZADO);
 
             return respostaUsuarioAtualizado.Sucesso;
         }

@@ -10,7 +10,7 @@
         public static string COLABORADOR_CPF_NULO_VAZIO => "O CPF do colaborador não pode ser nulo ou vazio.";
         public static string COLABORADOR_CPF_FORMATO_INVALIDO=> "O CPF do colaborador está em formato inválido.";
         public static string COLABORADOR_FUNCAO_INVALIDA => "A função do colaborador é inválida.";
-        public static string NENHUM_REGISTRO_SALVO_ATUALIZADO => "Nenhum registro foi salvo ou atualizado";
+        public static string NENHUM_REGISTRO_MODIFICADO => "Nenhum registro foi modificado";
         public static string NENHUM_REGISTRO_ENCONTRADO => "Nenhum registro foi encontrado.";
     }
 }

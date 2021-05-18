@@ -11,5 +11,6 @@ namespace Colaborador.Business.Contracts
         Either<ErroBase, IReadOnlyCollection<ColaboradorModel>> ObterColaboradores();
         Either<ErroBase, ColaboradorModel> ObterColaborador(int id);
         Either<ErroBase, bool> ExisteColaborador(int id);
+        Either<ErroBase, bool> DeletarColaborador(ColaboradorModel colaborador);
     }
 }

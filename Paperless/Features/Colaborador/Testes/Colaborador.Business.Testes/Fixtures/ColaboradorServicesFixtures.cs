@@ -34,7 +34,7 @@ namespace Colaborador.Business.Testes.Fixtures
          => ColaboradorEmpresa.Criar(COLABORADOR_PRIMEIRO_NOME, COLABORADOR_SOBRENOME, COLABORADOR_CPF, (int)EColaboradorFuncao.PROGRAMADOR);
 
         public ColaboradorEmpresa GerarColaboradorEmpresaRetorno()
-        => ColaboradorEmpresa.Retornar($"{COLABORADOR_PRIMEIRO_NOME} {COLABORADOR_SOBRENOME}", COLABORADOR_CPF, (int)EColaboradorFuncao.PROGRAMADOR);
+        => ColaboradorEmpresa.Retornar(COLABORADOR_ID_VALIDO, $"{COLABORADOR_PRIMEIRO_NOME} {COLABORADOR_SOBRENOME}", COLABORADOR_CPF, (int)EColaboradorFuncao.PROGRAMADOR);
 
         public ColaboradorModel GerarColaboradorModel()
         {

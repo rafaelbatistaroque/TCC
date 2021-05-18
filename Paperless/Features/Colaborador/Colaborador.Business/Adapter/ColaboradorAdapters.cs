@@ -11,6 +11,7 @@ namespace Colaborador.Business.Adapter
         public ColaboradorEmpresa DeColaboradorModelParaColaborador(ColaboradorModel model)
         {
             return ColaboradorEmpresa.Retornar(
+                    model.Id,
                     model.Nome.NomeCompleto,
                     model.ColaboradorCPF.NumeroCPF,
                     model.Funcao.FuncaoId);
@@ -30,6 +31,7 @@ namespace Colaborador.Business.Adapter
         {
             return listaModel.Select(l =>
                 ColaboradorEmpresa.Retornar(
+                    l.Id,
                     l.Nome.NomeCompleto,
                     l.ColaboradorCPF.NumeroCPF,
                     l.Funcao.FuncaoId)).ToList();
