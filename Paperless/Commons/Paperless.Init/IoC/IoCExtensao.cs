@@ -8,6 +8,7 @@ using Autenticacao.Infra.TokenServico;
 using Colaborador.Business.Adapter;
 using Colaborador.Business.Contracts;
 using Colaborador.Business.Services;
+using Colaborador.Domain.CasosDeUso.AlterarColaborador;
 using Colaborador.Domain.CasosDeUso.CriarColaborador;
 using Colaborador.Domain.CasosDeUso.DeletarColaborador;
 using Colaborador.Domain.CasosDeUso.ObterColaborador;
@@ -68,6 +69,7 @@ namespace Paperless.Init.IoC
             servico.AddScoped<IObterColaboradores, ObterColaboradoresHandler>();
             servico.AddScoped<IObterColaborador, ObterColaboradorHandler>();
             servico.AddScoped<IDeletarColaborador, DeletarColaboradorHandler>();
+            servico.AddScoped<IAlterarColaborador, AlterarColaboradorHandler>();
             servico.AddScoped<IColaboradorAdapters, ColaboradorAdapters>();
             servico.AddScoped<IColaboradorRepository, ColaboradorRepository>();
         }

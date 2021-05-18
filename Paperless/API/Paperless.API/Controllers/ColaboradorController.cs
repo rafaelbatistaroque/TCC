@@ -1,4 +1,5 @@
-﻿using Colaborador.Domain.CasosDeUso.CriarColaborador;
+﻿using Colaborador.Domain.CasosDeUso.AlterarColaborador;
+using Colaborador.Domain.CasosDeUso.CriarColaborador;
 using Colaborador.Domain.CasosDeUso.DeletarColaborador;
 using Colaborador.Domain.CasosDeUso.ObterColaborador;
 using Colaborador.Domain.CasosDeUso.ObterColaboradores;
@@ -17,13 +18,20 @@ namespace Paperless.API.Controllers
         private readonly IObterColaboradores _obterColaboradores;
         private readonly IObterColaborador _obterColaborador;
         private readonly IDeletarColaborador _deletarColaborador;
+        private readonly IAlterarColaborador _alterarColaborador;
 
-        public ColaboradorController(ICriarColaborador criarColaborador, IObterColaboradores obterColaboradores, IObterColaborador obterColaborador, IDeletarColaborador deletarColaborador)
+        public ColaboradorController(
+            ICriarColaborador criarColaborador,
+            IObterColaboradores obterColaboradores,
+            IObterColaborador obterColaborador,
+            IDeletarColaborador deletarColaborador,
+            IAlterarColaborador alterarColaborador)
         {
             _criarColaborador = criarColaborador;
             _obterColaboradores = obterColaboradores;
             _obterColaborador = obterColaborador;
             _deletarColaborador = deletarColaborador;
+            _alterarColaborador = alterarColaborador;
         }
 
         [HttpPost]
@@ -68,13 +76,13 @@ namespace Paperless.API.Controllers
             return resultado.RetornarCaso<IActionResult>(
                 erro => BadRequest(new { Erros = erro }),
                 sucesso => Ok(new
-                    {
-                        sucesso.Id,
-                        sucesso.ColaboradorNome.NomeCompleto,
-                        sucesso.ColaboradorCPF.NumeroCPF,
-                        sucesso.Funcao.FuncaoId,
-                        sucesso.Funcao.FuncaoNome
-                    }));
+                {
+                    sucesso.Id,
+                    sucesso.ColaboradorNome.NomeCompleto,
+                    sucesso.ColaboradorCPF.NumeroCPF,
+                    sucesso.Funcao.FuncaoId,
+                    sucesso.Funcao.FuncaoNome
+                }));
         }
 
         [HttpDelete]
@@ -83,6 +91,17 @@ namespace Paperless.API.Controllers
         public IActionResult Delete(int id)
         {
             var resultado = _deletarColaborador.Handler(id);
+
+            return resultado.RetornarCaso<IActionResult>(
+                erro => BadRequest(new { Erros = erro }),
+                sucesso => Ok());
+        }
+
+        [HttpPut]
+        [Authorize]
+        public IActionResult Put(AlterarColaboradorCommand commad)
+        {
+            var resultado = _alterarColaborador.Handler(commad);
 
             return resultado.RetornarCaso<IActionResult>(
                 erro => BadRequest(new { Erros = erro }),

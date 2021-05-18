@@ -21,6 +21,7 @@ namespace Colaborador.Business.Adapter
         {
             return new ColaboradorModel()
             {
+                Id = c.Id,
                 ColaboradorCPF = c.ColaboradorCPF,
                 Nome = c.ColaboradorNome,
                 Funcao = c.Funcao

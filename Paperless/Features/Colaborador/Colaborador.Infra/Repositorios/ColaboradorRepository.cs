@@ -18,6 +18,21 @@ namespace Colaborador.Infra.Repositorios
             _context = context;
         }
 
+        public Either<ErroBase, bool> AlterarColaborador(ColaboradorModel colaborador)
+        {
+            try
+            {
+                _context.Colaborador.Update(colaborador);
+                var linhasAfetadas = _context.SaveChanges();
+
+                return linhasAfetadas > 0;
+            }
+            catch(Exception e)
+            {
+                return new ErroComunicacaoBancoDeDados(e.Message);
+            }
+        }
+
         public Either<ErroBase, bool> CriarColaborador(ColaboradorModel colaborador)
         {
             try
@@ -33,11 +48,11 @@ namespace Colaborador.Infra.Repositorios
             }
         }
 
-        public Either<ErroBase, bool> DeletarColaborador(ColaboradorModel colaborado)
+        public Either<ErroBase, bool> DeletarColaborador(ColaboradorModel colaborador)
         {
             try
             {
-                _context.Colaborador.Remove(colaborado);
+                _context.Colaborador.Remove(colaborador);
                 var linhasAfetadas = _context.SaveChanges();
 
                 return linhasAfetadas > 0;
