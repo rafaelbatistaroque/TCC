@@ -1,0 +1,16 @@
+{
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"name": ".NET Core Launch (console)",
+			"type": "coreclr",
+			"request": "launch",
+			"preLaunchTask": "build",
+			"program": "${workspaceFolder}/API/Paperless.API/bin/Debug/netcoreapp3.1/Paperless.API.dll",
+			"args": [],
+			"cwd": "${workspaceFolder}/API/Paperless.API",
+			"stopAtEntry": false,
+			"console": "internalConsole"
+		}
+	]
+}
