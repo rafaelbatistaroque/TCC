@@ -1,6 +1,7 @@
 ﻿using Flunt.Notifications;
 using Flunt.Validations;
 using Paperless.Shared.TextosInformativos;
+using System.Text.RegularExpressions;
 
 namespace Paperless.Shared.Validacoes
 {
@@ -17,7 +18,7 @@ namespace Paperless.Shared.Validacoes
         {
             AddNotifications(new Contract()
                 .IsNotNullOrWhiteSpace(colaboradorNome, nameof(colaboradorNome), ColaboradorTextosInformativos.COLABORADOR_NOME_NULO_VAZIO)
-                .Matchs(colaboradorNome, @"[a-zA-Z]", nameof(colaboradorNome), ColaboradorTextosInformativos.COLABORADOR_NOME_INVALIDO)
+                .IsTrue(Regex.IsMatch(colaboradorNome ?? string.Empty, @"[a-zA-Z]", RegexOptions.IgnoreCase), nameof(colaboradorNome), ColaboradorTextosInformativos.COLABORADOR_NOME_INVALIDO)
                 );
         }
 
@@ -25,7 +26,7 @@ namespace Paperless.Shared.Validacoes
         {
             AddNotifications(new Contract()
                 .IsNotNullOrWhiteSpace(sobrenome, nameof(sobrenome), ColaboradorTextosInformativos.COLABORADOR_SOBRENOME_NULO_VAZIO)
-                .Matchs(sobrenome, @"[a-zA-Z]", nameof(sobrenome), ColaboradorTextosInformativos.COLABORADOR_SOBRENOME_INVALIDO)
+                .IsTrue(Regex.IsMatch(sobrenome ?? string.Empty, @"[a-zA-Z]", RegexOptions.IgnoreCase), nameof(sobrenome), ColaboradorTextosInformativos.COLABORADOR_SOBRENOME_INVALIDO)
                 );
         }
 
@@ -33,7 +34,7 @@ namespace Paperless.Shared.Validacoes
         {
             AddNotifications(new Contract()
                .IsNotNullOrWhiteSpace(colaboradorCPF, nameof(colaboradorCPF), ColaboradorTextosInformativos.COLABORADOR_CPF_NULO_VAZIO)
-               .Matchs(colaboradorCPF, @"^((\d{3}[.\s-]?){3}\d{2}|11)$", nameof(colaboradorCPF), ColaboradorTextosInformativos.COLABORADOR_CPF_FORMATO_INVALIDO)
+               .IsTrue(Regex.IsMatch(colaboradorCPF ?? string.Empty, @"^((\d{3}[.\s-]?){3}\d{2}|11)$", RegexOptions.IgnoreCase), nameof(colaboradorCPF), ColaboradorTextosInformativos.COLABORADOR_CPF_FORMATO_INVALIDO)
                );
         }
 

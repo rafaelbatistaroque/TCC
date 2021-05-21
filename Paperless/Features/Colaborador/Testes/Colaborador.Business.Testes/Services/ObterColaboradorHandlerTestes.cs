@@ -71,7 +71,6 @@ namespace Colaborador.Business.Testes.Services
             Assert.IsAssignableFrom<ErroBase>(resultado.Falha);
         }
 
-
         [Trait("Colaborador.Business.Services", "ObterColaboradorHandlerTestes")]
         [Fact(DisplayName = "Retornar colaborador caso não ocorrer erro ao obter colaborador")]
         public void AoInvocarHandler_QuandoNaoOcorrerErroAoObterColaborador_DeveRetornarColaborador()

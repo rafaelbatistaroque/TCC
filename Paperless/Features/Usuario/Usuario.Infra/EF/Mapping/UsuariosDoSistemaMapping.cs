@@ -17,9 +17,7 @@ namespace Usuario.Infra.EF.Mapping
                 i => i.Property(i => i.Codigo).HasMaxLength(5).HasColumnType("varchar(5)").HasColumnName("UsuarioIdentificacao"));
            
             montar.OwnsOne(x => x.UsuarioPerfil,
-                p => {
-                    p.Property(p => p.PerfilId).HasColumnType("int").HasColumnName("UsuarioPerfilId");
-                });
+                p => p.Property(p => p.PerfilId).HasColumnType("int").HasColumnName("UsuarioPerfilId"));
 
             montar.OwnsOne(s => s.UsuarioSenha,
                 s => s.Property(x => x.Senha).HasMaxLength(15).HasColumnType("varchar(15)").HasColumnName("UsuarioSenha"));

@@ -6,8 +6,16 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Flunt" Version="1.0.5" />
+    <Folder Include="CasosDeUso\DownloadArquivo\" />
+    <Folder Include="CasosDeUso\ObterArquivos\" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="5.0.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Commons\Paperless.Shared\Paperless.Shared.csproj" />
   </ItemGroup>
 
 </Project>

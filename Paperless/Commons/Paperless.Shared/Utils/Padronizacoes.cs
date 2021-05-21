@@ -1,4 +1,6 @@
-﻿using Paperless.Shared.Enums;
+﻿using Microsoft.AspNetCore.Http;
+using Paperless.Shared.Enums;
+using Paperless.Shared.TextosInformativos;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,12 +10,20 @@ namespace Paperless.Shared.Utils
 {
     public class Padronizacoes
     {
-        private const string PERFIL_NOME_ADMINISTRADOR = "ADMINISTRADOR";
-        private const string PERFIL_NOME_USUARIO = "USUÁRIO";
+        private const string HOST_5001 = "https://localhost:5001";
+        private const string DOMINIO_DOWNLOAD = "ArquivoDownload";
+
         private static readonly Dictionary<int, string> PERFIS = new Dictionary<int, string>()
             {
-                {(int)EUsuarioPerfil.ADMINISTRADOR, PERFIL_NOME_ADMINISTRADOR},
-                {(int)EUsuarioPerfil.USUARIO, PERFIL_NOME_USUARIO}
+                {(int)EUsuarioPerfil.ADMINISTRADOR, ArquivoTextosInformativos.PERFIL_NOME_ADMINISTRADOR},
+                {(int)EUsuarioPerfil.USUARIO, ArquivoTextosInformativos.PERFIL_NOME_USUARIO}
+            };
+
+        private static readonly Dictionary<int, string> TIPOS_ANEXO = new Dictionary<int, string>()
+            {
+                {(int)ETipoAnexo.ATESTADO, ArquivoTextosInformativos.TIPO_ANEXO_ATESTADO},
+                {(int)ETipoAnexo.CARTAO_PONTO, ArquivoTextosInformativos.TIPO_ANEXO_CARTAO_PONTO },
+                {(int)ETipoAnexo.HOLERITE, ArquivoTextosInformativos.TIPO_ANEXO_HOLERITE },
             };
 
         public static string DescriptografarDeBase64(string senhaCriptografada)
@@ -43,6 +53,11 @@ namespace Paperless.Shared.Utils
             return Guid.NewGuid().ToString().Replace("-", "")[..5].ToUpper();
         }
 
+        public static string GerarSequenciaIdentificacaoAnexo()
+        {
+            return Guid.NewGuid().ToString().Replace("-", "")[..10].ToUpper();
+        }
+
         public static string ComTextoBearer(string token)
         {
             return $"Bearer {token}";
@@ -58,6 +73,33 @@ namespace Paperless.Shared.Utils
             return PERFIS.ContainsKey(perfilId) == false
                 ? (int)EUsuarioPerfil.USUARIO
                 : perfilId;
+        }
+
+        public static string ObterTipoAnexoNome(int anexoId)
+        {
+            return TIPOS_ANEXO[anexoId];
+        }
+
+        public static int ValidarTipoAnexoId(int anexoId)
+        {
+            return TIPOS_ANEXO.ContainsKey(anexoId) == false
+                ? (int)ETipoAnexo.NAO_ESPECIFICADO
+                : anexoId;
+        }
+
+        public static string ExtrairExtensaoAnexo(IFormFile anexo)
+        {
+            return anexo.FileName.Split(".")[1];
+        }
+
+        public static string MontarLinkParaDownloadAnexo(int colaboradorId, string codigoAnexo)
+        {
+            return new StringBuilder()
+                .Append(HOST_5001)
+                .AppendFormat("/{0}", DOMINIO_DOWNLOAD)
+                .AppendFormat("/{0}", colaboradorId)
+                .AppendFormat("/{0}", codigoAnexo)
+                .ToString();
         }
     }
 }

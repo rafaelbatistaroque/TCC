@@ -15,6 +15,6 @@ namespace Autenticacao.Fixtures
         protected const bool USUARIO_ATIVO_VALIDO = true;
         protected const bool USUARIO_INATIVO_VALIDO = false;
 
-        protected ErroBase ErroGenerico() => new ErroGenericoTestes("Erro generico gerado");
+        protected ErroBase ErroGenerico() => new ErroGenericoTestes();
     }
 }

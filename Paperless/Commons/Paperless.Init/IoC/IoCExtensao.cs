@@ -1,4 +1,11 @@
-﻿using Autenticacao.Business.Contracts;
+﻿using Arquivo.Business.Adapters;
+using Arquivo.Business.Contracts;
+using Arquivo.Business.Facades;
+using Arquivo.Business.Services;
+using Arquivo.Domain.CasosDeUso.CriarArquivo;
+using Arquivo.Infra.EF;
+using Arquivo.Infra.Repositorios;
+using Autenticacao.Business.Contracts;
 using Autenticacao.Business.Facades;
 using Autenticacao.Business.Services;
 using Autenticacao.Domain.CasosDeUso.AutenticarUsuario;
@@ -37,10 +44,11 @@ namespace Paperless.Init.IoC
             servico.AddDbContext<AutenticacaoContext>(ObterStringConexaoSQL);
             servico.AddDbContext<UsuarioContext>(ObterStringConexaoSQL);
             servico.AddDbContext<ColaboradorContext>(ObterStringConexaoSQL);
-            //servico.AddDbContext<ArquivoContext>(ObterStringConexaoSQL);
+            servico.AddDbContext<ArquivoContext>(ObterStringConexaoSQL);
             servico.AdicionarAutenticacaoIoC();
             servico.AdicionarUsuarioIoC();
             servico.AdicionarColaboradorIoC();
+            servico.AdicionarArquivoIoC();
         }
 
         public static void AdicionarAutenticacaoIoC(this IServiceCollection servico)
@@ -76,7 +84,11 @@ namespace Paperless.Init.IoC
 
         public static void AdicionarArquivoIoC(this IServiceCollection servico)
         {
-            //servico.AddScoped<ArquivoContext>();
+            servico.AddScoped<ArquivoContext>();
+            servico.AddScoped<ICriarArquivo, CriarArquivoHandler>();
+            servico.AddScoped<IArquivoRepository, ArquivoRepository>();
+            servico.AddScoped<IAnexoFacade, AnexoFacade>();
+            servico.AddScoped<IArquivoAdapter, ArquivoAdapter>();
         }
     }
 }
