@@ -1,6 +1,7 @@
 ﻿using Autenticacao.Domain.CasosDeUso.AutenticarUsuario;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace Paperless.API.Controllers
 {
@@ -19,11 +20,18 @@ namespace Paperless.API.Controllers
         [AllowAnonymous]
         public IActionResult Post([FromBody] AutenticarUsuarioCommand command)
         {
-            var resultado = _autenticarUsuario.Handler(command);
+            try
+            {
+                var resultado = _autenticarUsuario.Handler(command);
 
-            return resultado.RetornarCaso<IActionResult>(
-                erro => BadRequest(new { Erros = erro }),
-                sucesso => Ok(sucesso));
+                return resultado.RetornarCaso<IActionResult>(
+                    erro => BadRequest(new { Erros = erro }),
+                    sucesso => Ok(sucesso));
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

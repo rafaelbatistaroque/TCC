@@ -18,7 +18,7 @@ namespace Autenticacao.Business.Testes.Fixtures
         public AutenticarUsuarioHandler GerarSUT()
             => Mocker.CreateInstance<AutenticarUsuarioHandler>();
 
-        public AutenticarUsuarioCommand GerarAutenticarUsuarioCommand(string usuarioIdentificador, string senha)
+        public AutenticarUsuarioCommand GerarAutenticarUsuarioCommandInvalido(string usuarioIdentificador, string senha)
             => new AutenticarUsuarioCommand() { UsuarioIdentificacao = usuarioIdentificador, UsuarioSenha = senha };
 
         public AutenticarUsuarioCommand GerarAutenticarUsuarioCommandValido()

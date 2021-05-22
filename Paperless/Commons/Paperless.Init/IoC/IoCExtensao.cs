@@ -7,7 +7,6 @@ using Arquivo.Domain.CasosDeUso.ObterArquivos;
 using Arquivo.Infra.EF;
 using Arquivo.Infra.Repositorios;
 using Autenticacao.Business.Contracts;
-using Autenticacao.Business.Facades;
 using Autenticacao.Business.Services;
 using Autenticacao.Domain.CasosDeUso.AutenticarUsuario;
 using Autenticacao.Infra.EF;
@@ -58,7 +57,6 @@ namespace Paperless.Init.IoC
             servico.AddScoped<IAutenticarUsuario, AutenticarUsuarioHandler>();
             servico.AddScoped<IAutenticacaoRepository, AutenticacaoRepository>();
             servico.AddScoped<IJWT, JWTServico>();
-            servico.AddScoped<IAutenticacaoFacades, AutenticacaoFacades>();
         }
 
         public static void AdicionarUsuarioIoC(this IServiceCollection servico)

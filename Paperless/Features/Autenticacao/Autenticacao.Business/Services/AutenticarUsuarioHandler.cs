@@ -11,13 +11,13 @@ namespace Autenticacao.Business.Services
 {
     public class AutenticarUsuarioHandler : IAutenticarUsuario
     {
-        private readonly IAutenticacaoFacades _facades;
         private readonly IJWT _tokenServico;
+        private readonly IAutenticacaoRepository _repositorio;
 
-        public AutenticarUsuarioHandler(IAutenticacaoFacades facades, IJWT tokenServico)
+        public AutenticarUsuarioHandler(IJWT tokenServico, IAutenticacaoRepository repositorio)
         {
-            _facades = facades;
             _tokenServico = tokenServico;
+            _repositorio = repositorio;
         }
 
         public Either<ErroBase, UsuarioAutenticado> Handler(AutenticarUsuarioCommand command)
@@ -26,17 +26,17 @@ namespace Autenticacao.Business.Services
             if(command.Invalid)
                 return new ErroValidacaoCommandQuery(command.Notifications.Select(e => e.Message).ToArray());
 
-            var usuario = _facades.ObterUsuarioFacades(command.UsuarioIdentificacao);
-            if(usuario.EhFalha)
-                return usuario.Falha;
+            var usuario = _repositorio.ObterUsuario(command.UsuarioIdentificacao);
+            if(usuario is null)
+                return new ErroRegistroNaoEncontrado(AutenticacaoTextosInformativos.USUARIO_NAO_ENCONTRADO);
 
-            string senhaDescriptografada = Padronizacoes.DescriptografarDeBase64(usuario.Sucesso.UsuarioSenha);
+            string senhaDescriptografada = Padronizacoes.DescriptografarDeBase64(usuario.UsuarioSenha);
                 
             if(command.UsuarioSenha.Equals(senhaDescriptografada) == false)
                 return new ErroAutenticacaoUsuario(AutenticacaoTextosInformativos.SENHA_INVALIDA);
 
-            var token = _tokenServico.GerarToken(usuario.Sucesso.UsuarioIdentificacao.ToUpper(), Padronizacoes.ObterNomePerfil(usuario.Sucesso.UsuarioPerfilId));
-            var usuarioAutenticado = UsuarioAutenticado.Criar(usuario.Sucesso.UsuarioNome, usuario.Sucesso.UsuarioPerfilId, token);
+            var token = _tokenServico.GerarToken(usuario.UsuarioIdentificacao.ToUpper(), Padronizacoes.ObterNomePerfil(usuario.UsuarioPerfilId));
+            var usuarioAutenticado = UsuarioAutenticado.Criar(usuario.UsuarioNome, usuario.UsuarioPerfilId, token);
 
             return usuarioAutenticado;
         }
