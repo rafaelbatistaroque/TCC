@@ -1,5 +1,4 @@
 ﻿using Arquivo.Business.Models;
-using Arquivo.Domain.Entidades;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Internal;
 using Paperless.Shared.Erros;
@@ -14,9 +13,11 @@ namespace Arquivo.Fixtures
         protected const string REFERENCIA_ANO_VALIDA = "2021";
         protected const int TIPO_ARQUIVO_VALIDO = 1;
         protected const int COLABORADOR_ID_VALIDO = 1;
+        protected const int COLABORADOR_ID_INVALIDO = -1;
         protected IFormFile ANEXO_VALIDO = new FormFile(new MemoryStream(Encoding.UTF8.GetBytes("CONTEUDO_ANEXO_FAKE")), 0, 1, "Data", "ANEXO_FAKE.txt");
         protected const string OBSERVACAO_VALIDA = "OBS";
         protected const string EXTENSAO_VALIDA = "PDF";
+        protected const string DIRETORIO_FAKE = @"C:\";
 
         protected ArquivoModel ArquivoModel() => new ArquivoModel();
 

@@ -7,38 +7,36 @@ namespace Arquivo.Domain.Entidades
     {
         public int Id { get; }
         public int ColaboradorId { get; }
-        public string Extensao { get; }
-        public DateTime DataCadastro { get; }
+        public string DataCadastro { get; }
         public string AnoReferencia { get; }
         public string MesReferencia { get; }
         public Anexo Anexo { get; }
         public string? Observacoes { get; }
-        public string LinkParaDownload { get; }
 
-        private ArquivoRegistrado(int colaboradorId, Anexo anexo, string anoReferencia, string mesReferencia, string observacoes)
+        private ArquivoRegistrado(int colaboradorId, Anexo anexo, string anoReferencia, string mesReferencia, string observacoes, string dataCadastro)
+            : this(anexo, anoReferencia, mesReferencia, observacoes, dataCadastro)
         {
             ColaboradorId = colaboradorId;
-            DataCadastro = DateTime.Now;
-            AnoReferencia = anoReferencia;
-            MesReferencia = mesReferencia;
-            Anexo = anexo;
-            Observacoes = observacoes;
         }
 
-        private ArquivoRegistrado(int colaboradorId, Anexo anexo, string anoReferencia, string mesReferencia, string observacoes, int id = 0)
-            : this(colaboradorId, anexo, anoReferencia, mesReferencia, observacoes)
+        private ArquivoRegistrado(Anexo anexo, string anoReferencia, string mesReferencia, string observacoes, string dataCadastro, int id = 0)
         {
             Id = id;
+            AnoReferencia = anoReferencia;
+            MesReferencia = mesReferencia;
+            Observacoes = observacoes;
+            DataCadastro = dataCadastro;
+            Anexo = anexo;
         }
 
         public static ArquivoRegistrado Criar(int colaboradorId, string anoReferencia, string mesReferencia, int tipoArquivo, string observacoes, string extensao)
         {
-            return new ArquivoRegistrado(colaboradorId, Anexo.Criar(tipoArquivo, extensao), anoReferencia, mesReferencia, observacoes);
+            return new ArquivoRegistrado(colaboradorId, Anexo.Criar(tipoArquivo, extensao), anoReferencia, mesReferencia, observacoes, DateTime.Now.Date.ToString("dd/MM/yyy"));
         }
 
-        public static ArquivoRegistrado Retornar(int id, int colaboradorId, string anoReferencia, string mesReferencia, int tipoArquivo, string codigoAnexo, string extensao, string observacoes)
+        public static ArquivoRegistrado Retornar(int id, string anoReferencia, string mesReferencia, int tipoArquivo, string codigoAnexo, string extensao, string observacoes, string dataCadastro)
         {
-            return new ArquivoRegistrado(colaboradorId, Anexo.Retornar(tipoArquivo, codigoAnexo, extensao), anoReferencia, mesReferencia, observacoes, id);
+            return new ArquivoRegistrado(Anexo.Retornar(tipoArquivo, codigoAnexo, extensao), anoReferencia, mesReferencia, observacoes, dataCadastro, id);
         }
     }
 }

@@ -28,7 +28,7 @@ namespace Arquivo.Business.Services
                 return new ErroValidacaoCommandQuery(command.Notifications.Select(e => e.Message).ToArray());
 
             var respostaColaboradorExiste = _repositorio.ExisteColaborador(command.ColaboradorId);
-            if(respostaColaboradorExiste.EhFalha || respostaColaboradorExiste.Sucesso is false)
+            if(respostaColaboradorExiste is false)
                 return new ErroRegistroNaoEncontrado(ArquivoTextosInformativos.NENHUM_REGISTRO_ENCONTRADO);
 
             var extensaoAnexo = Padronizacoes.ExtrairExtensaoAnexo(command.Anexo);
@@ -48,13 +48,10 @@ namespace Arquivo.Business.Services
             var arquivoModel = _adapter.DeArquivoRegistadoParaArquivoModel(arquivoRegitrado);
             
             var respostaArquivoCriado = _repositorio.PersistirArquivo(arquivoModel);
-            if(respostaArquivoCriado.EhFalha)
-                return respostaArquivoCriado.Falha;
-
-            if(respostaArquivoCriado.Sucesso is false)
+            if(respostaArquivoCriado is false)
                 return new ErroNenhumRegistroModificado(ArquivoTextosInformativos.NENHUM_REGISTRO_MODIFICADO);
 
-            return respostaArquivoCriado.Sucesso;
+            return respostaArquivoCriado;
         }
     }
 }

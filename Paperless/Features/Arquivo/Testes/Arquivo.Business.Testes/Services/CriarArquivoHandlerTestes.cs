@@ -43,24 +43,8 @@ namespace Arquivo.Business.Testes.Services
         }
 
         [Trait("Arquivo.Business.Services", "CriarArquivoHandler")]
-        [Fact(DisplayName = "Retornar erro se erro ao verificar se colaborador existe")]
-        public void AoInvocarHandler_QuandoErroRetornoRepositorio_DeveRetornarErroespecifico()
-        {
-            // Arrange
-            _fixtures.Mocker.GetMock<IArquivoRepository>().Setup(r => r.ExisteColaborador(It.IsAny<int>())).Returns(_fixtures.GerarErroGenerico());
-
-            // Act
-            var resultado = _sut.Handler(_fixtures.GerarCriarArquivoCommandValido());
-
-            // Assert
-            Assert.NotNull(resultado);
-            Assert.True(resultado.EhFalha);
-            Assert.IsType<ErroRegistroNaoEncontrado>(resultado.Falha);
-        }
-
-        [Trait("Arquivo.Business.Services", "CriarArquivoHandler")]
         [Fact(DisplayName = "Retornar erro se colaborador não existir")]
-        public void AoInvocarHandler_QuandoColaboradorNaoExistir_DeveRetornarErroespecifico()
+        public void AoInvocarHandler_QuandoColaboradorNaoExistir_DeveRetornarErroEspecifico()
         {
             // Arrange
             _fixtures.Mocker.GetMock<IArquivoRepository>().Setup(r => r.ExisteColaborador(It.IsAny<int>())).Returns(false);
@@ -93,28 +77,8 @@ namespace Arquivo.Business.Testes.Services
         }
 
         [Trait("Arquivo.Business.Services", "CriarArquivoHandler")]
-        [Fact(DisplayName = "Retornar erro proveniente se erro ao persistir registro de arquivo no repositorio")]
-        public void AoInvocarHandler_QuandoErroAoPersistirRegistroArquivo_DeveRetornarErroProveniente()
-        {
-            // Arrange
-            var command = _fixtures.GerarCriarArquivoCommandValido();
-            _fixtures.Mocker.GetMock<IArquivoRepository>().Setup(r => r.ExisteColaborador(It.IsAny<int>())).Returns(true);
-            _fixtures.Mocker.GetMock<IAnexoFacade>().Setup(d => d.SalvarAnexoEmDiretorio(It.IsAny<IFormFile>(), It.IsAny<string>())).Returns(true);
-            _fixtures.Mocker.GetMock<IArquivoAdapter>().Setup(d => d.DeArquivoRegistadoParaArquivoModel(It.IsAny<ArquivoRegistrado>())).Returns(_fixtures.GerarArquivoModel());
-            _fixtures.Mocker.GetMock<IArquivoRepository>().Setup(r => r.PersistirArquivo(It.IsAny<ArquivoModel>())).Returns(_fixtures.GerarErroGenerico());
-
-            // Act
-            var resultado = _sut.Handler(command);
-
-            // Assert
-            Assert.NotNull(resultado);
-            Assert.True(resultado.EhFalha);
-            Assert.IsAssignableFrom<ErroBase>(resultado.Falha);
-        }
-
-        [Trait("Arquivo.Business.Services", "CriarArquivoHandler")]
         [Fact(DisplayName = "Retornar erro se nenhum registro modificado ao persistir arquivo")]
-        public void AoInvocarHandler_QuandoFalseAoPersistirArquivo_DeveRetornarErroNenhumRegistroMOdificado()
+        public void AoInvocarHandler_QuandoFalseAoPersistirArquivo_DeveRetornarErroNenhumRegistroModificado()
         {
             // Arrange
             var command = _fixtures.GerarCriarArquivoCommandValido();

@@ -1,13 +1,14 @@
 ﻿using Arquivo.Business.Models;
-using Paperless.Shared.Erros;
-using Paperless.Shared.Utils;
+using System.Collections.Generic;
 
 namespace Arquivo.Business.Contracts
 {
     public interface IArquivoRepository
     {
-        Either<ErroBase, bool> ExisteColaborador(int ColaboradorId);
-        
-        Either<ErroBase, bool> PersistirArquivo(ArquivoModel arquivoModel);
+        bool ExisteColaborador(int ColaboradorId);
+
+        bool PersistirArquivo(ArquivoModel arquivoModel);
+
+        IReadOnlyCollection<ArquivoModel> ObterArquivos(int colbaboradorId);
     }
 }

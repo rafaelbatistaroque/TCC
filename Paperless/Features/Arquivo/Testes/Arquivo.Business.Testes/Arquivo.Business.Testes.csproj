@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\aFeatures\Arquivo\Testes\Arquivo.Fixtures\Arquivo.Fixtures.csproj" />
+    <ProjectReference Include="..\Arquivo.Fixtures\Arquivo.Fixtures.csproj" />
   </ItemGroup>
 
 </Project>

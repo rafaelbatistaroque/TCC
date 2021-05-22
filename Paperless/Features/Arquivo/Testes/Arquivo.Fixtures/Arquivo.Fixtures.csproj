@@ -9,7 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Features\Arquivo\Arquivo.Infra\Arquivo.Infra.csproj" />
+    <ProjectReference Include="..\..\Arquivo.Infra\Arquivo.Infra.csproj" />
   </ItemGroup>
 
 </Project>

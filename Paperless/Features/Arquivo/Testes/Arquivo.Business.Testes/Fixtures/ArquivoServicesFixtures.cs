@@ -5,6 +5,7 @@ using Arquivo.Fixtures;
 using Microsoft.AspNetCore.Http;
 using Moq.AutoMock;
 using Paperless.Shared.Erros;
+using System.Collections.Generic;
 
 namespace Arquivo.Business.Testes.Fixtures
 {
@@ -30,6 +31,14 @@ namespace Arquivo.Business.Testes.Fixtures
 
         public ArquivoRegistrado GerarArquivoRegistrado()
             => ArquivoRegistrado.Criar(COLABORADOR_ID_VALIDO,REFERENCIA_ANO_VALIDA,REFERENCIA_MES_VALIDA,TIPO_ARQUIVO_VALIDO,OBSERVACAO_VALIDA, EXTENSAO_VALIDA);
+
+        public int GerarColaboradorIdInvalido() => COLABORADOR_ID_INVALIDO;
+
+        public int GerarColaboradorIdValido() => COLABORADOR_ID_VALIDO;
+
+        public List<ArquivoModel> GeraListaArquivoModel() => new List<ArquivoModel>() { ArquivoModel() };
+
+        public List<ArquivoRegistrado> GeraListaArquivoRegistrado() => new List<ArquivoRegistrado>() { GerarArquivoRegistrado() };
 
         public ErroBase GerarErroGenerico() => ErroGenerico();
     }
