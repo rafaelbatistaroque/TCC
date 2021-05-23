@@ -29,13 +29,10 @@ namespace Colaborador.Business.Services
             var novoColaboradorModel = _adapters.DeColaboradorParaColaboradorModel(novoColaborador);
 
             var respostaRepositorio = _repositorio.CriarColaborador(novoColaboradorModel);
-            if(respostaRepositorio.EhFalha)
-                return respostaRepositorio.Falha;
-
-            if(respostaRepositorio.Sucesso == false)
+            if(respostaRepositorio is false)
                 return new ErroNenhumRegistroModificado(ColaboradorTextosInformativos.NENHUM_REGISTRO_MODIFICADO);
 
-            return respostaRepositorio.Sucesso;
+            return respostaRepositorio;
         }
     }
 }

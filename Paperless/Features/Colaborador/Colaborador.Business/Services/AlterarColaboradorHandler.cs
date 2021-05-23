@@ -26,10 +26,7 @@ namespace Colaborador.Business.Services
                 return new ErroValidacaoCommandQuery(command.Notifications.Select(e => e.Message).ToArray());
 
             var respostaColaboradorExiste = _repositorio.ExisteColaborador(command.Id);
-            if(respostaColaboradorExiste.EhFalha)
-                return respostaColaboradorExiste.Falha;
-
-            if(respostaColaboradorExiste.Sucesso is false)
+            if(respostaColaboradorExiste is false)
                 return new ErroRegistroNaoEncontrado(ColaboradorTextosInformativos.NENHUM_REGISTRO_ENCONTRADO);
 
             var colaboradorAlterado = ColaboradorEmpresa.Alterar(
@@ -41,13 +38,10 @@ namespace Colaborador.Business.Services
             var colaboradorModel = _adapter.DeColaboradorParaColaboradorModel(colaboradorAlterado);
 
             var respostaColaborador = _repositorio.AlterarColaborador(colaboradorModel);
-            if(respostaColaborador.EhFalha)
-                return respostaColaborador.Falha;
-
-            if(respostaColaborador.Sucesso is false)
+            if(respostaColaborador is false)
                 return new ErroNenhumRegistroModificado(ColaboradorTextosInformativos.NENHUM_REGISTRO_MODIFICADO);
 
-            return respostaColaborador.Sucesso;
+            return respostaColaborador;
         }
     }
 }

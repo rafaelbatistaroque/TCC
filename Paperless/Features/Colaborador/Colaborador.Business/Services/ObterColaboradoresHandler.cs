@@ -22,10 +22,7 @@ namespace Colaborador.Business.Services
         public Either<ErroBase, IReadOnlyCollection<ColaboradorEmpresa>> Handler()
         {
             var colaboradoresModel = _repositorio.ObterColaboradores();
-            if(colaboradoresModel.EhFalha)
-                return colaboradoresModel.Falha;
-
-            var colaboradores = _adapter.DeListaColaboradorModelParaListaColaboradorEmpresa(colaboradoresModel.Sucesso);
+            var colaboradores = _adapter.DeListaColaboradorModelParaListaColaboradorEmpresa(colaboradoresModel);
 
             return colaboradores.ToList();
         }

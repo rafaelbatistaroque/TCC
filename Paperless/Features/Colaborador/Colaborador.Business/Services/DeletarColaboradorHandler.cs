@@ -18,20 +18,14 @@ namespace Colaborador.Business.Services
         public Either<ErroBase, bool> Handler(int id)
         {
             var respostaColaboradorModel = _repositorio.ObterColaborador(id);
-            if(respostaColaboradorModel.EhFalha)
-                return respostaColaboradorModel.Falha;
-
-            if(respostaColaboradorModel.Sucesso is null)
+            if(respostaColaboradorModel is null)
                 return new ErroRegistroNaoEncontrado(ColaboradorTextosInformativos.NENHUM_REGISTRO_ENCONTRADO);
 
-            var respostaColaboradorDeletado = _repositorio.DeletarColaborador(respostaColaboradorModel.Sucesso);
-            if(respostaColaboradorDeletado.EhFalha)
-                return respostaColaboradorDeletado.Falha;
-
-            if(respostaColaboradorDeletado.Sucesso is false)
+            var respostaColaboradorDeletado = _repositorio.DeletarColaborador(respostaColaboradorModel);
+            if(respostaColaboradorDeletado is false)
                 return new ErroNenhumRegistroModificado(ColaboradorTextosInformativos.NENHUM_REGISTRO_MODIFICADO);
 
-            return respostaColaboradorDeletado.Sucesso;
+            return respostaColaboradorDeletado;
         }
     }
 }

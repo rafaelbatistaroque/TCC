@@ -45,24 +45,6 @@ namespace Colaborador.Business.Testes.Services
         }
 
         [Trait("Colaborador.Business.Services", "CriarColaboradorHandlerTestes")]
-        [Fact(DisplayName = "Retornar erro quando retornar falha no repositório")]
-        public void AoInvocarHandler_QuandoFalhaNoretornoDoRepositorio_DeveRetornarErroProveniente()
-        {
-            // Arrange
-            var commandValido = _fixtures.GerarCriarColaboradorCommandValido();
-            _fixtures.Mocker.GetMock<IColaboradorAdapters>().Setup(a => a.DeColaboradorParaColaboradorModel(It.IsAny<ColaboradorEmpresa>())).Returns(_fixtures.GerarColaboradorModel());
-            _fixtures.Mocker.GetMock<IColaboradorRepository>().Setup(a => a.CriarColaborador(It.IsAny<ColaboradorModel>())).Returns(_fixtures.GerarErroGenerico());
-
-            // Act
-            var resultado = _sut.Handler(commandValido);
-
-            // Assert
-            Assert.NotNull(resultado);
-            Assert.True(resultado.EhFalha);
-            Assert.IsAssignableFrom<ErroBase>(resultado.Falha);
-        }
-
-        [Trait("Colaborador.Business.Services", "CriarColaboradorHandlerTestes")]
         [Fact(DisplayName = "Retornar erro se nenhum registro foi salvo na base de dados")]
         public void AoInvocarHandler_QuandoRetornoNenhumRegistroAfetado_DeveRetornarBooleanoErroNehumRegistroFoiSalvo()
         {

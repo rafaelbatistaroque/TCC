@@ -1,9 +1,6 @@
 ﻿using Colaborador.Business.Contracts;
 using Colaborador.Business.Models;
 using Colaborador.Infra.EF;
-using Paperless.Shared.Erros;
-using Paperless.Shared.Utils;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -18,85 +15,43 @@ namespace Colaborador.Infra.Repositorios
             _context = context;
         }
 
-        public Either<ErroBase, bool> AlterarColaborador(ColaboradorModel colaborador)
+        public bool AlterarColaborador(ColaboradorModel colaborador)
         {
-            try
-            {
-                _context.Colaborador.Update(colaborador);
-                var linhasAfetadas = _context.SaveChanges();
+            _context.Colaborador.Update(colaborador);
+            var linhasAfetadas = _context.SaveChanges();
 
-                return linhasAfetadas > 0;
-            }
-            catch(Exception e)
-            {
-                return new ErroComunicacaoBancoDeDados(e.Message);
-            }
+            return linhasAfetadas > 0;
         }
 
-        public Either<ErroBase, bool> CriarColaborador(ColaboradorModel colaborador)
+        public bool CriarColaborador(ColaboradorModel colaborador)
         {
-            try
-            {
-                _context.Colaborador.Add(colaborador);
-                var linhasAfetadas = _context.SaveChanges();
+            _context.Colaborador.Add(colaborador);
+            var linhasAfetadas = _context.SaveChanges();
 
-                return linhasAfetadas > 0;
-            }
-            catch(Exception e)
-            {
-                return new ErroComunicacaoBancoDeDados(e.Message);
-            }
+            return linhasAfetadas > 0;
         }
 
-        public Either<ErroBase, bool> DeletarColaborador(ColaboradorModel colaborador)
+        public bool DeletarColaborador(ColaboradorModel colaborador)
         {
-            try
-            {
-                _context.Colaborador.Remove(colaborador);
-                var linhasAfetadas = _context.SaveChanges();
+            _context.Colaborador.Remove(colaborador);
+            var linhasAfetadas = _context.SaveChanges();
 
-                return linhasAfetadas > 0;
-            }
-            catch(Exception e)
-            {
-                return new ErroComunicacaoBancoDeDados(e.Message);
-            }
+            return linhasAfetadas > 0;
         }
 
-        public Either<ErroBase, bool> ExisteColaborador(int id)
+        public bool ExisteColaborador(int id)
         {
-            try
-            {
-                return _context.Colaborador.Any(c => c.Id == id);
-            }
-            catch(Exception e)
-            {
-                return new ErroComunicacaoBancoDeDados(e.Message);
-            }
+            return _context.Colaborador.Any(c => c.Id == id);
         }
 
-        public Either<ErroBase, ColaboradorModel> ObterColaborador(int id)
+        public ColaboradorModel ObterColaborador(int id)
         {
-            try
-            {
-                return _context.Colaborador.FirstOrDefault(c => c.Id == id);
-            }
-            catch(Exception e)
-            {
-                return new ErroComunicacaoBancoDeDados(e.Message);
-            }
+            return _context.Colaborador.FirstOrDefault(c => c.Id == id);
         }
 
-        public Either<ErroBase, IReadOnlyCollection<ColaboradorModel>> ObterColaboradores()
+        public IReadOnlyCollection<ColaboradorModel> ObterColaboradores()
         {
-            try
-            {
-                return _context.Colaborador.ToList();
-            }
-            catch(Exception e)
-            {
-                return new ErroComunicacaoBancoDeDados(e.Message);
-            }
+            return _context.Colaborador.ToList();
         }
     }
 }

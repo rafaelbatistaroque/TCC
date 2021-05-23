@@ -46,23 +46,6 @@ namespace Colaborador.Business.Testes.Services
         }
 
         [Trait("Colaborador.Business.Services", "AlterarColaboradorHandlerTestes")]
-        [Fact(DisplayName = "Retornar erro quando falha ao verificar se existe Colaborador")]
-        public void AoInvocarHandler_QuandoFalhaAoInvocarExisteColaborador_DeveRetornarErroProveniente()
-        {
-            // Arrange
-            var commandValido = _fixtures.GerarAlterarColaboradorCommandValido();
-            _fixtures.Mocker.GetMock<IColaboradorRepository>().Setup(a => a.ExisteColaborador(It.IsAny<int>())).Returns(_fixtures.GerarErroGenerico());
-
-            // Act
-            var resultado = _sut.Handler(commandValido);
-
-            // Assert
-            Assert.NotNull(resultado);
-            Assert.True(resultado.EhFalha);
-            Assert.IsAssignableFrom<ErroBase>(resultado.Falha);
-        }
-
-        [Trait("Colaborador.Business.Services", "AlterarColaboradorHandlerTestes")]
         [Fact(DisplayName = "Retornar erro se colaborador não existir")]
         public void AoInvocarHandler_QuandoColaboradorNaoExistir_DeveRetornarErroNenhumRegistroEncontrado()
         {
@@ -77,24 +60,6 @@ namespace Colaborador.Business.Testes.Services
             Assert.NotNull(resultado);
             Assert.True(resultado.EhFalha);
             Assert.IsType<ErroRegistroNaoEncontrado>(resultado.Falha);
-        }
-
-        [Trait("Colaborador.Business.Services", "AlterarColaboradorHandlerTestes")]
-        [Fact(DisplayName = "Retornar erro proveniente se erro ao alterar colaborador")]
-        public void AoInvocarHandler_QuandoFalhaAoAlterarColaborador_DeveRetornarErroProveniente()
-        {
-            // Arrange
-            var commandValido = _fixtures.GerarAlterarColaboradorCommandValido();
-            _fixtures.Mocker.GetMock<IColaboradorRepository>().Setup(a => a.ExisteColaborador(It.IsAny<int>())).Returns(true);
-            _fixtures.Mocker.GetMock<IColaboradorRepository>().Setup(a => a.AlterarColaborador(It.IsAny<ColaboradorModel>())).Returns(_fixtures.GerarErroGenerico());
-
-            // Act
-            var resultado = _sut.Handler(commandValido);
-
-            // Assert
-            Assert.NotNull(resultado);
-            Assert.True(resultado.EhFalha);
-            Assert.IsAssignableFrom<ErroBase>(resultado.Falha);
         }
 
         [Trait("Colaborador.Business.Services", "AlterarColaboradorHandlerTestes")]

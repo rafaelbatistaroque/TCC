@@ -5,10 +5,8 @@ using Colaborador.Business.Testes.Fixtures;
 using Colaborador.Domain.CasosDeUso.ObterColaboradores;
 using Colaborador.Domain.Entidades;
 using Moq;
-using Paperless.Shared.Erros;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
 using Xunit;
 
 namespace Colaborador.Business.Testes.Services
@@ -22,22 +20,6 @@ namespace Colaborador.Business.Testes.Services
         {
             _fixtures = fixtures;
             _sut = _fixtures.GerarSUT<ObterColaboradoresHandler>();
-        }
-
-        [Trait("Colaborador.Business.Services", "ObterColaboradoresHandlerTestes")]
-        [Fact(DisplayName = "Retornar erro proveniente caso retorno erro repositorio.")]
-        public void AoInvocarHandler_QuandoErroRetornoRepositorio_DeveRetornarErroProveniente()
-        {
-            // Arrange
-            _fixtures.Mocker.GetMock<IColaboradorRepository>().Setup(r => r.ObterColaboradores()).Returns(_fixtures.GerarErroGenerico());
-
-            // Act
-            var resultado = _sut.Handler();
-
-            // Assert
-            Assert.NotNull(resultado);
-            Assert.True(resultado.EhFalha);
-            Assert.IsAssignableFrom<ErroBase>(resultado.Falha);
         }
 
         [Trait("Colaborador.Business.Services", "ObterColaboradoresHandlerTestes")]

@@ -6,6 +6,7 @@ using Colaborador.Domain.CasosDeUso.ObterColaboradores;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Paperless.API.Utils;
+using System;
 using System.Linq;
 
 namespace Paperless.API.Controllers
@@ -38,32 +39,46 @@ namespace Paperless.API.Controllers
         [Authorize(Roles = PerfilRoles.ADMINISTRADOR)]
         public IActionResult Post([FromBody] CriarColaboradorCommand command)
         {
-            var resultado = _criarColaborador.Handler(command);
+            try
+            {
+                var resultado = _criarColaborador.Handler(command);
 
-            return resultado.RetornarCaso<IActionResult>(
-                erro => BadRequest(new { Erros = erro }),
-                sucesso => Ok());
+                return resultado.RetornarCaso<IActionResult>(
+                    erro => BadRequest(new { Erros = erro }),
+                    sucesso => Ok());
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpGet]
         [Authorize]
         public IActionResult Get()
         {
-            var resultado = _obterColaboradores.Handler();
+            try
+            {
+                var resultado = _obterColaboradores.Handler();
 
-            return resultado.RetornarCaso<IActionResult>(
-                erro => BadRequest(new { Erros = erro }),
-                sucesso => Ok(new
-                {
-                    Colaboradores = sucesso.Select(c => new
+                return resultado.RetornarCaso<IActionResult>(
+                    erro => BadRequest(new { Erros = erro }),
+                    sucesso => Ok(new
                     {
-                        c.Id,
-                        c.ColaboradorNome.NomeCompleto,
-                        c.ColaboradorCPF.NumeroCPF,
-                        c.Funcao.FuncaoId,
-                        c.Funcao.FuncaoNome
-                    })
-                }));
+                        Colaboradores = sucesso.Select(c => new
+                        {
+                            c.Id,
+                            c.ColaboradorNome.NomeCompleto,
+                            c.ColaboradorCPF.NumeroCPF,
+                            c.Funcao.FuncaoId,
+                            c.Funcao.FuncaoNome
+                        })
+                    }));
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpGet]
@@ -71,18 +86,25 @@ namespace Paperless.API.Controllers
         [Authorize]
         public IActionResult Get(int id)
         {
-            var resultado = _obterColaborador.Handler(id);
+            try
+            {
+                var resultado = _obterColaborador.Handler(id);
 
-            return resultado.RetornarCaso<IActionResult>(
-                erro => BadRequest(new { Erros = erro }),
-                sucesso => Ok(new
-                {
-                    sucesso.Id,
-                    sucesso.ColaboradorNome.NomeCompleto,
-                    sucesso.ColaboradorCPF.NumeroCPF,
-                    sucesso.Funcao.FuncaoId,
-                    sucesso.Funcao.FuncaoNome
-                }));
+                return resultado.RetornarCaso<IActionResult>(
+                    erro => BadRequest(new { Erros = erro }),
+                    sucesso => Ok(new
+                    {
+                        sucesso.Id,
+                        sucesso.ColaboradorNome.NomeCompleto,
+                        sucesso.ColaboradorCPF.NumeroCPF,
+                        sucesso.Funcao.FuncaoId,
+                        sucesso.Funcao.FuncaoNome
+                    }));
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpDelete]
@@ -90,22 +112,36 @@ namespace Paperless.API.Controllers
         [Authorize(Roles = PerfilRoles.ADMINISTRADOR)]
         public IActionResult Delete(int id)
         {
-            var resultado = _deletarColaborador.Handler(id);
+            try
+            {
+                var resultado = _deletarColaborador.Handler(id);
 
-            return resultado.RetornarCaso<IActionResult>(
-                erro => BadRequest(new { Erros = erro }),
-                sucesso => Ok());
+                return resultado.RetornarCaso<IActionResult>(
+                    erro => BadRequest(new { Erros = erro }),
+                    sucesso => Ok());
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPut]
         [Authorize]
         public IActionResult Put(AlterarColaboradorCommand commad)
         {
-            var resultado = _alterarColaborador.Handler(commad);
+            try
+            {
+                var resultado = _alterarColaborador.Handler(commad);
 
-            return resultado.RetornarCaso<IActionResult>(
-                erro => BadRequest(new { Erros = erro }),
-                sucesso => Ok());
+                return resultado.RetornarCaso<IActionResult>(
+                    erro => BadRequest(new { Erros = erro }),
+                    sucesso => Ok());
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }
