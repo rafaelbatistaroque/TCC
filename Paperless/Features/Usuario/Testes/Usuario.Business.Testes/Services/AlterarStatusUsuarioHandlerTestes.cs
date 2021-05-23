@@ -49,7 +49,7 @@ namespace Usuario.Business.Testes.Services
         public void AoInvocarHandler_QuandoErroRetornoRepositorio_DeveRetornarErroProveniente()
         {
             // Arrange
-            _fixtures.Mocker.GetMock<IUsuarioRepository>().Setup(r => r.ObterUsuario(It.IsAny<string>())).Returns(_fixtures.GerarErroGenerico());
+            _fixtures.Mocker.GetMock<IUsuarioRepository>().Setup(r => r.ObterUsuario(It.IsAny<string>())).Returns((UsuarioDoSistemaModel)null);
 
             // Act
             var resultado = _sut.Handler(_fixtures.GerarAlterarStatusUsuarioCommandValido());
@@ -57,24 +57,7 @@ namespace Usuario.Business.Testes.Services
             // Assert
             Assert.NotNull(resultado);
             Assert.True(resultado.EhFalha);
-            Assert.IsAssignableFrom<ErroBase>(resultado.Falha);
-        }
-
-        [Trait("Usuario.Business.Services", "AlterarStatusUsuarioHandlerTestes")]
-        [Fact(DisplayName = "Retornar erro proveniente de repositório ao atualizar usuário")]
-        public void AoInvocarHandler_QuandoErroAoAtualizarUsuario_DeveRetornarErroProveniente()
-        {
-            // Arrange
-            _fixtures.Mocker.GetMock<IUsuarioRepository>().Setup(r => r.ObterUsuario(It.IsAny<string>())).Returns(_fixtures.GerarUsuarioDoSistemaModel());
-            _fixtures.Mocker.GetMock<IUsuarioRepository>().Setup(r => r.AtualizarUsuario(It.IsAny<UsuarioDoSistemaModel>())).Returns(_fixtures.GerarErroGenerico());
-
-            // Act
-            var resultado = _sut.Handler(_fixtures.GerarAlterarStatusUsuarioCommandValido());
-
-            // Assert
-            Assert.NotNull(resultado);
-            Assert.True(resultado.EhFalha);
-            Assert.IsAssignableFrom<ErroBase>(resultado.Falha);
+            Assert.IsType<ErroRegistroNaoEncontrado>(resultado.Falha);
         }
 
         [Trait("Usuario.Business.Services", "AlterarStatusUsuarioHandlerTestes")]

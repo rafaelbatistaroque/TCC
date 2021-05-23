@@ -1,6 +1,4 @@
-﻿using Paperless.Shared.Erros;
-using Paperless.Shared.Utils;
-using System;
+﻿using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using Usuario.Business.Contracts;
@@ -18,58 +16,30 @@ namespace Usuario.Infra.Repositorios
             _context = context;
         }
 
-        public Either<ErroBase, bool> AtualizarUsuario(UsuarioDoSistemaModel usuario)
+        public bool AtualizarUsuario(UsuarioDoSistemaModel usuario)
         {
-            try
-            {
-                _context.UsuarioDoSistema.Update(usuario);
-                var linhasAfetadas = _context.SaveChanges();
+            _context.UsuarioDoSistema.Update(usuario);
+            var linhasAfetadas = _context.SaveChanges();
 
-                return linhasAfetadas > 0;
-            }
-            catch(Exception e)
-            {
-                return new ErroComunicacaoBancoDeDados(e.Message);
-            }
+            return linhasAfetadas > 0;
         }
 
-        public Either<ErroBase, bool> CriarUsuario(UsuarioDoSistemaModel usuario)
+        public bool CriarUsuario(UsuarioDoSistemaModel usuario)
         {
-            try
-            {
-                _context.UsuarioDoSistema.Add(usuario);
-                var linhasAfetadas = _context.SaveChanges();
+            _context.UsuarioDoSistema.Add(usuario);
+            var linhasAfetadas = _context.SaveChanges();
 
-                return linhasAfetadas > 0;
-            }
-            catch(Exception e)
-            {
-                return new ErroComunicacaoBancoDeDados(e.Message);
-            }
+            return linhasAfetadas > 0;
         }
 
-        public Either<ErroBase, UsuarioDoSistemaModel> ObterUsuario(string codigo)
+        public UsuarioDoSistemaModel ObterUsuario(string codigo)
         {
-            try
-            {
-                return _context.UsuarioDoSistema.FirstOrDefault(x => x.UsuarioIdentificacao.Codigo == codigo);
-            }
-            catch(Exception e)
-            {
-                return new ErroComunicacaoBancoDeDados(e.Message);
-            }
+            return _context.UsuarioDoSistema.FirstOrDefault(x => x.UsuarioIdentificacao.Codigo == codigo);
         }
 
-        public Either<ErroBase, IReadOnlyCollection<UsuarioDoSistemaModel>> ObterUsuarios()
+        public IReadOnlyCollection<UsuarioDoSistemaModel> ObterUsuarios()
         {
-            try
-            {
-                return _context.UsuarioDoSistema.ToList();
-            }
-            catch(Exception e)
-            {
-                return new ErroComunicacaoBancoDeDados(e.Message);
-            }
+            return _context.UsuarioDoSistema.AsNoTracking().AsQueryable().ToList();
         }
     }
 }

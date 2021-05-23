@@ -41,7 +41,7 @@ namespace Usuario.Business.Testes.Services
             // Assert
             Assert.NotNull(resultado);
             Assert.True(resultado.EhFalha);
-            Assert.IsAssignableFrom<ErroBase>(resultado.Falha);
+            Assert.IsType<ErroValidacaoCommandQuery>(resultado.Falha);
         }
 
         [Trait("Usuario.Business.Services", "CriarUsuarioHandlerTestes")]
@@ -50,7 +50,7 @@ namespace Usuario.Business.Testes.Services
         {
             // Arrange
             _fixtures.Mocker.GetMock<IUsuarioAdapters>().Setup(f => f.DeUsuarioDoSistemaParaUsuarioDoSistemaModel(It.IsAny<UsuarioDoSistema>())).Returns(_fixtures.GerarUsuarioDoSistemaModel());
-            _fixtures.Mocker.GetMock<IUsuarioRepository>().Setup(r => r.CriarUsuario(It.IsAny<UsuarioDoSistemaModel>())).Returns(_fixtures.GerarErroGenerico());
+            _fixtures.Mocker.GetMock<IUsuarioRepository>().Setup(r => r.CriarUsuario(It.IsAny<UsuarioDoSistemaModel>())).Returns(false);
 
             // Act
             var resultado = _sut.Handler(_fixtures.GerarCriarUsuarioCommandValido());
@@ -58,7 +58,7 @@ namespace Usuario.Business.Testes.Services
             // Assert
             Assert.NotNull(resultado);
             Assert.True(resultado.EhFalha);
-            Assert.IsAssignableFrom<ErroBase>(resultado.Falha);
+            Assert.IsType<ErroNenhumArquivoArmazenado>(resultado.Falha);
             _fixtures.Mocker.GetMock<IUsuarioRepository>().Verify(r => r.CriarUsuario(It.IsAny<UsuarioDoSistemaModel>()), Times.Once, NAO_INVOCADO);
         }
 

@@ -1,4 +1,5 @@
 ﻿using Paperless.Shared.Erros;
+using Paperless.Shared.TextosInformativos;
 using Paperless.Shared.Utils;
 using System.Linq;
 using Usuario.Business.Contracts;
@@ -28,10 +29,10 @@ namespace Usuario.Business.Services
             var novoUsuarioModel = _adapter.DeUsuarioDoSistemaParaUsuarioDoSistemaModel(novoUsuario);
 
             var usuarioPersistido = _repositorio.CriarUsuario(novoUsuarioModel);
-            if(usuarioPersistido.EhFalha)
-                return usuarioPersistido.Falha;
+            if(usuarioPersistido is false)
+                return new ErroNenhumArquivoArmazenado(UsuarioTextosInformativos.NENHUM_REGISTRO_SALVO_ATUALIZADO);
 
-            return usuarioPersistido.Sucesso;
+            return usuarioPersistido;
         }
     }
 }

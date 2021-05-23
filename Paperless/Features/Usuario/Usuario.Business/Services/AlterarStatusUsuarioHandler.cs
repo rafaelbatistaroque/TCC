@@ -23,19 +23,16 @@ namespace Usuario.Business.Services
                 return new ErroValidacaoCommandQuery(commandQuery.Notifications.Select(e => e.Message).ToArray());
 
             var usuarioModel = _repositorio.ObterUsuario(commandQuery.UsuarioCodigo);
-            if(usuarioModel.EhFalha)
-                return usuarioModel.Falha;
+            if(usuarioModel is null)
+                return new ErroRegistroNaoEncontrado(UsuarioTextosInformativos.USUARIO_NAO_ENCONTRADO);
 
-            usuarioModel.Sucesso.EhUsuarioAtivo = !usuarioModel.Sucesso.EhUsuarioAtivo;
+            usuarioModel.EhUsuarioAtivo = !usuarioModel.EhUsuarioAtivo;
 
-            var respostaUsuarioAtualizado = _repositorio.AtualizarUsuario(usuarioModel.Sucesso);
-            if(respostaUsuarioAtualizado.EhFalha)
-                return respostaUsuarioAtualizado.Falha;
-
-            if(respostaUsuarioAtualizado.Sucesso == false)
+            var respostaUsuarioAtualizado = _repositorio.AtualizarUsuario(usuarioModel);
+            if(respostaUsuarioAtualizado is false)
                 return new ErroNenhumRegistroModificado(UsuarioTextosInformativos.NENHUM_REGISTRO_SALVO_ATUALIZADO);
 
-            return respostaUsuarioAtualizado.Sucesso;
+            return respostaUsuarioAtualizado;
         }
     }
 }

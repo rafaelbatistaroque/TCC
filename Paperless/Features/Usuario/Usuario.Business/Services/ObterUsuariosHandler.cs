@@ -22,10 +22,7 @@ namespace Usuario.Business.Services
         public Either<ErroBase, IReadOnlyCollection<UsuarioDoSistema>> Handler()
         {
             var usuarioModel = _repositorio.ObterUsuarios();
-            if(usuarioModel.EhFalha)
-                return usuarioModel.Falha;
-
-            var usuarioDoSitema = _adapter.DeListaUsuarioDoSistemaModelParaListaUsuarioDoSistema(usuarioModel.Sucesso);
+            var usuarioDoSitema = _adapter.DeListaUsuarioDoSistemaModelParaListaUsuarioDoSistema(usuarioModel);
 
             return usuarioDoSitema.ToList();
         }

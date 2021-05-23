@@ -23,22 +23,6 @@ namespace Usuario.Business.Testes.Services
         }
 
         [Trait("Usuario.Business.Services", "ObterUsuariosHandlerTestes")]
-        [Fact(DisplayName = "Retornar erro proveniente caso retorno erro repositorio.")]
-        public void AoInvocarHandler_QuandoErroRetornoRepositorio_DeveRetornarErroProveniente()
-        {
-            // Arrange
-            _fixtures.Mocker.GetMock<IUsuarioRepository>().Setup(r => r.ObterUsuarios()).Returns(_fixtures.GerarErroGenerico());
-
-            // Act
-            var resultado = _sut.Handler();
-
-            // Assert
-            Assert.NotNull(resultado);
-            Assert.True(resultado.EhFalha);
-            Assert.IsAssignableFrom<ErroBase>(resultado.Falha);
-        }
-
-        [Trait("Usuario.Business.Services", "ObterUsuariosHandlerTestes")]
         [Fact(DisplayName = "Retornar lista de usuários caso não ocorrer erro no retorno do repositório.")]
         public void AoInvocarHandler_QuandoSucessoRetornoRepositorio_DeveRetornarListaUsuariosSistema()
         {

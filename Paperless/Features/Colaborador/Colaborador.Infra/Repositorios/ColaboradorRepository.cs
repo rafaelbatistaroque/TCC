@@ -1,6 +1,7 @@
 ﻿using Colaborador.Business.Contracts;
 using Colaborador.Business.Models;
 using Colaborador.Infra.EF;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -46,12 +47,12 @@ namespace Colaborador.Infra.Repositorios
 
         public ColaboradorModel ObterColaborador(int id)
         {
-            return _context.Colaborador.FirstOrDefault(c => c.Id == id);
+            return _context.Colaborador.AsNoTracking().FirstOrDefault(c => c.Id == id);
         }
 
         public IReadOnlyCollection<ColaboradorModel> ObterColaboradores()
         {
-            return _context.Colaborador.ToList();
+            return _context.Colaborador.AsNoTracking().AsQueryable().ToList();
         }
     }
 }
