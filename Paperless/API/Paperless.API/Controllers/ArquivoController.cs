@@ -1,8 +1,10 @@
 ﻿using Arquivo.Domain.CasosDeUso.CriarArquivo;
+using Arquivo.Domain.CasosDeUso.DownloadArquivo;
 using Arquivo.Domain.CasosDeUso.ObterArquivos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.IO;
 using System.Linq;
 
 namespace Paperless.API.Controllers
@@ -13,11 +15,13 @@ namespace Paperless.API.Controllers
     {
         private readonly ICriarArquivo _criarArquivo;
         private readonly IObterArquivosDeColaborador _obterArquivosDeColaborador;
+        private readonly IRealizarDownloadDeArquivo _realizarDownloadDeArquivo;
 
-        public ArquivoController(ICriarArquivo criarArquivo, IObterArquivosDeColaborador obterArquivosDeColaborador)
+        public ArquivoController(ICriarArquivo criarArquivo, IObterArquivosDeColaborador obterArquivosDeColaborador, IRealizarDownloadDeArquivo realizarDownloadDeArquivo)
         {
             _criarArquivo = criarArquivo;
             _obterArquivosDeColaborador = obterArquivosDeColaborador;
+            _realizarDownloadDeArquivo = realizarDownloadDeArquivo;
         }
 
         [HttpPost]
@@ -67,6 +71,25 @@ namespace Paperless.API.Controllers
                             }
                         })
                     }));
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet]
+        [Route("{id}/{arquivoCodigo}")]
+        public IActionResult Get([FromRoute] int id, string arquivoCodigo)
+        {
+            try
+            {
+                var command = new RealizarDownloadArquivoCommand() { Id = id, ArquivoCodigo = arquivoCodigo };
+                var resultado = _realizarDownloadDeArquivo.Handler(command);
+
+                return resultado.RetornarCaso<IActionResult>(
+                    erro => BadRequest(new { Erros = erro }),
+                    sucesso => File(new MemoryStream(sucesso.DadosByte), sucesso.ApplicationForceDownload, sucesso.Nome));
             }
             catch(Exception ex)
             {

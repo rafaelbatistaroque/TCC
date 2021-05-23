@@ -1,5 +1,4 @@
-﻿using Arquivo.Business.Adapters;
-using Arquivo.Business.Contracts;
+﻿using Arquivo.Business.Contracts;
 using Arquivo.Domain.CasosDeUso.ObterArquivos;
 using Arquivo.Domain.Entidades;
 using Paperless.Shared.Erros;

@@ -17,5 +17,6 @@
         public static string TIPO_ANEXO_CARTAO_PONTO=> "Cartão de Ponto";
         public static string TIPO_ANEXO_HOLERITE => "Holerite";
         public static string NENHUM_REGISTRO_MODIFICADO => "Nenhum registro foi modificado";
+        public static string PARAMETROS_INVALIDOS => "Parâmetros inválidos.";
     }
 }

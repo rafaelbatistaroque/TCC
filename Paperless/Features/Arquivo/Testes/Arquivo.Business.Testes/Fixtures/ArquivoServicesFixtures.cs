@@ -1,5 +1,6 @@
 ﻿using Arquivo.Business.Models;
 using Arquivo.Domain.CasosDeUso.CriarArquivo;
+using Arquivo.Domain.CasosDeUso.DownloadArquivo;
 using Arquivo.Domain.Entidades;
 using Arquivo.Fixtures;
 using Microsoft.AspNetCore.Http;
@@ -27,10 +28,16 @@ namespace Arquivo.Business.Testes.Fixtures
         public CriarArquivoCommand GerarCriarArquivoCommandValido()
             => new CriarArquivoCommand() { ColaboradorId = COLABORADOR_ID_VALIDO, ReferenciaMes = REFERENCIA_MES_VALIDA, ReferenciaAno = REFERENCIA_ANO_VALIDA, TipoArquivo = TIPO_ARQUIVO_VALIDO, Anexo = ANEXO_VALIDO, Observacoes = OBSERVACAO_VALIDA };
 
+        public RealizarDownloadArquivoCommand GerarRealizarDownloadArquivoCommandInvalido(int id, string arquivoCodigo)
+            => new RealizarDownloadArquivoCommand() { Id = id, ArquivoCodigo = arquivoCodigo };
+
+        public RealizarDownloadArquivoCommand GerarRealizarDownloadArquivoCommandValido()
+            => new RealizarDownloadArquivoCommand() { Id = ARQUIVO_ID_VALIDO, ArquivoCodigo = ARQUIVO_CODIGO_VALIDO };
+
         public ArquivoModel GerarArquivoModel() => ArquivoModel();
 
         public ArquivoRegistrado GerarArquivoRegistrado()
-            => ArquivoRegistrado.Criar(COLABORADOR_ID_VALIDO,REFERENCIA_ANO_VALIDA,REFERENCIA_MES_VALIDA,TIPO_ARQUIVO_VALIDO,OBSERVACAO_VALIDA, EXTENSAO_VALIDA);
+            => ArquivoRegistrado.Criar(COLABORADOR_ID_VALIDO, REFERENCIA_ANO_VALIDA, REFERENCIA_MES_VALIDA, TIPO_ARQUIVO_VALIDO, OBSERVACAO_VALIDA, EXTENSAO_VALIDA);
 
         public int GerarColaboradorIdInvalido() => COLABORADOR_ID_INVALIDO;
 
@@ -39,6 +46,8 @@ namespace Arquivo.Business.Testes.Fixtures
         public List<ArquivoModel> GeraListaArquivoModel() => new List<ArquivoModel>() { ArquivoModel() };
 
         public List<ArquivoRegistrado> GeraListaArquivoRegistrado() => new List<ArquivoRegistrado>() { GerarArquivoRegistrado() };
+
+        public byte[] GerarArquivoEmByteFake() => new byte[] { 01, 05, 86 };
 
         public ErroBase GerarErroGenerico() => ErroGenerico();
     }

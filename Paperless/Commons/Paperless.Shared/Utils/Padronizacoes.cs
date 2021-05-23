@@ -10,14 +10,18 @@ namespace Paperless.Shared.Utils
 {
     public class Padronizacoes
     {
-        private const string HOST_5001 = "https://localhost:5001";
-        private const string DOMINIO_DOWNLOAD = "ArquivoDownload";
+        private const string HOST_5001 = "https://localhost:5001/api/v1/arquivo";
 
         private static readonly Dictionary<int, string> PERFIS = new Dictionary<int, string>()
             {
                 {(int)EUsuarioPerfil.ADMINISTRADOR, ArquivoTextosInformativos.PERFIL_NOME_ADMINISTRADOR},
                 {(int)EUsuarioPerfil.USUARIO, ArquivoTextosInformativos.PERFIL_NOME_USUARIO}
             };
+
+        public static string MontarNomeArquivoComExtensao(string arquivoCodigo, string extensao)
+        {
+            return $"{arquivoCodigo}.{extensao}";
+        }
 
         private static readonly Dictionary<int, string> TIPOS_ANEXO = new Dictionary<int, string>()
             {
@@ -96,7 +100,6 @@ namespace Paperless.Shared.Utils
         {
             return new StringBuilder()
                 .Append(HOST_5001)
-                .AppendFormat("/{0}", DOMINIO_DOWNLOAD)
                 .AppendFormat("/{0}", colaboradorId)
                 .AppendFormat("/{0}", codigoAnexo)
                 .ToString();

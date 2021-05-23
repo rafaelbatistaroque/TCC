@@ -33,5 +33,10 @@ namespace Arquivo.Infra.Repositorios
         {
             return _context.Arquivos.AsNoTracking().Where(x => x.ColaboradorId == colbaboradorId).AsQueryable().ToList();
         }
+
+        public ArquivoModel ObterArquivo(int id, string arquivoCodigo)
+        {
+            return _context.Arquivos.FirstOrDefault(x => x.Id == id && x.Anexo.Codigo == arquivoCodigo);
+        }
     }
 }

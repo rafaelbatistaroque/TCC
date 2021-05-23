@@ -18,5 +18,6 @@ namespace Paperless.Shared.TextosInformativos
         public static string USUARIO_PERFIL_NULO_VAZIO => "A id de perfil do usuário não pode ser nulo ou vazio.";
         public static string USUARIO_PERFIL_INVALIDO => "O id de perfil do usuário é inválido";
         public static string NENHUM_REGISTRO_SALVO_ATUALIZADO => "Nenhum registro foi salvo ou atualizado";
+        public static string USUARIO_NAO_ENCONTRADO => "Usuáio não encontrado.";
     }
 }

@@ -36,7 +36,7 @@ namespace Arquivo.Domain.Entidades
 
         public static ArquivoRegistrado Retornar(int id, string anoReferencia, string mesReferencia, int tipoArquivo, string codigoAnexo, string extensao, string observacoes, string dataCadastro)
         {
-            return new ArquivoRegistrado(Anexo.Retornar(tipoArquivo, codigoAnexo, extensao), anoReferencia, mesReferencia, observacoes, dataCadastro, id);
+            return new ArquivoRegistrado(Anexo.Retornar(tipoArquivo, codigoAnexo, id, extensao), anoReferencia, mesReferencia, observacoes, dataCadastro, id);
         }
     }
 }

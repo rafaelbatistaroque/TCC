@@ -10,5 +10,7 @@ namespace Arquivo.Business.Contracts
         bool PersistirArquivo(ArquivoModel arquivoModel);
 
         IReadOnlyCollection<ArquivoModel> ObterArquivos(int colbaboradorId);
+
+        ArquivoModel ObterArquivo(int id, string arquivoCodigo);
     }
 }

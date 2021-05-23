@@ -11,13 +11,13 @@ namespace Arquivo.Business.Services
     public class CriarArquivoHandler : ICriarArquivo
     {
         private readonly IArquivoRepository _repositorio;
-        private readonly IAnexoFacade _anexoFacade;
+        private readonly IDiretorioServico _diretorio;
         private readonly IArquivoAdapter _adapter;
 
-        public CriarArquivoHandler(IArquivoRepository repositorio, IAnexoFacade anexoFacade, IArquivoAdapter adapter)
+        public CriarArquivoHandler(IArquivoRepository repositorio, IDiretorioServico diretorio, IArquivoAdapter adapter)
         {
             _repositorio = repositorio;
-            _anexoFacade = anexoFacade;
+            _diretorio = diretorio;
             _adapter = adapter;
         }
 
@@ -41,7 +41,7 @@ namespace Arquivo.Business.Services
                     command.Observacoes,
                     extensaoAnexo);
 
-            var respostaAnexoSalvo = _anexoFacade.SalvarAnexoEmDiretorio(command.Anexo, arquivoRegitrado.Anexo.Codigo);
+            var respostaAnexoSalvo = _diretorio.SalvarAnexoEmDiretorio(command.Anexo, arquivoRegitrado.Anexo.Codigo);
             if(respostaAnexoSalvo.EhFalha)
                 return respostaAnexoSalvo.Falha;
 

@@ -2,17 +2,18 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Paperless.Shared.Erros;
+using Paperless.Shared.TextosInformativos;
 using Paperless.Shared.Utils;
 using System;
 using System.IO;
 
-namespace Arquivo.Business.Facades
+namespace Arquivo.Infra.Diretorio
 {
-    public class AnexoFacade : IAnexoFacade
+    public class DiretorioServico : IDiretorioServico
     {
         private readonly IConfiguration _config;
 
-        public AnexoFacade(IConfiguration config)
+        public DiretorioServico(IConfiguration config)
         {
             _config = config;
         }
@@ -37,6 +38,17 @@ namespace Arquivo.Business.Facades
             {
                 return new ErroNenhumArquivoArmazenado(e.Message);
             }
+        }
+
+        public Either<ErroBase, byte[]> ObterArquivoEmDiretorio(string arquivoCodigo, string extensao)
+        {
+            var diretorio = _config.GetSection("diretorio_armazenamento_anexo").Value;
+
+            var arquivo = Path.Combine(diretorio, $"{arquivoCodigo}.{extensao}");
+            if(File.Exists(arquivo) == false)
+                return new ErroNenhumArquivoArmazenado(ArquivoTextosInformativos.NENHUM_ARQUIVO_ARMAZENADO);
+
+            return File.ReadAllBytes(arquivo);
         }
     }
 }

@@ -29,11 +29,11 @@ namespace Arquivo.Domain.ValueObjects
             LinkParaDownload = linkParaDownload;
         }
 
-        public static Anexo Retornar(int tipo, string codigoAnexo, string extensao)
+        public static Anexo Retornar(int tipo, string codigoAnexo, int anexoId, string extensao)
         {
             var tipoValidado = Padronizacoes.ValidarTipoAnexoId(tipo);
             var nome = Padronizacoes.ObterTipoAnexoNome(tipoValidado);
-            var linkParaDownload = Padronizacoes.MontarLinkParaDownloadAnexo(tipo, codigoAnexo);
+            var linkParaDownload = Padronizacoes.MontarLinkParaDownloadAnexo(anexoId, codigoAnexo);
 
             return new Anexo(tipoValidado, extensao, nome, linkParaDownload);
         }

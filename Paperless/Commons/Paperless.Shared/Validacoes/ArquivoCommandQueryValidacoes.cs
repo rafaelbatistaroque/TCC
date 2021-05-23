@@ -43,5 +43,12 @@ namespace Paperless.Shared.Validacoes
                 .IsFalse(Regex.IsMatch(observacoes ?? string.Empty, @"\w+\s+\d=[<>]?\d", RegexOptions.IgnoreCase), nameof(observacoes), ArquivoTextosInformativos.OBSERVACOES_INVALIDAS)
                 );
         }
+
+        protected void ValidarArquivoCodigo(string arquivoCodigo)
+        {
+            AddNotifications(new Contract()
+                .IsTrue(Regex.IsMatch(arquivoCodigo ?? string.Empty, @"^\w{10}$", RegexOptions.IgnoreCase), nameof(arquivoCodigo), ArquivoTextosInformativos.PARAMETROS_INVALIDOS)
+                );
+        }
     }
 }
