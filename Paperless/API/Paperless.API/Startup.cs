@@ -22,6 +22,8 @@ namespace Paperless.API
 
             services.AdicionarTokenServico(Configuration);
             services.AdicionarIoCPaperless(Configuration);
+
+            services.AddCors();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -34,6 +36,12 @@ namespace Paperless.API
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors(x =>
+            x.AllowAnyMethod()
+            .SetIsOriginAllowed(origin => true)
+            .AllowAnyHeader()
+            .AllowCredentials());
 
             app.UseAuthentication();
             app.UseAuthorization();
