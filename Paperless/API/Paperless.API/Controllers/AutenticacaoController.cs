@@ -25,7 +25,7 @@ namespace Paperless.API.Controllers
                 var resultado = _autenticarUsuario.Handler(command);
 
                 return resultado.RetornarCaso<IActionResult>(
-                    erro => BadRequest(new { Erros = erro }),
+                    erro => BadRequest(new { Erros = erro.MensagensErro }),
                     sucesso => Ok(sucesso));
             }
             catch(Exception ex)
