@@ -11,6 +11,10 @@ namespace Arquivo.Business.Contracts
 
         IReadOnlyCollection<ArquivoModel> ObterArquivos(int colbaboradorId);
 
-        ArquivoModel ObterArquivo(int id, string arquivoCodigo);
+        ArquivoModel ObterArquivo(int arquivoId, string arquivoCodigo);
+
+        ArquivoModel ObterArquivo(int arquivoId);
+
+        bool DeletarArquivo(ArquivoModel arquivoModel);
     }
 }

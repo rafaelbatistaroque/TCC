@@ -63,7 +63,7 @@ namespace Arquivo.Business.Testes.Services
         {
             // Arrange
             _fixtures.Mocker.GetMock<IArquivoRepository>().Setup(x => x.ObterArquivo(It.IsAny<int>(), It.IsAny<string>())).Returns(_fixtures.GerarArquivoModel());
-            _fixtures.Mocker.GetMock<IDiretorioServico>().Setup(x => x.ObterArquivoEmDiretorio(It.IsAny<string>(), It.IsAny<string>())).Returns(_fixtures.GerarErroGenerico());
+            _fixtures.Mocker.GetMock<IDiretorioServico>().Setup(x => x.ObterArquivoEmDiretorio(It.IsAny<int>(), It.IsAny<string>(), It.IsAny<string>())).Returns(_fixtures.GerarErroGenerico());
 
             // Act
             var resultado = _sut.Handler(_fixtures.GerarRealizarDownloadArquivoCommandValido());
@@ -80,7 +80,7 @@ namespace Arquivo.Business.Testes.Services
         {
             // Arrange
             _fixtures.Mocker.GetMock<IArquivoRepository>().Setup(x => x.ObterArquivo(It.IsAny<int>(), It.IsAny<string>())).Returns(_fixtures.GerarArquivoModel());
-            _fixtures.Mocker.GetMock<IDiretorioServico>().Setup(x => x.ObterArquivoEmDiretorio(It.IsAny<string>(), It.IsAny<string>())).Returns(_fixtures.GerarArquivoEmByteFake());
+            _fixtures.Mocker.GetMock<IDiretorioServico>().Setup(x => x.ObterArquivoEmDiretorio(It.IsAny<int>(), It.IsAny<string>(), It.IsAny<string>())).Returns(_fixtures.GerarArquivoEmByteFake());
 
             // Act
             var resultado = _sut.Handler(_fixtures.GerarRealizarDownloadArquivoCommandValido());

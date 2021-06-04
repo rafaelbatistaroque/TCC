@@ -22,7 +22,7 @@ namespace Arquivo.Fixtures
         protected const string EXTENSAO_VALIDA = "PDF";
         protected const string DIRETORIO_FAKE = @"C:\";
 
-        protected ArquivoModel ArquivoModel() => new ArquivoModel() { Anexo = Anexo.Retornar(TIPO_ARQUIVO_VALIDO, ARQUIVO_CODIGO_VALIDO, EXTENSAO_VALIDA) };
+        protected ArquivoModel ArquivoModel() => new ArquivoModel() { Anexo = Anexo.Retornar(TIPO_ARQUIVO_VALIDO, ARQUIVO_CODIGO_VALIDO, ARQUIVO_ID_VALIDO, EXTENSAO_VALIDA) };
 
         protected ErroBase ErroGenerico() => new ErroGenericoTestes();
     }

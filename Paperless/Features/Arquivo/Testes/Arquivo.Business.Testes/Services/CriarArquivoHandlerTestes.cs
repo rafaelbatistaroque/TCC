@@ -65,7 +65,7 @@ namespace Arquivo.Business.Testes.Services
             // Arrange
             var command = _fixtures.GerarCriarArquivoCommandValido();
             _fixtures.Mocker.GetMock<IArquivoRepository>().Setup(r => r.ExisteColaborador(It.IsAny<int>())).Returns(true);
-            _fixtures.Mocker.GetMock<IDiretorioServico>().Setup(d => d.SalvarAnexoEmDiretorio(It.IsAny<IFormFile>(), It.IsAny<string>())).Returns(_fixtures.GerarErroGenerico());
+            _fixtures.Mocker.GetMock<IDiretorioServico>().Setup(d => d.SalvarAnexoEmDiretorio(It.IsAny<IFormFile>(), It.IsAny<int>(),  It.IsAny<string>())).Returns(_fixtures.GerarErroGenerico());
 
             // Act
             var resultado = _sut.Handler(command);
@@ -83,7 +83,7 @@ namespace Arquivo.Business.Testes.Services
             // Arrange
             var command = _fixtures.GerarCriarArquivoCommandValido();
             _fixtures.Mocker.GetMock<IArquivoRepository>().Setup(r => r.ExisteColaborador(It.IsAny<int>())).Returns(true);
-            _fixtures.Mocker.GetMock<IDiretorioServico>().Setup(d => d.SalvarAnexoEmDiretorio(It.IsAny<IFormFile>(), It.IsAny<string>())).Returns(true);
+            _fixtures.Mocker.GetMock<IDiretorioServico>().Setup(d => d.SalvarAnexoEmDiretorio(It.IsAny<IFormFile>(), It.IsAny<int>(), It.IsAny<string>())).Returns(true);
             _fixtures.Mocker.GetMock<IArquivoAdapter>().Setup(d => d.DeArquivoRegistadoParaArquivoModel(It.IsAny<ArquivoRegistrado>())).Returns(_fixtures.GerarArquivoModel());
             _fixtures.Mocker.GetMock<IArquivoRepository>().Setup(r => r.PersistirArquivo(It.IsAny<ArquivoModel>())).Returns(false);
 
@@ -103,7 +103,7 @@ namespace Arquivo.Business.Testes.Services
             // Arrange
             var command = _fixtures.GerarCriarArquivoCommandValido();
             _fixtures.Mocker.GetMock<IArquivoRepository>().Setup(r => r.ExisteColaborador(It.IsAny<int>())).Returns(true);
-            _fixtures.Mocker.GetMock<IDiretorioServico>().Setup(d => d.SalvarAnexoEmDiretorio(It.IsAny<IFormFile>(), It.IsAny<string>())).Returns(true);
+            _fixtures.Mocker.GetMock<IDiretorioServico>().Setup(d => d.SalvarAnexoEmDiretorio(It.IsAny<IFormFile>(), It.IsAny<int>(), It.IsAny<string>())).Returns(true);
             _fixtures.Mocker.GetMock<IArquivoAdapter>().Setup(d => d.DeArquivoRegistadoParaArquivoModel(It.IsAny<ArquivoRegistrado>())).Returns(_fixtures.GerarArquivoModel());
             _fixtures.Mocker.GetMock<IArquivoRepository>().Setup(r => r.PersistirArquivo(It.IsAny<ArquivoModel>())).Returns(true);
 

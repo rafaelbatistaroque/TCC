@@ -18,11 +18,13 @@ namespace Arquivo.Infra.Diretorio
             _config = config;
         }
 
-        public Either<ErroBase, bool> SalvarAnexoEmDiretorio(IFormFile anexo, string arquivoCodigo)
+        public Either<ErroBase, bool> SalvarAnexoEmDiretorio(IFormFile anexo, int colaboradorId, string arquivoCodigo)
         {
             try
             {
-                var diretorio = _config.GetSection("diretorio_armazenamento_anexo").Value;
+                var diretorioRaiz = _config.GetSection("diretorio_armazenamento_anexo").Value;
+                var diretorio = Path.Combine(diretorioRaiz, $"{colaboradorId}");
+
                 if(Directory.Exists(diretorio) == false)
                     Directory.CreateDirectory(diretorio);
 
@@ -40,15 +42,30 @@ namespace Arquivo.Infra.Diretorio
             }
         }
 
-        public Either<ErroBase, byte[]> ObterArquivoEmDiretorio(string arquivoCodigo, string extensao)
+        public Either<ErroBase, byte[]> ObterArquivoEmDiretorio(int colaboradorId, string arquivoCodigo, string extensao)
         {
-            var diretorio = _config.GetSection("diretorio_armazenamento_anexo").Value;
+            var diretorioRaiz = _config.GetSection("diretorio_armazenamento_anexo").Value;
+            var diretorio = Path.Combine(diretorioRaiz, $"{colaboradorId}");
 
             var arquivo = Path.Combine(diretorio, $"{arquivoCodigo}.{extensao}");
             if(File.Exists(arquivo) == false)
                 return new ErroNenhumArquivoArmazenado(ArquivoTextosInformativos.NENHUM_ARQUIVO_ARMAZENADO);
 
             return File.ReadAllBytes(arquivo);
+        }
+
+        public void DeletarArquivoEmDiretorio(int colaboradorId, string arquivoCodigo, string extensao)
+        {
+            var diretorioRaiz = _config.GetSection("diretorio_armazenamento_anexo").Value;
+            var diretorio = Path.Combine(diretorioRaiz, $"{colaboradorId}");
+
+            var arquivo = Path.Combine(diretorio, $"{arquivoCodigo}.{extensao}");
+            if(File.Exists(arquivo) == false)
+                return;
+
+            File.Delete(arquivo);
+
+            return;
         }
     }
 }

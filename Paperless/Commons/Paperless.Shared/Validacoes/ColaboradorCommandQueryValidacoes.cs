@@ -30,7 +30,7 @@ namespace Paperless.Shared.Validacoes
                 );
         }
 
-        protected void ValidarCPF(string colaboradorCPF)
+        protected void ValidarNumeroCPF(string colaboradorCPF)
         {
             AddNotifications(new Contract()
                .IsNotNullOrWhiteSpace(colaboradorCPF, nameof(colaboradorCPF), ColaboradorTextosInformativos.COLABORADOR_CPF_NULO_VAZIO)
@@ -38,7 +38,7 @@ namespace Paperless.Shared.Validacoes
                );
         }
 
-        protected void ValidarFuncaoEmpresa(int colaboradorFuncaoEmpresa)
+        protected void ValidarFuncaoId(int colaboradorFuncaoEmpresa)
         {
             AddNotifications(new Contract()
                 .IsGreaterThan(colaboradorFuncaoEmpresa, 0, nameof(colaboradorFuncaoEmpresa), ColaboradorTextosInformativos.COLABORADOR_FUNCAO_INVALIDA)

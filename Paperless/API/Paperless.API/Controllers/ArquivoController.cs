@@ -1,4 +1,5 @@
 ﻿using Arquivo.Domain.CasosDeUso.CriarArquivo;
+using Arquivo.Domain.CasosDeUso.DeletarArquivo;
 using Arquivo.Domain.CasosDeUso.DownloadArquivo;
 using Arquivo.Domain.CasosDeUso.ObterArquivos;
 using Microsoft.AspNetCore.Authorization;
@@ -16,12 +17,18 @@ namespace Paperless.API.Controllers
         private readonly ICriarArquivo _criarArquivo;
         private readonly IObterArquivosDeColaborador _obterArquivosDeColaborador;
         private readonly IRealizarDownloadDeArquivo _realizarDownloadDeArquivo;
+        private readonly IDeletarArquivo _deletarArquivo;
 
-        public ArquivoController(ICriarArquivo criarArquivo, IObterArquivosDeColaborador obterArquivosDeColaborador, IRealizarDownloadDeArquivo realizarDownloadDeArquivo)
+        public ArquivoController(
+            ICriarArquivo criarArquivo,
+            IObterArquivosDeColaborador obterArquivosDeColaborador,
+            IRealizarDownloadDeArquivo realizarDownloadDeArquivo,
+            IDeletarArquivo deletarArquivo)
         {
             _criarArquivo = criarArquivo;
             _obterArquivosDeColaborador = obterArquivosDeColaborador;
             _realizarDownloadDeArquivo = realizarDownloadDeArquivo;
+            _deletarArquivo = deletarArquivo;
         }
 
         [HttpPost]
@@ -33,7 +40,7 @@ namespace Paperless.API.Controllers
                 var resultado = _criarArquivo.Handler(command);
 
                 return resultado.RetornarCaso<IActionResult>(
-                    erro => BadRequest(new { Erros = erro }),
+                    erro => BadRequest(new { Erros = erro.MensagensErro }),
                     sucesso => Ok());
             }
             catch(Exception ex)
@@ -52,7 +59,7 @@ namespace Paperless.API.Controllers
                 var resultado = _obterArquivosDeColaborador.Handler(colaboradorId);
 
                 return resultado.RetornarCaso<IActionResult>(
-                    erro => BadRequest(new { Erros = erro }),
+                    erro => BadRequest(new { Erros = erro.MensagensErro }),
                     sucesso => Ok(new
                     {
                         Arquivos = sucesso.Select(x => new
@@ -88,8 +95,27 @@ namespace Paperless.API.Controllers
                 var resultado = _realizarDownloadDeArquivo.Handler(command);
 
                 return resultado.RetornarCaso<IActionResult>(
-                    erro => BadRequest(new { Erros = erro }),
+                    erro => BadRequest(new { Erros = erro.MensagensErro }),
                     sucesso => File(new MemoryStream(sucesso.DadosByte), sucesso.ApplicationForceDownload, sucesso.Nome));
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpDelete]
+        [Route("{arquivoId:int}")]
+        [Authorize]
+        public IActionResult Delete([FromRoute] int arquivoId)
+        {
+            try
+            {
+                var resultado = _deletarArquivo.Handler(arquivoId);
+
+                return resultado.RetornarCaso<IActionResult>(
+                    erro => BadRequest(new { Erros = erro.MensagensErro }),
+                    sucesso => Ok());
             }
             catch(Exception ex)
             {

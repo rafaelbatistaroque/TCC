@@ -34,9 +34,22 @@ namespace Arquivo.Infra.Repositorios
             return _context.Arquivos.AsNoTracking().Where(x => x.ColaboradorId == colbaboradorId).AsQueryable().ToList();
         }
 
-        public ArquivoModel ObterArquivo(int id, string arquivoCodigo)
+        public ArquivoModel ObterArquivo(int arquivoId, string arquivoCodigo)
         {
-            return _context.Arquivos.FirstOrDefault(x => x.Id == id && x.Anexo.Codigo == arquivoCodigo);
+            return _context.Arquivos.FirstOrDefault(x => x.Id == arquivoId && x.Anexo.Codigo == arquivoCodigo);
+        }
+        
+        public ArquivoModel ObterArquivo(int arquivoId)
+        {
+            return _context.Arquivos.FirstOrDefault(x => x.Id == arquivoId);
+        }
+
+        public bool DeletarArquivo(ArquivoModel arquivoModel)
+        {
+            _context.Arquivos.Remove(arquivoModel);
+            var linhasAfetadas = _context.SaveChanges();
+
+            return linhasAfetadas > 0;
         }
     }
 }

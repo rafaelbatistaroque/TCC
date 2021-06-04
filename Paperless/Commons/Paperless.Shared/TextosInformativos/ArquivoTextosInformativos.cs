@@ -10,6 +10,7 @@
         public static string ANEXO_INVALIDO => "O anexo é inválido.";
         public static string OBSERVACOES_INVALIDAS => "O campo observações é inválido.";
         public static string NENHUM_REGISTRO_ENCONTRADO => "Nenhum registro de colaborador foi encontrado.";
+        public static string NENHUM_REGISTRO_ARQUIVO_ENCONTRADO => "Nenhum registro de arquivo foi encontrado.";
         public static string NENHUM_ARQUIVO_ARMAZENADO => "Nenhum arquivo foi armazenado.";
         public static string PERFIL_NOME_ADMINISTRADOR => "ADMINISTRADOR";
         public static string PERFIL_NOME_USUARIO => "USUÁRIO";

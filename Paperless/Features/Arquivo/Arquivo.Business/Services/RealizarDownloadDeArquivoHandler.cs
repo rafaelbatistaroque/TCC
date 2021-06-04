@@ -29,7 +29,7 @@ namespace Arquivo.Business.Services
             if(arquivoBanco is null)
                 return new ErroRegistroNaoEncontrado(ArquivoTextosInformativos.NENHUM_REGISTRO_ENCONTRADO);
 
-            var arquivo = _diretorio.ObterArquivoEmDiretorio(command.ArquivoCodigo, arquivoBanco.Anexo.Extensao);
+            var arquivo = _diretorio.ObterArquivoEmDiretorio(arquivoBanco.ColaboradorId, command.ArquivoCodigo, arquivoBanco.Anexo.Extensao);
             if(arquivo.EhFalha)
                 return arquivo.Falha;
 

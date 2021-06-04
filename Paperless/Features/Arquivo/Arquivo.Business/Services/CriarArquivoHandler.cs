@@ -41,7 +41,7 @@ namespace Arquivo.Business.Services
                     command.Observacoes,
                     extensaoAnexo);
 
-            var respostaAnexoSalvo = _diretorio.SalvarAnexoEmDiretorio(command.Anexo, arquivoRegitrado.Anexo.Codigo);
+            var respostaAnexoSalvo = _diretorio.SalvarAnexoEmDiretorio(command.Anexo, command.ColaboradorId, arquivoRegitrado.Anexo.Codigo);
             if(respostaAnexoSalvo.EhFalha)
                 return respostaAnexoSalvo.Falha;
 

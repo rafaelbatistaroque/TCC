@@ -3,6 +3,7 @@ using Paperless.Shared.Enums;
 using Paperless.Shared.TextosInformativos;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -93,7 +94,7 @@ namespace Paperless.Shared.Utils
 
         public static string ExtrairExtensaoAnexo(IFormFile anexo)
         {
-            return anexo.FileName.Split(".")[1];
+            return anexo.FileName.Split(".").Last();
         }
 
         public static string MontarLinkParaDownloadAnexo(int colaboradorId, string codigoAnexo)

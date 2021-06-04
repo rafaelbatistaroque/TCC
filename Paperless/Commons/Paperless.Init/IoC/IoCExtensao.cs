@@ -2,6 +2,7 @@
 using Arquivo.Business.Contracts;
 using Arquivo.Business.Services;
 using Arquivo.Domain.CasosDeUso.CriarArquivo;
+using Arquivo.Domain.CasosDeUso.DeletarArquivo;
 using Arquivo.Domain.CasosDeUso.DownloadArquivo;
 using Arquivo.Domain.CasosDeUso.ObterArquivos;
 using Arquivo.Infra.Diretorio;
@@ -86,6 +87,7 @@ namespace Paperless.Init.IoC
         {
             servico.AddScoped<ArquivoContext>();
             servico.AddScoped<ICriarArquivo, CriarArquivoHandler>();
+            servico.AddScoped<IDeletarArquivo, DeletarArquivoHandler>();
             servico.AddScoped<IObterArquivosDeColaborador, ObterArquivosDeColaboradorHandler>();
             servico.AddScoped<IRealizarDownloadDeArquivo, RealizarDownloadDeArquivoHandler>();
             servico.AddScoped<IArquivoRepository, ArquivoRepository>();
