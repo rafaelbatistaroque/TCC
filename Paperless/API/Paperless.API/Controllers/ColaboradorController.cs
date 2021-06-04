@@ -44,7 +44,7 @@ namespace Paperless.API.Controllers
                 var resultado = _criarColaborador.Handler(command);
 
                 return resultado.RetornarCaso<IActionResult>(
-                    erro => BadRequest(new { Erros = erro }),
+                    erro => BadRequest(new { Erros = erro.MensagensErro }),
                     sucesso => Ok());
             }
             catch(Exception ex)
@@ -62,13 +62,14 @@ namespace Paperless.API.Controllers
                 var resultado = _obterColaboradores.Handler();
 
                 return resultado.RetornarCaso<IActionResult>(
-                    erro => BadRequest(new { Erros = erro }),
+                    erro => BadRequest(new { Erros = erro.MensagensErro }),
                     sucesso => Ok(new
                     {
                         Colaboradores = sucesso.Select(c => new
                         {
                             c.Id,
-                            c.ColaboradorNome.NomeCompleto,
+                            c.ColaboradorNome.PrimeiroNome,
+                            c.ColaboradorNome.Sobrenome,
                             c.ColaboradorCPF.NumeroCPF,
                             c.Funcao.FuncaoId,
                             c.Funcao.FuncaoNome
@@ -91,11 +92,12 @@ namespace Paperless.API.Controllers
                 var resultado = _obterColaborador.Handler(id);
 
                 return resultado.RetornarCaso<IActionResult>(
-                    erro => BadRequest(new { Erros = erro }),
+                    erro => BadRequest(new { Erros = erro.MensagensErro }),
                     sucesso => Ok(new
                     {
                         sucesso.Id,
-                        sucesso.ColaboradorNome.NomeCompleto,
+                        sucesso.ColaboradorNome.PrimeiroNome,
+                        sucesso.ColaboradorNome.Sobrenome,
                         sucesso.ColaboradorCPF.NumeroCPF,
                         sucesso.Funcao.FuncaoId,
                         sucesso.Funcao.FuncaoNome
@@ -117,7 +119,7 @@ namespace Paperless.API.Controllers
                 var resultado = _deletarColaborador.Handler(id);
 
                 return resultado.RetornarCaso<IActionResult>(
-                    erro => BadRequest(new { Erros = erro }),
+                    erro => BadRequest(new { Erros = erro.MensagensErro }),
                     sucesso => Ok());
             }
             catch(Exception ex)
@@ -135,7 +137,7 @@ namespace Paperless.API.Controllers
                 var resultado = _alterarColaborador.Handler(commad);
 
                 return resultado.RetornarCaso<IActionResult>(
-                    erro => BadRequest(new { Erros = erro }),
+                    erro => BadRequest(new { Erros = erro.MensagensErro }),
                     sucesso => Ok());
             }
             catch(Exception ex)

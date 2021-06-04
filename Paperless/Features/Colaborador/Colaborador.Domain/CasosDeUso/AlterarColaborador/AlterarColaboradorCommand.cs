@@ -8,14 +8,14 @@ namespace Colaborador.Domain.CasosDeUso.AlterarColaborador
         public int Id { get; set; }
         public string PrimeiroNome { get; set; }
         public string Sobrenome { get; set; }
-        public int FuncaoEmpresa { get; set; }
+        public int FuncaoId { get; set; }
 
         public void Validar()
         {
             ValidarId(Id);
             ValidarPrimeiroNome(PrimeiroNome);
             ValidarSobrenome(Sobrenome);
-            ValidarFuncaoEmpresa(FuncaoEmpresa);
+            ValidarFuncaoId(FuncaoId);
         }
     }
 }

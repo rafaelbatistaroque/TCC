@@ -25,7 +25,7 @@ namespace Colaborador.Business.Services
             if(command.Invalid)
                 return new ErroValidacaoCommandQuery(command.Notifications.Select(e => e.Message).ToArray());
 
-            var novoColaborador = ColaboradorEmpresa.Criar(command.PrimeiroNome, command.Sobrenome, command.CPF, command.FuncaoEmpresa);
+            var novoColaborador = ColaboradorEmpresa.Criar(command.PrimeiroNome, command.Sobrenome, command.numeroCPF, command.FuncaoId);
             var novoColaboradorModel = _adapters.DeColaboradorParaColaboradorModel(novoColaborador);
 
             var respostaRepositorio = _repositorio.CriarColaborador(novoColaboradorModel);

@@ -7,15 +7,15 @@ namespace Colaborador.Domain.CasosDeUso.CriarColaborador
     {
         public string PrimeiroNome { get; set; }
         public string Sobrenome { get; set; }
-        public string CPF { get; set; }
-        public int FuncaoEmpresa { get; set; }
+        public string numeroCPF { get; set; }
+        public int FuncaoId { get; set; }
 
         public void Validar()
         {
             ValidarPrimeiroNome(PrimeiroNome);
             ValidarSobrenome(Sobrenome);
-            ValidarCPF(CPF);
-            ValidarFuncaoEmpresa(FuncaoEmpresa);
+            ValidarNumeroCPF(numeroCPF);
+            ValidarFuncaoId(FuncaoId);
         }
     }
 }

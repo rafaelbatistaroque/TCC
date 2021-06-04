@@ -33,7 +33,7 @@ namespace Colaborador.Business.Services
                                                         command.Id,
                                                         command.PrimeiroNome,
                                                         command.Sobrenome,
-                                                        command.FuncaoEmpresa);
+                                                        command.FuncaoId);
 
             var colaboradorModel = _adapter.DeColaboradorParaColaboradorModel(colaboradorAlterado);
 

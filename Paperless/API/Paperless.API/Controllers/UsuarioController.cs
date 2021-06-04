@@ -30,7 +30,7 @@ namespace Paperless.API.Controllers
             var resultado = _criarUsuario.Handler(command);
 
             return resultado.RetornarCaso<IActionResult>(
-                erro => BadRequest(new { Erros = erro }),
+                erro => BadRequest(new { Erros = erro.MensagensErro }),
                 sucesso => Ok());
         }
 
@@ -41,7 +41,7 @@ namespace Paperless.API.Controllers
             var resultado = _obterUsuarios.Handler();
 
             return resultado.RetornarCaso<IActionResult>(
-                erro => BadRequest(new { Erros = erro }),
+                erro => BadRequest(new { Erros = erro.MensagensErro }),
                 sucesso => Ok(new
                 {
                     Usuarios = sucesso.Select(u =>
@@ -63,7 +63,7 @@ namespace Paperless.API.Controllers
             var resultado = _alterarStatusUsuario.Handler(command);
 
             return resultado.RetornarCaso<IActionResult>(
-                erro => BadRequest(new { Erros = erro }),
+                erro => BadRequest(new { Erros = erro.MensagensErro }),
                 sucesso => Ok());
         }
     }

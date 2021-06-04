@@ -8,6 +8,7 @@ namespace Colaborador.Domain.Entidades
         public ColaboradorNome ColaboradorNome { get; }
         public CPF ColaboradorCPF { get; }
         public ColaboradorFuncao Funcao { get; }
+
         private ColaboradorEmpresa(ColaboradorNome colaboradorNome, CPF colaboradorCPF, ColaboradorFuncao colaboradorFuncaoEmpresa, int id = 0)
             : this(colaboradorNome, colaboradorFuncaoEmpresa)
         {
@@ -32,9 +33,9 @@ namespace Colaborador.Domain.Entidades
             return new ColaboradorEmpresa(ColaboradorNome.Criar(primeiroNome, sobrenome), CPF.Criar(colaboradorCPF), ColaboradorFuncao.Criar(colaboradorFuncaoEmpresa));
         }
 
-        public static ColaboradorEmpresa Retornar(int id, string nomeCompleto, string colaboradorCPF, int colaboradorFuncaoEmpresa)
+        public static ColaboradorEmpresa Retornar(int id, string primeiroNome, string sobreNome, string colaboradorCPF, int colaboradorFuncaoEmpresa)
         {
-            return new ColaboradorEmpresa(ColaboradorNome.Retornar(nomeCompleto), CPF.Retornar(colaboradorCPF), ColaboradorFuncao.Criar(colaboradorFuncaoEmpresa), id);
+            return new ColaboradorEmpresa(ColaboradorNome.Criar(primeiroNome, sobreNome), CPF.Retornar(colaboradorCPF), ColaboradorFuncao.Criar(colaboradorFuncaoEmpresa), id);
         }
 
         public static ColaboradorEmpresa Alterar(int id, string primeiroNome, string sobrenome, int colaboradorFuncaoEmpresa)
