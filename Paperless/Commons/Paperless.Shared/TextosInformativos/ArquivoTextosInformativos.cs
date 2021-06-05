@@ -19,5 +19,10 @@
         public static string TIPO_ANEXO_HOLERITE => "Holerite";
         public static string NENHUM_REGISTRO_MODIFICADO => "Nenhum registro foi modificado";
         public static string PARAMETROS_INVALIDOS => "Parâmetros inválidos.";
+        public static string FUNCAO_AUXILIAR_ADMINISTRATIVO => "Auxiliar Administrativo";
+        public static string FUNCAO_AUXILIAR_ESCRITORIO => "Auxiliar de Escritório";
+        public static string FUNCAO_GERENTE => "Gerente";
+        public static string FUNCAO_PROGRAMADOR => "Programador";
+        public static string FUNCAO_SERVICOS_GERAIS => "Serviços Gerais";
     }
 }

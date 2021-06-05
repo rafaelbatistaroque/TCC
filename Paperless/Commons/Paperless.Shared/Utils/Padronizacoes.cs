@@ -31,6 +31,15 @@ namespace Paperless.Shared.Utils
                 {(int)ETipoAnexo.HOLERITE, ArquivoTextosInformativos.TIPO_ANEXO_HOLERITE },
             };
 
+        private static readonly Dictionary<int, string> FUNCOES = new Dictionary<int, string>()
+            {
+                {(int)EColaboradorFuncao.AUXILIAR_ADMINISTRATIVO, ArquivoTextosInformativos.FUNCAO_AUXILIAR_ADMINISTRATIVO},
+                {(int)EColaboradorFuncao.AUXILIAR_ESCRITORIO, ArquivoTextosInformativos.FUNCAO_AUXILIAR_ESCRITORIO},
+                {(int)EColaboradorFuncao.GERENTE, ArquivoTextosInformativos.FUNCAO_GERENTE},
+                {(int)EColaboradorFuncao.PROGRAMADOR, ArquivoTextosInformativos.FUNCAO_PROGRAMADOR},
+                {(int)EColaboradorFuncao.SERVICOS_GERAIS, ArquivoTextosInformativos.FUNCAO_SERVICOS_GERAIS},
+            };
+
         public static string DescriptografarDeBase64(string senhaCriptografada)
         {
             var senhaByte = Convert.FromBase64String(senhaCriptografada);
@@ -78,6 +87,18 @@ namespace Paperless.Shared.Utils
             return PERFIS.ContainsKey(perfilId) == false
                 ? (int)EUsuarioPerfil.USUARIO
                 : perfilId;
+        }
+
+        public static string ObterFuncao(int funcaoId)
+        {
+            return FUNCOES[funcaoId];
+        }
+
+        public static int ValidarFuncao(int funcaoId)
+        {
+            return FUNCOES.ContainsKey(funcaoId) == false
+                ? (int)EColaboradorFuncao.SERVICOS_GERAIS
+                : funcaoId;
         }
 
         public static string ObterTipoAnexoNome(int anexoId)
