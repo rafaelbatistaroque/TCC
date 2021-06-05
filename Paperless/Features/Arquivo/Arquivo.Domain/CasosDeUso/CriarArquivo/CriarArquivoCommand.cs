@@ -11,7 +11,7 @@ namespace Arquivo.Domain.CasosDeUso.CriarArquivo
         public string ReferenciaAno { get; set; }
         public int TipoArquivo { get; set; }
         public IFormFile Anexo { get; set; }
-        public string Observacoes { get; set; }
+        public string? Observacoes { get; set; }
 
         public void Validar()
         {
