@@ -35,7 +35,7 @@ namespace Colaborador.Business.Testes.Fixtures
             return new ColaboradorModel()
             {
                 ColaboradorCPF = c.ColaboradorCPF,
-                Funcao = c.Funcao,
+                FuncaoId = c.Funcao.FuncaoId,
                 Nome = c.ColaboradorNome
             };
         }
@@ -47,7 +47,7 @@ namespace Colaborador.Business.Testes.Fixtures
             {
                 Id = c.Id,
                 ColaboradorCPF = c.ColaboradorCPF,
-                Funcao = c.Funcao,
+                FuncaoId = c.Funcao.FuncaoId,
                 Nome = c.ColaboradorNome
             };
         }

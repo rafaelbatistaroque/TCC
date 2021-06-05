@@ -72,7 +72,7 @@ namespace Colaborador.Business.Testes.Services
                 x => x.Id == commandValido.Id
                 && x.Nome.PrimeiroNome == commandValido.PrimeiroNome
                 && x.Nome.Sobrenome == commandValido.Sobrenome
-                && x.Funcao.FuncaoId == commandValido.FuncaoId;
+                && x.FuncaoId == commandValido.FuncaoId;
             _fixtures.Mocker.GetMock<IColaboradorRepository>().Setup(a => a.ExisteColaborador(It.IsAny<int>())).Returns(true);
             _fixtures.Mocker.GetMock<IColaboradorRepository>().Setup(a => a.AlterarColaborador(It.IsAny<ColaboradorModel>())).Returns(false);
             _fixtures.Mocker.GetMock<IColaboradorAdapters>().Setup(a => a.DeColaboradorParaColaboradorModel(It.IsAny<ColaboradorEmpresa>())).Returns(_fixtures.GerarColaboradorModelAlterado());

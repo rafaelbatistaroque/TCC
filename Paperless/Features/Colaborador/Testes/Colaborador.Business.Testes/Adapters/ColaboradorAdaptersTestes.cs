@@ -28,8 +28,7 @@ namespace Colaborador.Business.Testes.Adapters
             // Assert
             Assert.NotNull(resultado);
             Assert.Equal(colaborador.ColaboradorCPF.NumeroCPF, resultado.ColaboradorCPF.NumeroCPF);
-            Assert.Equal(colaborador.Funcao.FuncaoId, resultado.Funcao.FuncaoId);
-            Assert.Equal(colaborador.Funcao.FuncaoNome, resultado.Funcao.FuncaoNome);
+            Assert.Equal(colaborador.Funcao.FuncaoId, resultado.FuncaoId);
             Assert.Equal(colaborador.ColaboradorNome.NomeCompleto, resultado.Nome.NomeCompleto);
         }
     }

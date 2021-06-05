@@ -17,12 +17,7 @@ namespace Colaborador.Infra.EF.Mapping
                   n.Property(n => n.Sobrenome).HasMaxLength(100).HasColumnType("varchar(100)").HasColumnName("Sobrenome");
               });
 
-            montar.OwnsOne(x => x.Funcao,
-                f =>
-                {
-                    f.Property(f => f.FuncaoId).HasColumnName("FuncaoId");
-                    f.Property(f => f.FuncaoNome).HasMaxLength(30).HasColumnType("varchar(30)").HasColumnName("FuncaoNome");
-                });
+            montar.Property(x => x.FuncaoId).HasColumnName("FuncaoId");
 
             montar.OwnsOne(x => x.ColaboradorCPF,
                 c => c.Property(c => c.NumeroCPF).HasMaxLength(11).HasColumnType("varchar(11)").HasColumnName("NumeroCPF"));

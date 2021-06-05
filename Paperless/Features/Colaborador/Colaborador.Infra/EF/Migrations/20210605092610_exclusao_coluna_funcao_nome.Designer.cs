@@ -3,14 +3,16 @@ using Colaborador.Infra.EF;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Colaborador.Infra.EF.Migrations
 {
     [DbContext(typeof(ColaboradorContext))]
-    partial class ColaboradorContextModelSnapshot : ModelSnapshot
+    [Migration("20210605092610_exclusao_coluna_funcao_nome")]
+    partial class exclusao_coluna_funcao_nome
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -24,10 +26,6 @@ namespace Colaborador.Infra.EF.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("FuncaoId")
-                        .HasColumnType("int")
-                        .HasColumnName("FuncaoId");
 
                     b.HasKey("Id");
 
@@ -47,6 +45,25 @@ namespace Colaborador.Infra.EF.Migrations
                                 .HasMaxLength(11)
                                 .HasColumnType("varchar(11)")
                                 .HasColumnName("NumeroCPF");
+
+                            b1.HasKey("ColaboradorModelId");
+
+                            b1.ToTable("Colaborador");
+
+                            b1.WithOwner()
+                                .HasForeignKey("ColaboradorModelId");
+                        });
+
+                    b.OwnsOne("Colaborador.Domain.ValueObjects.ColaboradorFuncao", "Funcao", b1 =>
+                        {
+                            b1.Property<int>("ColaboradorModelId")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("int")
+                                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                            b1.Property<int>("FuncaoId")
+                                .HasColumnType("int")
+                                .HasColumnName("FuncaoId");
 
                             b1.HasKey("ColaboradorModelId");
 
@@ -82,6 +99,8 @@ namespace Colaborador.Infra.EF.Migrations
                         });
 
                     b.Navigation("ColaboradorCPF");
+
+                    b.Navigation("Funcao");
 
                     b.Navigation("Nome");
                 });

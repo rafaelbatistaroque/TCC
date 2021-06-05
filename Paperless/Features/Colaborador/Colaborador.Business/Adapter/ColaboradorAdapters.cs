@@ -15,7 +15,7 @@ namespace Colaborador.Business.Adapter
                     model.Nome.PrimeiroNome,
                     model.Nome.Sobrenome,
                     model.ColaboradorCPF.NumeroCPF,
-                    model.Funcao.FuncaoId);
+                    model.FuncaoId);
         }
 
         public ColaboradorModel DeColaboradorParaColaboradorModel(ColaboradorEmpresa c)
@@ -25,7 +25,7 @@ namespace Colaborador.Business.Adapter
                 Id = c.Id,
                 ColaboradorCPF = c.ColaboradorCPF,
                 Nome = c.ColaboradorNome,
-                Funcao = c.Funcao
+                FuncaoId = c.Funcao.FuncaoId
             };
         }
 
@@ -37,7 +37,7 @@ namespace Colaborador.Business.Adapter
                     l.Nome.PrimeiroNome,
                     l.Nome.Sobrenome,
                     l.ColaboradorCPF.NumeroCPF,
-                    l.Funcao.FuncaoId)).ToList();
+                    l.FuncaoId)).ToList();
         }
     }
 }
